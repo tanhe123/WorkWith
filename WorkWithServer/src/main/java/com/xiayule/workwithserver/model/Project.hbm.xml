@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!-- 指定Hiberante3映射文件的DTD信息 -->
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- hibernate-mapping是映射文件的根元素 -->
+<hibernate-mapping package="com.xiayule.workwithserver">
+	<!-- 每个class元素对应一个持久化对象 -->
+	<class name="com.xiayule.workwithserver.model.Project" table="project_inf">
+		<!-- id元素定义持久化类的标识属性 -->
+		<id name="id" column="project_id">
+			<!-- 指定主键生成策略 -->
+			<generator class="identity"/>
+		</id>
+		<!-- property元素定义常规属性 -->
+		<property name="projectName"/>
+        <property name="projectDesc"/>
+        <property name="projectOwnerId"/>
+        <property name="createTime"/>
+
+
+        <!-- todo: 如果需要顺序，就使用 order by -->
+        <bag name="tasks" cascade="all" lazy="false">
+            <key column="project_id"/>
+            <!-- 用以映射到关联类的属性 -->
+            <one-to-many class="com.xiayule.workwithserver.model.Task"/>
+        </bag>
+	</class>
+</hibernate-mapping>

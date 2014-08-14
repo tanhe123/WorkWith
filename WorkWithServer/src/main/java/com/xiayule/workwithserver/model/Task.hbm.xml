@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!-- 指定Hiberante3映射文件的DTD信息 -->
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- hibernate-mapping是映射文件的根元素 -->
+<hibernate-mapping package="com.xiayule.workwithserver">
+	<!-- 每个class元素对应一个持久化对象 -->
+	<class name="com.xiayule.workwithserver.model.Task" table="task_inf">
+		<!-- id元素定义持久化类的标识属性 -->
+		<id name="id" column="task_id">
+			<!-- 指定主键生成策略 -->
+			<generator class="identity"/>
+		</id>
+		<!-- property元素定义常规属性 -->
+		<property name="taskName"/>
+        <property name="taskDesc"/>
+        <property name="createTime" type="java.util.Date"/>
+        <property name="endTime" type="java.util.Date"/>
+        <property name="isFinished" type="java.lang.Boolean"/>
+
+        <property name="taskType">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.xiayule.workwithserver.model.TaskType</param>
+                <!-- 12是java.sql.Type中定义的Type.VARCHAR对应的整形值 -->
+                <param name="type">12</param>
+            </type>
+        </property>
+	</class>
+</hibernate-mapping>

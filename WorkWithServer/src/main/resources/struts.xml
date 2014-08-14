@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="ajax" namespace="/ajax" extends="struts-default">
+
+        <result-types>
+            <result-type name="json" class="org.apache.struts2.json.JSONResult"/>
+        </result-types>
+
+        <interceptors>
+            <interceptor-stack name="myDefaultStack">
+                <interceptor-ref name="json"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+
+            <!-- json 中使用的自带的 -->
+            <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
+        </interceptors>
+
+        <default-interceptor-ref name="myDefaultStack"/>
+
+        <action name="test" class="AjaxAction" method="getPersonDo">
+            <result type="json">
+                <param name="root">json</param>
+            </result>
+        </action>
+
+        <action name="getPersonDo" class="AjaxAction" method="updatePersonDo">
+            <result type="json">
+                <param name="root">json</param>
+            </result>
+
+<!--
+            <interceptor-ref name="json"/>
+-->
+        </action>
+
+    </package>
+</struts>

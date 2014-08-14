@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="tv_actionbar_title"/>
+    <item type="id" name="drawer_layout"/>
+    <item type="id" name="container"/>
+    <item type="id" name="left_drawer"/>
+    <item type="id" name="title"/>
+    <item type="id" name="time"/>
+    <item type="id" name="desc"/>
+
+</resources>
