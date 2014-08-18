@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by tan on 14-8-9.
  */
-public class Task implements Serializable {
+public class Task {
     private Integer id;
     private String taskName;
     private String taskDesc;
@@ -14,11 +14,17 @@ public class Task implements Serializable {
     // ....
     private Date createTime;
     private Date endTime;
+    private boolean complete;
 
     private TaskType taskType;
 
     public Task() {
         createTime = new Date();
+        // 默认为未完成
+        complete = false;
+
+        // 默认为 在做任务
+        taskType = TaskType.NOW;
     }
 
     @Override
@@ -75,5 +81,13 @@ public class Task implements Serializable {
 
     public void setTaskType(TaskType taskType) {
         this.taskType = taskType;
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 }

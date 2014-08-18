@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Created by tan on 14-8-6.
  */
-public class Person implements Serializable {
+public class Person {
     private int id;
     private String name;
 

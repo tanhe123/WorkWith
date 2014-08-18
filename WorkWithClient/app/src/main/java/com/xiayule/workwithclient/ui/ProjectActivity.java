@@ -2,6 +2,9 @@ package com.xiayule.workwithclient.ui;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,31 +14,28 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
+import com.xiayule.workwithclient.api.Constants;
 import com.xiayule.workwithclient.api.GagApi;
 import com.xiayule.workwithclient.data.GsonRequest;
-import com.xiayule.workwithclient.model.Person;
 import com.xiayule.workwithclient.model.Project;
 import com.xiayule.workwithclient.model.TaskType;
 import com.xiayule.workwithclient.ui.fragment.TaskFragment;
+import com.xiayule.workwithclient.util.Result;
 import com.xiayule.workwithclient.util.ToastUtils;
 import com.xiayule.workwithclient.view.MyViewPager;
+import com.xiayule.workwithclient.view.ProgressDialogFactory;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnTouch;
 
 public class ProjectActivity extends BaseActivity implements TaskFragment.OnFragmentInteractionListener{
 
@@ -47,6 +47,9 @@ public class ProjectActivity extends BaseActivity implements TaskFragment.OnFrag
 
     private TaskType[] tabTitles;
 
+    private ProgressDialog progressDialog;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +57,19 @@ public class ProjectActivity extends BaseActivity implements TaskFragment.OnFrag
 
         ButterKnife.inject(this);
 
+        progressDialog = ProgressDialogFactory.createProgressDialogWithSpinner(this,
+                "更新中", "请稍候");
+
+        // 初始化
+        init();
+    }
+
+    private void init() {
         // 设置 actionBar
         setListener();
 
-        project = (Project) getIntent().getSerializableExtra("project");
+        // 取得数据
+        project = (Project) App.get(App.PROJECT);
 
         // 设置标题
         setTitle(project.getProjectName());
@@ -65,62 +77,12 @@ public class ProjectActivity extends BaseActivity implements TaskFragment.OnFrag
         // 设置 ViewPager
         myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
 //        mViewPager = (ViewPager) findViewById(R.id.pager);
+
         mViewPager.setAdapter(myPagerAdapter);
+    }
 
-
-
-        // 使得 viewpager 的 touch 不阻断 click 的传递
-   /*     mViewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                boolean moved = false;
-
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    moved = false;
-                }
-                if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
-                    moved = true;
-                }
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    if (!moved) {
-                        view.performClick();
-                    }
-                }
-
-                return false;
-            }
-        });*/
-
-        mViewPager.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastUtils.showShort("mview pager click");
-            }
-        });
-
-        /*
-
-        // 发送测试
-        String person = new Gson().toJson(App.getData());
-
-        Map param = new HashMap();
-        param.put("person", person);
-
-        GsonRequest req = new GsonRequest<Person.PersonRequestData>(Request.Method.POST, GagApi.HOST_GETPERSONDO, Person.PersonRequestData.class, param,
-                new Response.Listener<Person.PersonRequestData>() {
-                    @Override
-                    public void onResponse(Person.PersonRequestData personRequestData) {
-                        System.out.println(personRequestData);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Log.d("TAG", "voller error");
-                    }
-                });
-
-        executeRequest(req);*/
+    public void fresh() {
+        init();
     }
 
     private void setListener() {
@@ -163,24 +125,97 @@ public class ProjectActivity extends BaseActivity implements TaskFragment.OnFrag
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.project, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch (id) {
+            case R.id.action_add:
+                Intent intent = new Intent(ProjectActivity.this, AddTaskActivity.class);
+                startActivityForResult(intent, 102);
+
+                return true;
         }
+
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        ToastUtils.showShort("backing project,data changing\nresult code is" + resultCode);
+        if (resultCode == 1) {// 如果选择保存数据
+            //TODO: 同步到服务器
+            // 刷新的时候，需要本地同步到网上?
+
+
+            update();
+        }
+
+        //myPagerAdapter.notifyDataSetChanged();
+    }
+
+    private void update() {
+        HashMap param = new HashMap();
+        param.put("method", "project");
+        param.put("project", new Gson().toJson(project));
+
+        // 显示 progressDialog
+        progressDialog.show();;
+
+        //TODO: 服务端 更新 project
+        // 更新 task
+        GsonRequest req = new GsonRequest<Result>(Request.Method.POST, GagApi.HOST_UPDATE, Result.class, param,
+                new Response.Listener<Result>() {
+                    @Override
+                    public void onResponse(Result result) {
+                        if (result.getStatus().equals("ok")) {
+
+                        } else {
+                            ToastUtils.showShort("发生错误");
+                        }
+
+                        // 隐藏 progressdialog
+                        progressDialog.dismiss();
+
+                        // 如果更新成功，刷新显示
+                        // 发送广播, 更新 listview显示 新增的 task
+                        Intent intent = new Intent(Constants.ACTION_ADD_TASK);
+                        sendBroadcast(intent);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        ToastUtils.showShort("网络错误，请稍后重试");
+                        Log.d("TAG", "网络错误");
+
+                        // 隐藏 progressdialog
+                        progressDialog.dismiss();
+                    }
+                });
+
+        executeRequest(req);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ToastUtils.showShort("project activity destroy");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.project, menu);
+        return true;
+    }
 
     /**
      * ViewPager 的 Adapter

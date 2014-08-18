@@ -1,7 +1,6 @@
 package com.xiayule.workwithclient.adapter;
 
 import android.content.Context;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +9,12 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.android.volley.Cache;
 import com.xiayule.workwithclient.R;
 import com.xiayule.workwithclient.model.Task;
 import com.xiayule.workwithclient.util.TimeUtils;
 import com.xiayule.workwithclient.util.ToastUtils;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -82,15 +80,18 @@ public class TaskListAdapter extends BaseAdapter {
 
         // 显示时间
         //String time = DateUtils.getRelativeTimeSpanString(task.getEndTime().getTime()).toString();
-        String time = TimeUtils.format(task.getEndTime());
-        cacheView.time.setText(time);
 
-        cacheView.isFinished.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                ToastUtils.showLong("check change listener");
-            }
-        });
+
+        Date t = task.getEndTime();
+        if (t != null) {
+            String time = TimeUtils.format(task.getEndTime());
+            cacheView.time.setText(time);
+            cacheView.time.setVisibility(View.VISIBLE);
+        } else {
+            cacheView.time.setVisibility(View.GONE);
+        }
+
+        cacheView.complete.setChecked(task.isComplete());
 
         return view;
     }
@@ -102,7 +103,7 @@ public class TaskListAdapter extends BaseAdapter {
         @InjectView(R.id.title) TextView title;
         @InjectView(R.id.desc) TextView desc;
         @InjectView(R.id.time) TextView time;
-        @InjectView(R.id.checkBox) CheckBox isFinished;
+        @InjectView(R.id.complete) CheckBox complete;
 
         public CacheView(View view) {
             ButterKnife.inject(this, view);

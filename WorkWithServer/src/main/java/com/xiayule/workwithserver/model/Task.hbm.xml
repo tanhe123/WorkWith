@@ -17,7 +17,7 @@
         <property name="taskDesc"/>
         <property name="createTime" type="java.util.Date"/>
         <property name="endTime" type="java.util.Date"/>
-        <property name="isFinished" type="java.lang.Boolean"/>
+        <property name="complete" type="boolean"/>
 
         <property name="taskType">
             <type name="org.hibernate.type.EnumType">

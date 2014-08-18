@@ -1,8 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.xiayule.workwithclient.ui.TaskDetailActivity" >
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
+
+    <item android:id="@id/action_move"
+        android:title="移动"
+        android:showAsAction="collapseActionView"/>
+
+    <item android:id="@id/action_remove"
+        android:title="删除"
+        android:showAsAction="collapseActionView"/>
+
 </menu>

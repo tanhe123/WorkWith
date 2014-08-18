@@ -1,24 +1,23 @@
 package com.xiayule.workwithclient.ui.fragment;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
-import android.support.v4.app.NavUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
 import com.xiayule.workwithclient.adapter.TaskListAdapter;
+import com.xiayule.workwithclient.api.Constants;
 import com.xiayule.workwithclient.model.Project;
 import com.xiayule.workwithclient.model.Task;
 import com.xiayule.workwithclient.model.TaskType;
@@ -26,9 +25,7 @@ import com.xiayule.workwithclient.ui.TaskDetailActivity;
 import com.xiayule.workwithclient.util.ToastUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -52,9 +49,8 @@ public class TaskFragment extends Fragment {
     public static final String TASK_TYPE_FUTURE = TaskType.FUTURE.name();//"待定";
 
     public static final TaskType[] TASK_TYPES = new TaskType[] {
-        TaskType.TODO, TaskType.NOW, TaskType.FUTURE
+        TaskType.NOW, TaskType.TODO, TaskType.FUTURE
     };
-
 
     private TaskType taskType;
 
@@ -68,6 +64,8 @@ public class TaskFragment extends Fragment {
     private TaskListAdapter taskListAdapter;
 
     private OnFragmentInteractionListener mListener;
+
+    private BroadcastReceiver broadcastReceiver;
 
     /**
      * Use this factory method to create a new instance of
@@ -116,21 +114,6 @@ public class TaskFragment extends Fragment {
 //        listView = (ListView) view.findViewById(android.R.id.list);
 //        gridview = (GridView) view.findViewById(R.id.gridview);
 
-        List<Task> tasks = mListener.getProject().getTasks();
-
-        List<Task> showTasks = new ArrayList<Task>();
-
-        // 挑选出与 fragment 符合 的 task，例如所欲的 todoa，所有的 now，或者是所有的 future
-        for (Task task : tasks) {
-            if (task.getTaskType().equals(taskType)) {
-                showTasks.add(task);
-            }
-        }
-
-        // 设置 Adapter
-        taskListAdapter = new TaskListAdapter(getActivity(), showTasks);
-        gridview.setAdapter(taskListAdapter);
-
         /* simpleadapter 测试
         List<HashMap<String, String>> datas = new ArrayList<HashMap<String, String>>();
         for (Task task : showTasks) {
@@ -154,25 +137,64 @@ public class TaskFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
                 // 封装要传递数据
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("task", task);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("task", task);
 
-                intent.putExtras(bundle);
+//                intent.putExtras(bundle);
+                App.put(App.TASK, task);
+
                 // 启动 TaskDetailActivity
-                startActivity(intent);
+                startActivityForResult(intent, 100);
             }
         });
 
+        init();
 
-        /*listView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                ToastUtils.showLong("long click");
-                return false;
-            }
-        });*/
 
         return view;
+    }
+
+    private void init() {
+        List<Task> tasks = mListener.getProject().getTasks();
+
+        List<Task> showTasks = new ArrayList<Task>();
+
+        // 挑选出与 fragment 符合 的 task，例如所欲的 todoa，所有的 now，或者是所有的 future
+        for (Task task : tasks) {
+            if (task.getTaskType().equals(taskType)) {
+                showTasks.add(task);
+            }
+        }
+
+        // 设置 Adapter
+        taskListAdapter = new TaskListAdapter(getActivity(), showTasks);
+        gridview.setAdapter(taskListAdapter);
+    }
+
+    /**
+     * 注册 添加task 的广播
+     */
+    private void registerAddTaskBroadcast() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constants.ACTION_ADD_TASK);
+
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // 数据更新显示
+                init();
+            }
+        };
+
+        getActivity().registerReceiver(broadcastReceiver, intentFilter);
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        taskListAdapter.notifyDataSetChanged();
+        ToastUtils.showShort("backing");
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -191,12 +213,21 @@ public class TaskFragment extends Fragment {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
+        // 注册广播
+        registerAddTaskBroadcast();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(broadcastReceiver);
     }
 
     /**
@@ -214,4 +245,6 @@ public class TaskFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
         public Project getProject();
     }
+
+
 }

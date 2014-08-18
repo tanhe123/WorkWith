@@ -3,7 +3,8 @@ package com.xiayule.workwithclient;
 import android.app.Application;
 import android.content.Context;
 
-import com.xiayule.workwithclient.model.Person;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by tan on 14-8-5.
@@ -11,8 +12,13 @@ import com.xiayule.workwithclient.model.Person;
 public class App extends Application {
     private static Context sContext;
 
-    // 保存个人信息
-    private static Person data;
+    public static final String PERSON = "person";
+    public static final String PROJECT = "project";
+    public static final String TASK = "task";
+
+    private static Map<String, Object> data = new HashMap<String, Object>();
+
+//    private static Person data;
 
     @Override
     public void onCreate() {
@@ -32,11 +38,19 @@ public class App extends Application {
         App.sContext = sContext;
     }
 
-    public static Person getData() {
-        return data;
+//    public static Person getData() {
+//        return data;
+//    }
+
+//    public static void setData(Person data) {
+//        App.data = data;
+//    }
+
+    public static Object get(String key) {
+        return data.get(key);
     }
 
-    public static void setData(Person data) {
-        App.data = data;
+    public static void put(String key, Object obj) {
+        data.put(key, obj);
     }
 }

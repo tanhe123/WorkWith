@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Created by tan on 14-8-6.
  */
-public class Project implements Serializable {
+public class Project {
     private Integer id;
     private String projectName;
     private Integer projectOwnerId;

@@ -23,13 +23,13 @@
 
         <default-interceptor-ref name="myDefaultStack"/>
 
-        <action name="test" class="AjaxAction" method="getPersonDo">
+        <action name="getPersonDo" class="AjaxAction" method="getPersonDo">
             <result type="json">
                 <param name="root">json</param>
             </result>
         </action>
 
-        <action name="getPersonDo" class="AjaxAction" method="updatePersonDo">
+        <action name="updatePersonDo" class="AjaxAction" method="updatePersonDo">
             <result type="json">
                 <param name="root">json</param>
             </result>

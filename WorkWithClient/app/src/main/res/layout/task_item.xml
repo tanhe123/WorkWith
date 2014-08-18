@@ -18,12 +18,14 @@
             android:layout_height="wrap_content"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:id="@+id/checkBox" />
+            android:clickable="false"
+            android:id="@id/complete" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Text"
+            android:singleLine="true"
             android:id="@id/title" />
     </LinearLayout>
 
@@ -48,7 +50,6 @@
             android:id="@id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
         </LinearLayout>
 
 

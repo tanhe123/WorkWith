@@ -75,27 +75,40 @@ public class MainActivity extends BaseActivity /*implements TaskFragment.OnFragm
 
         ButterKnife.inject(this);
 
-        initDrawerLayout();
+//        mCategory = mDrawerTitles[0];
 
+        initDrawerLayout();
+        init();
+        initData();
+    }
+
+    //TODO: refresh, 记住当前位置
+    public void init() {
         setTitle(R.string.app_name);
 
         setListener();
 
         // 设置打开应用的默认选择
-        setCaegory(mDrawerTitles[0]);
+        setCaegory(mCategory);
+    }
 
+    public void initData() {
         // 获取数据，并更新侧边栏
         executeRequest(new GsonRequest(GagApi.HOST_PERSON,
                 Person.PersonRequestData.class,
                 new Response.Listener<Person.PersonRequestData>() {
                     @Override
                     public void onResponse(Person.PersonRequestData data) {
-                      Log.d("TAG", new Gson().toJson(data));
+                        Log.d("TAG", new Gson().toJson(data));
 
                         //TODO: 如果 data == null 怎么办?
                         if (data != null && data.getStatus().equals("ok")) {
-                            App.setData(data.getPerson());
-                            List<String> projectNames = App.getData().getProjectNames();
+
+                            // 保存数据
+                            App.put(App.PERSON, data.getPerson());
+//                            App.setData(data.getPerson());
+//                            List<String> projectNames = App.getData().getProjectNames();
+                            List<String> projectNames = data.getPerson().getProjectNames();
 
                             // 添加原始条目，再加上项目名称一块添加到侧边栏
                             String[] drawerTitles = getResources().getStringArray(R.array.drawer_item_array);
@@ -107,6 +120,9 @@ public class MainActivity extends BaseActivity /*implements TaskFragment.OnFragm
                             // 重新射灯侧边栏
                             mDrawerTitles = (String[])drawerItems.toArray(new String[drawerItems.size()]);
                             initDrawerLayout(mDrawerTitles);
+
+                            // 刷新显示
+                            init();
                         }
                     }
                 },
@@ -117,7 +133,6 @@ public class MainActivity extends BaseActivity /*implements TaskFragment.OnFragm
                     }
                 }));
     }
-
 
     private void initDrawerLayout() {
         mDrawerTitles = getResources().getStringArray(R.array.drawer_item_array);
@@ -171,6 +186,50 @@ public class MainActivity extends BaseActivity /*implements TaskFragment.OnFragm
         });
     }
 
+    public void setCaegory(String category) {
+//        ToastUtils.showShort("m:" + mCategory + "; " + category);
+
+        /*if (this.mCategory != null && this.mCategory.equals(category)) {
+            return ;
+        }*/
+
+        // 第一次执行
+        if (this.mCategory == null) {
+            mCategory = category = mDrawerTitles[0];
+        }
+
+
+        // TODO: 设置 fragment
+        if (category.equals("工作台")) {
+//            ToastUtils.showShort(mCategory);
+            setTitle(mCategory);
+            mCategory = category;
+//        } else if (category.equals("项目")) {
+            ToastUtils.showShort(mCategory);
+            setTitle(mCategory);
+            mCategory = category;
+        } else {
+            /*//TODO :test
+            TaskType[] taskTypes = TaskFragment.TASK_TYPES;
+            Fragment fragment = TaskFragment.newInstance(TaskFragment.TASK_TYPE_NOW);
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, fragment).commit();*/
+
+            Intent intent = new Intent(MainActivity.this, ProjectActivity.class);
+
+            Project selectedProject = ((Person)App.get(App.PERSON)).getProject(category);
+
+            // 设置要传递的数据
+            App.put(App.PROJECT, selectedProject);
+//            Bundle bundle = new Bundle();
+//            bundle.putSerializable("project", selectedProject);
+
+//            intent.putExtras(bundle);
+
+            startActivity(intent);
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -179,6 +238,10 @@ public class MainActivity extends BaseActivity /*implements TaskFragment.OnFragm
         }
 
         switch (item.getItemId()) {
+            case R.id.action_refresh:
+                init();
+                ToastUtils.showShort("refresh click");
+                break;
 //            case R.id.action_add_memo:
 //                actionAddMemo();
 //                break;
@@ -186,8 +249,9 @@ public class MainActivity extends BaseActivity /*implements TaskFragment.OnFragm
                 return super.onOptionsItemSelected(item);
         }
 
-//        return true;
+        return true;
     }
+
 
     @Override
     protected void onResume() {
@@ -216,6 +280,10 @@ public class MainActivity extends BaseActivity /*implements TaskFragment.OnFragm
         startActivity(intent);
     }
 
+    public void refresh() {
+        initData();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -224,41 +292,6 @@ public class MainActivity extends BaseActivity /*implements TaskFragment.OnFragm
         return true;
     }
 
-    public void setCaegory(String category) {
-        if (this.mCategory == category) {
-            return ;
-        }
-
-        mCategory = category;
-
-        // TODO: 设置 fragment
-        if (mCategory.equals("工作台")) {
-            ToastUtils.showShort(mCategory);
-            setTitle(mCategory);
-        } else if (mCategory.equals("项目")) {
-            ToastUtils.showShort(mCategory);
-            setTitle(mCategory);
-        } else {
-            /*//TODO :test
-            TaskType[] taskTypes = TaskFragment.TASK_TYPES;
-            Fragment fragment = TaskFragment.newInstance(TaskFragment.TASK_TYPE_NOW);
-
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, fragment).commit();*/
-
-            Intent intent = new Intent(MainActivity.this, ProjectActivity.class);
-
-            Project selectedProject = App.getData().getProject(mCategory);
-
-            // 设置要传递的数据
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("project", selectedProject);
-
-            intent.putExtras(bundle);
-
-            startActivity(intent);
-        }
-    }
 
     /*@Override
     public void onFragmentInteraction(Uri uri) {
