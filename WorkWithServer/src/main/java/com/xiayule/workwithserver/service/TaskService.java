@@ -11,4 +11,6 @@ public interface TaskService {
     public Integer saveTask(Task task);
 
     public void updateService(Task task);
+
+    public void saveOrUpdateTask(Task task);
 }

@@ -9,6 +9,7 @@ import com.xiayule.workwithserver.model.Project;
 import com.xiayule.workwithserver.model.Task;
 import com.xiayule.workwithserver.model.TaskType;
 import com.xiayule.workwithserver.service.PersonService;
+import com.xiayule.workwithserver.service.ProjectService;
 import com.xiayule.workwithserver.service.TaskService;
 import com.xiayule.workwithserver.util.Result;
 import net.sf.json.JSONObject;
@@ -29,6 +30,7 @@ import java.util.Enumeration;
 public class AjaxAction {
     private PersonService personService;
     private TaskService taskService;
+    private ProjectService projectService;
 
     private JSONObject json;
 
@@ -111,14 +113,19 @@ public class AjaxAction {
             Person p = new Gson().fromJson(per, Person.class);
 
             // 更新 person 对象
-            personService.updatePerson(p);
+//            personService.updatePerson(p);
+            personService.saveOrUpdatePerson(p);
 
         } else if (method.equals("project")) {// 更新 project
             // todo: 更新 project
             String pro = request.getParameter("project");
+
+            System.out.println(pro);
+
             Project project = new Gson().fromJson(pro, Project.class);
 
-            
+//            projectService.updateProject(project);
+            projectService.saveOrUpdateProject(project);
 
         } else if (method.equals("task")) { // 更新 task
             String ta = request.getParameter("task");
@@ -127,7 +134,9 @@ public class AjaxAction {
 
             Task task = new Gson().fromJson(ta, Task.class);
 
-            taskService.updateService(task);
+//            taskService.updateService(task);
+
+            taskService.saveOrUpdateTask(task);
 
         /*    Task task = new Task();
             task.setTaskType(TaskType.NOW);
@@ -248,5 +257,9 @@ public class AjaxAction {
 
     public void setTaskService(TaskService taskService) {
         this.taskService = taskService;
+    }
+
+    public void setProjectService(ProjectService projectService) {
+        this.projectService = projectService;
     }
 }

@@ -22,8 +22,11 @@ public class PersonServiceImpl implements PersonService {
         personDao.update(person);
     }
 
-    // set and get methods
+    public void saveOrUpdatePerson(Person person) {
+        personDao.saveOrUpdate(person);
+    }
 
+    // set and get methods
 
     public PersonDao getPersonDao() {
         return personDao;

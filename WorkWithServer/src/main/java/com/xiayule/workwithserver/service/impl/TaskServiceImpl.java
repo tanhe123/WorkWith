@@ -18,6 +18,10 @@ public class TaskServiceImpl implements TaskService {
         taskDao.update(task);
     }
 
+    public void saveOrUpdateTask(Task task) {
+        taskDao.saveOrUpdate(task);
+    }
+
     @Override
     public Task getTask(Integer id) {
         return taskDao.get(id);

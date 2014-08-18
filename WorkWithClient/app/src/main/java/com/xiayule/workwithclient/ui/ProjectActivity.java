@@ -153,8 +153,6 @@ public class ProjectActivity extends BaseActivity implements TaskFragment.OnFrag
         if (resultCode == 1) {// 如果选择保存数据
             //TODO: 同步到服务器
             // 刷新的时候，需要本地同步到网上?
-
-
             update();
         }
 
@@ -183,6 +181,8 @@ public class ProjectActivity extends BaseActivity implements TaskFragment.OnFrag
 
                         // 隐藏 progressdialog
                         progressDialog.dismiss();
+
+                        ToastUtils.showShort("同步成功");
 
                         // 如果更新成功，刷新显示
                         // 发送广播, 更新 listview显示 新增的 task

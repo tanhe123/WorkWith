@@ -62,6 +62,7 @@
     <bean id="AjaxAction" class="com.xiayule.workwithserver.action.AjaxAction">
         <property name="personService" ref="personService"/>
         <property name="taskService" ref="taskService"/>
+        <property name="projectService" ref="projectService"/>
     </bean>
 
     <bean id="personDao" class="com.xiayule.workwithserver.dao.impl.PersonDaoHibernate">
@@ -81,12 +82,24 @@
         <property name="taskDao" ref="taskDao"/>
     </bean>
 
+    <bean id="projectDao" class="com.xiayule.workwithserver.dao.impl.ProjectDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="projectService" class="com.xiayule.workwithserver.service.impl.ProjectServiceImpl">
+        <property name="projectDao" ref="projectDao"/>
+    </bean>
+
+
     <!-- 配置 Hibernate 的局部事务管理器，使用 HibernateTransactionManager 类 -->
     <!-- 该类实现 PlatformTransactionManager 接口，是针对 Hibernate 的特定实现 -->
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <!-- 配置 HibernateTransactionManager 时需要注入 SessionFactory 的引用 -->
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+
+
+
 
 
     <!-- 配置事务增强处理 Bean，指定事务管理器 -->
@@ -103,7 +116,7 @@
     <aop:config>
         <!-- 配置一个切入点 -->
         <aop:pointcut id="personPointcut"
-                      expression="bean(personService)||bean(taskService)"/>
+                      expression="bean(personService)||bean(taskService)||bean(projectService)"/>
         <!-- 指定在 leePointcut 切入点应用 txAdvice 事务增强处理 -->
         <aop:advisor advice-ref="txAdvice"
                      pointcut-ref="personPointcut"/>

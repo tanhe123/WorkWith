@@ -11,4 +11,6 @@ public interface PersonService {
     public Integer savePerson(Person person);
 
     public void updatePerson(Person person);
+
+    public void saveOrUpdatePerson(Person person);
 }
