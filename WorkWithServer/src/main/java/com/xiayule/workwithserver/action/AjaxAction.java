@@ -38,42 +38,50 @@ public class AjaxAction {
     private String name;
 
     public String getPersonDo() {
-        /*Project project1 = new Project();
-        project1.setId(1);
+ /*       Project project1 = new Project();
+//        project1.setId(1);
         project1.setProjectName("熊猫不烧香");
         project1.setProjectDesc("齐鲁软件设计大赛");
-        project1.setProjectOwnerId(1);
+//        project1.setProjectOwnerId(1);
         project1.setCreateTime(new Date());
 
         Project project2 = new Project();
-        project2.setId(1);
         project2.setProjectName("笨鸟");
         project2.setProjectDesc("齐鲁软件设计大赛");
-        project2.setProjectOwnerId(1);
+//        project2.setProjectOwnerId(1);
         project2.setCreateTime(new Date());
 
         Task task1 = new Task();
         task1.setEndTime(new Date());
-        task1.setTaskDesc("plan what to do");
-        task1.setTaskName("qilu");
-        task1.setTaskType(TaskType.NOW);
+        task1.setTaskDesc("准备做什么");
+        task1.setTaskName("齐鲁");
+        task1.setTaskType(TaskType.TODO);
 
         Task task2 = new Task();
         task2.setEndTime(new Date());
-        task2.setTaskDesc("plan what to do");
-        task2.setTaskName("qilu");
+        task2.setTaskDesc("准备怎么做");
+        task2.setTaskName("设计");
         task2.setTaskType(TaskType.NOW);
+
+        Task task3 = new Task();
+        task3.setEndTime(new Date());
+        task3.setTaskDesc("完成美化工作");
+        task3.setTaskName("完成");
+        task3.setTaskType(TaskType.FUTURE);
 
         project1.addTask(task1);
         project1.addTask(task2);
+        project1.addTask(task3);
 
         // person
         Person person = new Person();
         person.setName("tan");
-        person.setId(1);
         person.addTeam(project1);
         person.addTeam(project2);
 
+        personService.savePerson(person);
+
+        /*
         Person.PersonRequestData data = new Person.PersonRequestData();
         data.setStatus("ok");
         data.setPerson(person);*/

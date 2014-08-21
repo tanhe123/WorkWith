@@ -111,6 +111,7 @@ public class TaskFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_task, container, false);
 
         ButterKnife.inject(this, view);
+
 //        listView = (ListView) view.findViewById(android.R.id.list);
 //        gridview = (GridView) view.findViewById(R.id.gridview);
 
@@ -136,11 +137,8 @@ public class TaskFragment extends Fragment {
                 Task task = taskListAdapter.getItem(position);
 
                 Intent intent = new Intent(getActivity(), TaskDetailActivity.class);
-                // 封装要传递数据
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("task", task);
 
-//                intent.putExtras(bundle);
+                // 封装要传递数据
                 App.put(App.TASK, task);
 
                 // 启动 TaskDetailActivity

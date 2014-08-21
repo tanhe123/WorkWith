@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.xiayule.workwithclient.ui.AddProjectActivity" >
+
+    <item android:id="@id/action_save"
+        android:title="save project"
+        android:icon="@drawable/actionbar_save"
+        android:showAsAction="always"
+        />
+
+
+
+</menu>

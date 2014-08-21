@@ -99,9 +99,6 @@
     </bean>
 
 
-
-
-
     <!-- 配置事务增强处理 Bean，指定事务管理器 -->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <!-- 用于配置详细的事务语义 -->

@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Created by tan on 14-8-6.
  */
-public class Person implements Serializable {
+public class Person {
     private int id;
     private String name;
 
@@ -18,7 +18,7 @@ public class Person implements Serializable {
     // 密码
     private String password;
 
-    private Set<Project> projects = new HashSet<Project>();
+    private List<Project> projects = new ArrayList<Project>();
 
     public Project getProject(String projectName) {
         for (Project project : projects) {
@@ -50,14 +50,16 @@ public class Person implements Serializable {
         }
     }
 
-    public List<String> getProjectNames() {
-        ArrayList<String> projectNames = new ArrayList();
+
+    // 这个提示错误 不过没关系
+    public List<String> projectNames() {
+        ArrayList<String> localProjectNames = new ArrayList();
 
         for (Project project : getProjects()) {
-            projectNames.add(project.getProjectName());
+            localProjectNames.add(project.getProjectName());
         }
 
-        return projectNames;
+        return localProjectNames;
     }
 
     public void addTeam(Project project) {
@@ -93,11 +95,11 @@ public class Person implements Serializable {
         this.name = name;
     }
 
-    public Set<Project> getProjects() {
+    public List<Project> getProjects() {
         return projects;
     }
 
-    public void setProjects(Set<Project> projects) {
+    public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
 

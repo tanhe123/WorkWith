@@ -18,10 +18,10 @@
         <property name="password"/>
 
         <!-- 指定 casade 属性为 all，则主表的持久化操作会级联到从表的实体 -->
-        <set name="projects" table="person_project" cascade="all" lazy="false">
+        <bag name="projects" table="person_project" cascade="all" lazy="false">
             <key column="person_id"/>
             <!-- 用以映射到关联类的属性 -->
             <many-to-many class="com.xiayule.workwithserver.model.Project" column="project_id"/>
-        </set>
+        </bag>
 	</class>
 </hibernate-mapping>

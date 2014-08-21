@@ -12,7 +12,7 @@
         android:cacheColorHint="#00000000"/>-->
 
     <com.xiayule.workwithclient.view.MyGridView
-        android:id="@+id/gridview"
+        android:id="@id/gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="1"

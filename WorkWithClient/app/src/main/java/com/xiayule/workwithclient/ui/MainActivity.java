@@ -2,7 +2,6 @@ package com.xiayule.workwithclient.ui;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -15,38 +14,28 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
 import com.xiayule.workwithclient.api.GagApi;
 import com.xiayule.workwithclient.data.GsonRequest;
 import com.xiayule.workwithclient.model.Person;
 import com.xiayule.workwithclient.model.Project;
-import com.xiayule.workwithclient.model.TaskType;
-import com.xiayule.workwithclient.ui.fragment.TaskFragment;
+import com.xiayule.workwithclient.ui.fragment.ProjectsFragment;
 import com.xiayule.workwithclient.util.ToastUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnItemClick;
 
 
-public class MainActivity extends BaseActivity /*implements TaskFragment.OnFragmentInteractionListener*/ {
+public class MainActivity extends BaseActivity implements ProjectsFragment.OnFragmentInteractionListener {
     // 当前侧边栏所有的条目
     private String[] mDrawerTitles;
 
@@ -106,9 +95,8 @@ public class MainActivity extends BaseActivity /*implements TaskFragment.OnFragm
 
                             // 保存数据
                             App.put(App.PERSON, data.getPerson());
-//                            App.setData(data.getPerson());
-//                            List<String> projectNames = App.getData().getProjectNames();
-                            List<String> projectNames = data.getPerson().getProjectNames();
+
+                            List<String> projectNames = data.getPerson().projectNames();
 
                             // 添加原始条目，再加上项目名称一块添加到侧边栏
                             String[] drawerTitles = getResources().getStringArray(R.array.drawer_item_array);
@@ -198,34 +186,30 @@ public class MainActivity extends BaseActivity /*implements TaskFragment.OnFragm
             mCategory = category = mDrawerTitles[0];
         }
 
-
         // TODO: 设置 fragment
         if (category.equals("工作台")) {
-//            ToastUtils.showShort(mCategory);
-            setTitle(mCategory);
-            mCategory = category;
-//        } else if (category.equals("项目")) {
             ToastUtils.showShort(mCategory);
             setTitle(mCategory);
             mCategory = category;
-        } else {
-            /*//TODO :test
-            TaskType[] taskTypes = TaskFragment.TASK_TYPES;
-            Fragment fragment = TaskFragment.newInstance(TaskFragment.TASK_TYPE_NOW);
+        } else if (category.equals("项目")) {
+            ToastUtils.showShort(mCategory);
+            setTitle(mCategory);
+            mCategory = category;
+
+            // 设置 fragment
+            Fragment fragment = ProjectsFragment.newInstance();
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, fragment).commit();*/
+                    .replace(R.id.container, fragment).commit();
 
-            Intent intent = new Intent(MainActivity.this, ProjectActivity.class);
+        } else {
+            Intent intent = new Intent(MainActivity.this, ProjectDetailActivity.class);
 
             Project selectedProject = ((Person)App.get(App.PERSON)).getProject(category);
 
             // 设置要传递的数据
             App.put(App.PROJECT, selectedProject);
-//            Bundle bundle = new Bundle();
-//            bundle.putSerializable("project", selectedProject);
 
-//            intent.putExtras(bundle);
 
             startActivity(intent);
         }
@@ -242,9 +226,11 @@ public class MainActivity extends BaseActivity /*implements TaskFragment.OnFragm
                 init();
                 ToastUtils.showShort("refresh click");
                 break;
-//            case R.id.action_add_memo:
-//                actionAddMemo();
-//                break;
+            case R.id.action_add:
+                Intent intent = new Intent(MainActivity.this, AddProjectActivity.class);
+                startActivityForResult(intent, 103);
+
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -252,6 +238,20 @@ public class MainActivity extends BaseActivity /*implements TaskFragment.OnFragm
         return true;
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        ToastUtils.showShort("增加成功，已返回，刷新中");
+
+        //TODO: 使用广播, 添加了 project
+        if (resultCode == 1) {
+            ToastUtils.showShort("保存成功");
+            //TODO: 刷新，广播
+        }
+
+    }
 
     @Override
     protected void onResume() {
@@ -292,16 +292,8 @@ public class MainActivity extends BaseActivity /*implements TaskFragment.OnFragm
         return true;
     }
 
-
-    /*@Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
     @Override
-    public Project getProject() {
-        Project project = App.getData().getProject("熊猫不烧香");
-        ToastUtils.showLong(project.toString());
-        return project;
-    }*/
+    public List<Project> getProjects() {
+        return ((Person)App.get(App.PERSON)).getProjects();
+    }
 }

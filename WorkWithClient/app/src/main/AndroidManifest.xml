@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.ProjectActivity"
+            android:name=".ui.ProjectDetailActivity"
             android:label="@string/title_activity_project"
             android:parentActivityName=".ui.MainActivity" >
             <meta-data
@@ -30,7 +30,7 @@
         <activity
             android:name=".ui.TaskDetailActivity"
             android:label="@string/title_activity_task_detail"
-            android:parentActivityName=".ui.ProjectActivity" >
+            android:parentActivityName=".ui.ProjectDetailActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.xiayule.workwithclient.ui.MainActivity.ProjectActivity" />
@@ -38,6 +38,10 @@
         <activity
             android:name=".ui.AddTaskActivity"
             android:label="@string/title_activity_add_task" >
+        </activity>
+        <activity
+            android:name=".ui.AddProjectActivity"
+            android:label="@string/title_activity_add_project" >
         </activity>
     </application>
 

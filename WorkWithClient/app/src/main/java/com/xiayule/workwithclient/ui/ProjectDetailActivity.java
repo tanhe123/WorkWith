@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,7 +36,7 @@ import java.util.HashMap;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class ProjectActivity extends BaseActivity implements TaskFragment.OnFragmentInteractionListener{
+public class ProjectDetailActivity extends BaseActivity implements TaskFragment.OnFragmentInteractionListener{
 
     @InjectView(R.id.pager)
     MyViewPager mViewPager;
@@ -133,7 +132,7 @@ public class ProjectActivity extends BaseActivity implements TaskFragment.OnFrag
 
         switch (id) {
             case R.id.action_add:
-                Intent intent = new Intent(ProjectActivity.this, AddTaskActivity.class);
+                Intent intent = new Intent(ProjectDetailActivity.this, AddTaskActivity.class);
                 startActivityForResult(intent, 102);
 
                 return true;
@@ -151,8 +150,7 @@ public class ProjectActivity extends BaseActivity implements TaskFragment.OnFrag
 
         ToastUtils.showShort("backing project,data changing\nresult code is" + resultCode);
         if (resultCode == 1) {// 如果选择保存数据
-            //TODO: 同步到服务器
-            // 刷新的时候，需要本地同步到网上?
+            // 刷新的时候，需要本地同步到网上
             update();
         }
 
@@ -213,7 +211,7 @@ public class ProjectActivity extends BaseActivity implements TaskFragment.OnFrag
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.project, menu);
+        getMenuInflater().inflate(R.menu.project_detail, menu);
         return true;
     }
 

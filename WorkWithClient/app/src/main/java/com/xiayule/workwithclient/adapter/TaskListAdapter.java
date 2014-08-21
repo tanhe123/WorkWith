@@ -81,7 +81,6 @@ public class TaskListAdapter extends BaseAdapter {
         // 显示时间
         //String time = DateUtils.getRelativeTimeSpanString(task.getEndTime().getTime()).toString();
 
-
         Date t = task.getEndTime();
         if (t != null) {
             String time = TimeUtils.format(task.getEndTime());

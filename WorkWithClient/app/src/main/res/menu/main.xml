@@ -9,9 +9,9 @@
         android:showAsAction="always" />
 
     <item
-        android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
+        android:id="@+id/action_add"
+        android:icon="@drawable/actionbar_add"
+        android:title="add project"
+        android:showAsAction="always" />
 
 </menu>
