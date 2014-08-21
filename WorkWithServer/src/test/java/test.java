@@ -27,7 +27,7 @@ public class test {
         project.setProjectOwnerId(1);
         project.setCreateTime(new Date());
 
-        req.addTeam(project);
+        req.addProject(project);
 
         System.out.println(new Gson().toJson(req));*/
 
@@ -64,8 +64,8 @@ public class test {
         // person
         Person person = new Person();
         person.setName("tan");
-        person.addTeam(project1);
-        person.addTeam(project2);
+        person.addProject(project1);
+        person.addProject(project2);
 
         sess.persist(person);
 

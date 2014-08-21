@@ -165,7 +165,6 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
         // 显示 progressDialog
         progressDialog.show();;
 
-        //TODO: 服务端 更新 project
         // 更新 task
         GsonRequest req = new GsonRequest<Result>(Request.Method.POST, GagApi.HOST_UPDATE, Result.class, param,
                 new Response.Listener<Result>() {

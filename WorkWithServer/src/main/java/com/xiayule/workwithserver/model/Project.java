@@ -13,6 +13,10 @@ public class Project {
     private Date createTime;
     private String projectDesc;
 
+    public Project() {
+        createTime = new Date();
+    }
+
     // the todoa task
     private List<Task> tasks = new ArrayList<Task>();
 

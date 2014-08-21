@@ -76,8 +76,8 @@ public class AjaxAction {
         // person
         Person person = new Person();
         person.setName("tan");
-        person.addTeam(project1);
-        person.addTeam(project2);
+        person.addProject(project1);
+        person.addProject(project2);
 
         personService.savePerson(person);
 
@@ -163,8 +163,6 @@ public class AjaxAction {
 
         }
 
-
-
         /*Project project1 = new Project();
 //        project1.setId(1);
         project1.setProjectName("熊猫不烧香");
@@ -203,8 +201,8 @@ public class AjaxAction {
         // person
         Person person = new Person();
         person.setName("tan");
-        person.addTeam(project1);
-        person.addTeam(project2);
+        person.addProject(project1);
+        person.addProject(project2);
 
         personService.savePerson(person);*/
 

@@ -1,5 +1,6 @@
 package com.xiayule.workwithclient.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -14,20 +15,25 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
+import com.xiayule.workwithclient.api.Constants;
 import com.xiayule.workwithclient.api.GagApi;
 import com.xiayule.workwithclient.data.GsonRequest;
 import com.xiayule.workwithclient.model.Person;
 import com.xiayule.workwithclient.model.Project;
 import com.xiayule.workwithclient.ui.fragment.ProjectsFragment;
+import com.xiayule.workwithclient.util.Result;
 import com.xiayule.workwithclient.util.ToastUtils;
+import com.xiayule.workwithclient.view.ProgressDialogFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -53,6 +59,10 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
     // 菜单
     private Menu mMenu;
 
+    private Person person;
+
+    private ProgressDialog progressDialog;
+
     public void click(View v) {
         ToastUtils.showLong("waha click gridview butter");
     }
@@ -65,6 +75,8 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
         ButterKnife.inject(this);
 
 //        mCategory = mDrawerTitles[0];
+
+        progressDialog = ProgressDialogFactory.createProgressDialogWithSpinner(this, "更新中", "请稍候");
 
         initDrawerLayout();
         init();
@@ -93,8 +105,9 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
                         //TODO: 如果 data == null 怎么办?
                         if (data != null && data.getStatus().equals("ok")) {
 
+                            person = data.getPerson();
                             // 保存数据
-                            App.put(App.PERSON, data.getPerson());
+                            App.put(App.PERSON, person);
 
                             List<String> projectNames = data.getPerson().projectNames();
 
@@ -175,11 +188,6 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
     }
 
     public void setCaegory(String category) {
-//        ToastUtils.showShort("m:" + mCategory + "; " + category);
-
-        /*if (this.mCategory != null && this.mCategory.equals(category)) {
-            return ;
-        }*/
 
         // 第一次执行
         if (this.mCategory == null) {
@@ -247,10 +255,55 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
         //TODO: 使用广播, 添加了 project
         if (resultCode == 1) {
-            ToastUtils.showShort("保存成功");
-            //TODO: 刷新，广播
+            update();
         }
 
+    }
+
+    private void update() {
+        HashMap param = new HashMap();
+        param.put("method", "person");
+        param.put("person", new Gson().toJson(person));
+
+        // 显示 progressDialog
+        progressDialog.show();
+
+        // 更新 person
+        GsonRequest req = new GsonRequest<Result>(Request.Method.POST, GagApi.HOST_UPDATE, Result.class, param,
+                new Response.Listener<Result>() {
+                    @Override
+                    public void onResponse(Result result) {
+                        if (result.getStatus().equals("ok")) {
+
+                        } else {
+                            ToastUtils.showShort("发生错误");
+                        }
+
+                        // 隐藏 progressdialog
+                        progressDialog.dismiss();
+                        ToastUtils.showShort("同步成功");
+
+                        // 调用 activity 的 update
+                       /* // 如果更新成功，刷新显示
+                        // 发送广播, 更新 listview显示 新增的 task
+                        Intent intent = new Intent(Constants.ACTION_ADD_PROJECT);
+                        sendBroadcast(intent);*/
+
+                        init();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        ToastUtils.showShort("网络错误，请稍后重试");
+                        Log.d("TAG", "网络错误");
+
+                        // 隐藏 progressdialog
+                        progressDialog.dismiss();
+                    }
+                });
+
+        executeRequest(req);
     }
 
     @Override

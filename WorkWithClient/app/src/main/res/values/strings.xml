@@ -19,4 +19,7 @@
     <string name="action_save">保存</string>
     <string name="title_activity_add_project">AddProjectActivity</string>
 
+    <string name="project_title">项目名称</string>
+    <string name="project_desc">项目描述</string>
+
 </resources>

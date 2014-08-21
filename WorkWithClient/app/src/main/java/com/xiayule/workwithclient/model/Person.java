@@ -62,7 +62,7 @@ public class Person {
         return localProjectNames;
     }
 
-    public void addTeam(Project project) {
+    public void addProject(Project project) {
         projects.add(project);
     }
 
