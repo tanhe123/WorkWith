@@ -5,4 +5,12 @@
         <!-- Customize your theme here. -->
     </style>
 
+
+    <style name="line">
+        <item name="android:background">@color/line</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1.0dip</item>
+    </style>
+
+
 </resources>

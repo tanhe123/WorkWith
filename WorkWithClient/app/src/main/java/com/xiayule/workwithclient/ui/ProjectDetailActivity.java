@@ -21,7 +21,7 @@ import com.google.gson.Gson;
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
 import com.xiayule.workwithclient.api.Constants;
-import com.xiayule.workwithclient.api.GagApi;
+import com.xiayule.workwithclient.api.WorkApi;
 import com.xiayule.workwithclient.data.GsonRequest;
 import com.xiayule.workwithclient.model.Project;
 import com.xiayule.workwithclient.model.TaskType;
@@ -29,7 +29,7 @@ import com.xiayule.workwithclient.ui.fragment.TaskFragment;
 import com.xiayule.workwithclient.util.Result;
 import com.xiayule.workwithclient.util.ToastUtils;
 import com.xiayule.workwithclient.view.MyViewPager;
-import com.xiayule.workwithclient.view.ProgressDialogFactory;
+import com.xiayule.workwithclient.factory.ProgressDialogFactory;
 
 import java.util.HashMap;
 
@@ -46,18 +46,12 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
 
     private TaskType[] tabTitles;
 
-    private ProgressDialog progressDialog;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
 
         ButterKnife.inject(this);
-
-        progressDialog = ProgressDialogFactory.createProgressDialogWithSpinner(this,
-                "更新中", "请稍候");
 
         // 初始化
         init();
@@ -158,6 +152,19 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
     }
 
     private void update() {
+        WorkApi.updateProject(this, project, new WorkApi.OnApiEndListener() {
+            @Override
+            public void onDo() {
+                ToastUtils.showShort("同步成功");
+
+                // 如果更新成功，刷新显示
+                // 发送广播, 更新 listview显示 新增的 task
+                Intent intent = new Intent(Constants.ACTION_ADD_TASK);
+                sendBroadcast(intent);
+            }
+        });
+
+        /*
         HashMap param = new HashMap();
         param.put("method", "project");
         param.put("project", new Gson().toJson(project));
@@ -166,7 +173,7 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
         progressDialog.show();;
 
         // 更新 task
-        GsonRequest req = new GsonRequest<Result>(Request.Method.POST, GagApi.HOST_UPDATE, Result.class, param,
+        GsonRequest req = new GsonRequest<Result>(Request.Method.POST, WorkApi.HOST_UPDATE, Result.class, param,
                 new Response.Listener<Result>() {
                     @Override
                     public void onResponse(Result result) {
@@ -198,7 +205,7 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
                     }
                 });
 
-        executeRequest(req);
+        executeRequest(req);*/
     }
 
     @Override

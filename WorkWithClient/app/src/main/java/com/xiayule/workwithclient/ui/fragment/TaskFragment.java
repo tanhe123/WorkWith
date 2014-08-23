@@ -52,6 +52,7 @@ public class TaskFragment extends Fragment {
         TaskType.NOW, TaskType.TODO, TaskType.FUTURE
     };
 
+
     private TaskType taskType;
 
 //    @InjectView(R.id.listView)
@@ -148,7 +149,6 @@ public class TaskFragment extends Fragment {
 
         init();
 
-
         return view;
     }
 
@@ -192,6 +192,7 @@ public class TaskFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         taskListAdapter.notifyDataSetChanged();
+        //Todo：不同的activity也能收到?
         ToastUtils.showShort("backing");
     }
 

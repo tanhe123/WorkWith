@@ -1,4 +1,4 @@
-package com.xiayule.workwithclient.view;
+package com.xiayule.workwithclient.factory;
 
 import android.app.ProgressDialog;
 import android.content.Context;

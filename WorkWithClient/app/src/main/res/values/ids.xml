@@ -16,4 +16,9 @@
 
     <item type="id" name="detail"/>
     <item type="id" name="gridview"/>
+
+    <item type="id" name="taskType"/>
+    <item type="id" name="taskTypeName"/>
+
+
 </resources>

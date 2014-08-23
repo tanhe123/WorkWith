@@ -36,9 +36,10 @@
                 android:layout_height="wrap_content"
                 android:text="task desc"
                 android:id="@id/desc"/>
-
+            
             <!-- 显示时间 -->
             <LinearLayout
+                android:id="@+id/ll_time"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -52,12 +53,12 @@
                     android:id="@id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:text="08-10"/>
             </LinearLayout>
 
         </LinearLayout>
-
     </LinearLayout>
 
+    <ImageView
+        style="@style/line" />
 </LinearLayout>

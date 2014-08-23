@@ -22,20 +22,18 @@ import com.google.gson.Gson;
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
 import com.xiayule.workwithclient.api.Constants;
-import com.xiayule.workwithclient.api.GagApi;
+import com.xiayule.workwithclient.api.WorkApi;
 import com.xiayule.workwithclient.data.GsonRequest;
 import com.xiayule.workwithclient.model.Person;
 import com.xiayule.workwithclient.model.Project;
 import com.xiayule.workwithclient.ui.fragment.ProjectsFragment;
 import com.xiayule.workwithclient.util.Result;
 import com.xiayule.workwithclient.util.ToastUtils;
-import com.xiayule.workwithclient.view.ProgressDialogFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -61,8 +59,6 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
     private Person person;
 
-    private ProgressDialog progressDialog;
-
     public void click(View v) {
         ToastUtils.showLong("waha click gridview butter");
     }
@@ -76,14 +72,11 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
 //        mCategory = mDrawerTitles[0];
 
-        progressDialog = ProgressDialogFactory.createProgressDialogWithSpinner(this, "更新中", "请稍候");
-
         initDrawerLayout();
         init();
         initData();
     }
 
-    //TODO: refresh, 记住当前位置
     public void init() {
         setTitle(R.string.app_name);
 
@@ -94,8 +87,31 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
     }
 
     public void initData() {
-        // 获取数据，并更新侧边栏
-        executeRequest(new GsonRequest(GagApi.HOST_PERSON,
+        WorkApi.queryPerson(this, new WorkApi.OnApiEndListener() {
+            @Override
+            public void onDo() {
+                person = (Person) App.get(App.PERSON);
+
+                List<String> projectNames = person.projectNames();
+
+                // 添加原始条目，再加上项目名称一块添加到侧边栏
+                String[] drawerTitles = getResources().getStringArray(R.array.drawer_item_array);
+                ArrayList drawerItems = new ArrayList();
+                // 添加元素
+                drawerItems.addAll(Arrays.asList(drawerTitles));
+                drawerItems.addAll(projectNames);
+
+                // 重新射灯侧边栏
+                mDrawerTitles = (String[])drawerItems.toArray(new String[drawerItems.size()]);
+                initDrawerLayout(mDrawerTitles);
+
+                // 刷新显示
+                init();
+            }
+        });
+
+        /*// 获取数据，并更新侧边栏
+        executeRequest(new GsonRequest(WorkApi.HOST_PERSON,
                 Person.PersonRequestData.class,
                 new Response.Listener<Person.PersonRequestData>() {
                     @Override
@@ -132,7 +148,7 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
                     public void onErrorResponse(VolleyError volleyError) {
                         ToastUtils.showShort("Volley error");
                     }
-                }));
+                }));*/
     }
 
     private void initDrawerLayout() {
@@ -261,7 +277,22 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
     }
 
     private void update() {
-        HashMap param = new HashMap();
+        WorkApi.updatePerson(this, person, new WorkApi.OnApiEndListener() {
+            @Override
+            public void onDo() {
+                ToastUtils.showShort("同步成功");
+
+                // 调用 activity 的 update
+                // 如果更新成功，刷新显示
+                // 发送广播, 更新 listview显示 新增的 task
+                Intent intent = new Intent(Constants.ACTION_ADD_PROJECT);
+                sendBroadcast(intent);
+
+                init();
+            }
+        });
+
+        /*HashMap param = new HashMap();
         param.put("method", "person");
         param.put("person", new Gson().toJson(person));
 
@@ -269,7 +300,7 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
         progressDialog.show();
 
         // 更新 person
-        GsonRequest req = new GsonRequest<Result>(Request.Method.POST, GagApi.HOST_UPDATE, Result.class, param,
+        GsonRequest req = new GsonRequest<Result>(Request.Method.POST, WorkApi.HOST_UPDATE, Result.class, param,
                 new Response.Listener<Result>() {
                     @Override
                     public void onResponse(Result result) {
@@ -284,10 +315,10 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
                         ToastUtils.showShort("同步成功");
 
                         // 调用 activity 的 update
-                       /* // 如果更新成功，刷新显示
+                       *//* // 如果更新成功，刷新显示
                         // 发送广播, 更新 listview显示 新增的 task
                         Intent intent = new Intent(Constants.ACTION_ADD_PROJECT);
-                        sendBroadcast(intent);*/
+                        sendBroadcast(intent);*//*
 
                         init();
                     }
@@ -303,7 +334,7 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
                     }
                 });
 
-        executeRequest(req);
+        executeRequest(req);*/
     }
 
     @Override

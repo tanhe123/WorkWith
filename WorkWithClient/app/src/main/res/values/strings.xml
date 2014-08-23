@@ -12,14 +12,17 @@
     <string name="title_activity_task_detail">TaskDetailActivity</string>
     <string name="title_activity_add_task">AddTaskActivity</string>
     <string name="dialog_task_detail_title">编辑任务</string>
+    <string name="dialog_select_task_type_title">修改任务类型</string>
     <string name="dialog_save">保存</string>
     <string name="dialog_cancel">取消</string>
+    <string name="dialog_confirm">确定</string>
+
     <string name="tip_title">任务名称</string>
     <string name="tip_desc">任务描述(可选)</string>
     <string name="action_save">保存</string>
     <string name="title_activity_add_project">AddProjectActivity</string>
-
     <string name="project_title">项目名称</string>
     <string name="project_desc">项目描述</string>
+    <string name="title_activity_select_task_type">SelectTaskTypeActivity</string>
 
 </resources>
