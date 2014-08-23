@@ -276,6 +276,7 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
     }
 
+
     private void update() {
         WorkApi.updatePerson(this, person, new WorkApi.OnApiEndListener() {
             @Override

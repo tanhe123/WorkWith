@@ -55,10 +55,6 @@ public class TaskFragment extends Fragment {
 
     private TaskType taskType;
 
-//    @InjectView(R.id.listView)
-//    @InjectView(android.R.id.list)
-//    private ListView listView;
-
     @InjectView(R.id.gridview)
     GridView gridview;
 
@@ -68,13 +64,6 @@ public class TaskFragment extends Fragment {
 
     private BroadcastReceiver broadcastReceiver;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param taskType Parameter 1.
-     * @return A new instance of fragment TaskFragment.
-     */
     public static TaskFragment newInstance(String taskType) {
         TaskFragment fragment = new TaskFragment();
         Bundle args = new Bundle();
@@ -97,14 +86,6 @@ public class TaskFragment extends Fragment {
         }
     }
 
- /*   @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        ToastUtils.showShort("click");
-        System.out.println("list item click");
-    }
-*/
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -112,25 +93,6 @@ public class TaskFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_task, container, false);
 
         ButterKnife.inject(this, view);
-
-//        listView = (ListView) view.findViewById(android.R.id.list);
-//        gridview = (GridView) view.findViewById(R.id.gridview);
-
-        /* simpleadapter 测试
-        List<HashMap<String, String>> datas = new ArrayList<HashMap<String, String>>();
-        for (Task task : showTasks) {
-            HashMap<String, String> data = new HashMap<String, String>();
-            data.put("title", task.getTaskName());
-            data.put("desc", task.getTaskDesc());
-            datas.add(data);
-        }
-
-        SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(),
-                datas,
-                R.layout.task_item,
-                new String[] {"title", "desc"},
-                new int[] {R.id.title, R.id.desc}
-                );*/
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -185,23 +147,17 @@ public class TaskFragment extends Fragment {
         };
 
         getActivity().registerReceiver(broadcastReceiver, intentFilter);
-
     }
 
-    @Override
+    /*@Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        taskListAdapter.notifyDataSetChanged();
-        //Todo：不同的activity也能收到?
-        ToastUtils.showShort("backing");
-    }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+        if (requestCode == 100 && resultCode == 1) {
+            taskListAdapter.notifyDataSetChanged();
+            ToastUtils.showShort("backing");
         }
-    }
+    }*/
 
     @Override
     public void onAttach(Activity activity) {

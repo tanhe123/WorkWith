@@ -3,6 +3,7 @@ package com.xiayule.workwithclient.ui;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
+import com.xiayule.workwithclient.api.BroadCastSender;
 import com.xiayule.workwithclient.api.Constants;
 import com.xiayule.workwithclient.api.WorkApi;
 import com.xiayule.workwithclient.data.GsonRequest;
@@ -132,9 +134,7 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
                 return true;
         }
 
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -142,10 +142,15 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        ToastUtils.showShort("backing project,data changing\nresult code is" + resultCode);
-        if (resultCode == 1) {// 如果选择保存数据
+        if (resultCode == 1) {
+//        if (requestCode == 102 && resultCode == 1) {// 如果选择保存数据
+            ToastUtils.showShort("backing project,data changing\nresult code is" + resultCode);
+
+            // 无论添加、还是删除、移动、修改，返回后都会执行这部分, 用来刷新 3个 fragment
             // 刷新的时候，需要本地同步到网上
             update();
+            // todo: 或者用 broadcast
+//        }
         }
 
         //myPagerAdapter.notifyDataSetChanged();
@@ -159,53 +164,11 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
 
                 // 如果更新成功，刷新显示
                 // 发送广播, 更新 listview显示 新增的 task
-                Intent intent = new Intent(Constants.ACTION_ADD_TASK);
-                sendBroadcast(intent);
+//                Intent intent = new Intent(Constants.ACTION_ADD_TASK);
+//                sendBroadcast(intent);
+                BroadCastSender.sendUpdateTaskBroadCast(ProjectDetailActivity.this);
             }
         });
-
-        /*
-        HashMap param = new HashMap();
-        param.put("method", "project");
-        param.put("project", new Gson().toJson(project));
-
-        // 显示 progressDialog
-        progressDialog.show();;
-
-        // 更新 task
-        GsonRequest req = new GsonRequest<Result>(Request.Method.POST, WorkApi.HOST_UPDATE, Result.class, param,
-                new Response.Listener<Result>() {
-                    @Override
-                    public void onResponse(Result result) {
-                        if (result.getStatus().equals("ok")) {
-
-                        } else {
-                            ToastUtils.showShort("发生错误");
-                        }
-
-                        // 隐藏 progressdialog
-                        progressDialog.dismiss();
-
-                        ToastUtils.showShort("同步成功");
-
-                        // 如果更新成功，刷新显示
-                        // 发送广播, 更新 listview显示 新增的 task
-                        Intent intent = new Intent(Constants.ACTION_ADD_TASK);
-                        sendBroadcast(intent);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        ToastUtils.showShort("网络错误，请稍后重试");
-                        Log.d("TAG", "网络错误");
-
-                        // 隐藏 progressdialog
-                        progressDialog.dismiss();
-                    }
-                });
-
-        executeRequest(req);*/
     }
 
     @Override

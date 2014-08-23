@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
+import com.xiayule.workwithclient.api.BroadCastSender;
 import com.xiayule.workwithclient.api.WorkApi;
 import com.xiayule.workwithclient.data.GsonRequest;
 import com.xiayule.workwithclient.factory.DialogFactory;
@@ -117,44 +118,6 @@ public class TaskDetailActivity extends BaseActivity {
             }
         });
 
-        /*// 设置参数
-        HashMap param = new HashMap();
-        param.put("method", "task");
-        param.put("task", new Gson().toJson(task));
-
-        // 显示 progressDialog
-        progressDialog.show();;
-
-        // 更新 task
-        GsonRequest req = new GsonRequest<Result>(Request.Method.POST, WorkApi.HOST_UPDATE, Result.class, param,
-                new Response.Listener<Result>() {
-                    @Override
-                    public void onResponse(Result result) {
-                        if (!result.getStatus().equals("ok")) {
-                            ToastUtils.showShort("发生错误");
-                        }
-
-                        // 隐藏 progressdialog
-                        progressDialog.dismiss();
-
-                        ToastUtils.showShort("更新成功");
-
-                        // 刷新显示
-                        showTaskDetail();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        ToastUtils.showShort("volley error");
-                        Log.d("TAG", "网络错误");
-
-                        // 隐藏 progressdialog
-                        progressDialog.dismiss();
-                    }
-                });
-
-        executeRequest(req);*/
     }
 
     @Override
@@ -210,6 +173,8 @@ public class TaskDetailActivity extends BaseActivity {
                         task.setTaskDesc(desc);
 
                         updateTaskData();
+
+                        setResult(1);
                     }
                 })
                 .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
@@ -231,14 +196,9 @@ public class TaskDetailActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
         if (id == R.id.action_move) {
-//            Intent intent = new Intent(TaskDetailActivity.this, SelectTaskTypeActivity.class);
-//            startActivityForResult(intent, 104);
-
             SelectTaskTypeDialog selectTaskTypeDialog = DialogFactory.createSelectTaskTypeDialog(this, task.getTaskType(), new SelectTaskTypeDialog.onSelectedListener() {
                 @Override
                 public void onClick(TaskType taskType) {
@@ -248,6 +208,9 @@ public class TaskDetailActivity extends BaseActivity {
 
                     // 更新
                     updateTaskData();
+
+                    setResult(1);
+
 
                     //todo: 设置修改状态为 true，返回后， 在 activityresult中刷新
                 }
@@ -267,8 +230,11 @@ public class TaskDetailActivity extends BaseActivity {
                     // 从列表中删除
                     project.getTasks().remove(task);
 
-                    //todo: 更新操作
-                    updateTaskData();
+                    ToastUtils.showShort("删除成功");
+
+                    setResult(1);
+
+                    finish();
                 }
             });
 
@@ -277,19 +243,4 @@ public class TaskDetailActivity extends BaseActivity {
 
         return super.onOptionsItemSelected(item);
     }
-/*
-    *//**
-     * 返回结果
-     *//*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        ToastUtils.showShort(""+requestCode);
-
-        // 修改了内容
-        if (requestCode == 104 && resultCode == 1) {
-            ToastUtils.showShort("修改了内容");
-        }
-    }*/
 }
