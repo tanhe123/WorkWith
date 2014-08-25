@@ -70,8 +70,6 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
         ButterKnife.inject(this);
 
-//        mCategory = mDrawerTitles[0];
-
         initDrawerLayout();
         init();
         initData();
@@ -247,8 +245,8 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                init();
-                ToastUtils.showShort("refresh click");
+                update();
+                ToastUtils.showShort("更新成功");
                 break;
             case R.id.action_add:
                 Intent intent = new Intent(MainActivity.this, AddProjectActivity.class);
@@ -273,7 +271,6 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
         if (resultCode == 1) {
             update();
         }
-
     }
 
 

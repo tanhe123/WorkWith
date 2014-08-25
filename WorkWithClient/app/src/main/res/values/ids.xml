@@ -19,6 +19,9 @@
 
     <item type="id" name="taskType"/>
     <item type="id" name="taskTypeName"/>
+    <item type="id" name="icon"/>
+    <item type="id" name="item"/>
 
+    <item type="id" name="line"/>
 
 </resources>

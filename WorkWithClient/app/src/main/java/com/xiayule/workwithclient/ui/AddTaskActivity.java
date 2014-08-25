@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
+import com.xiayule.workwithclient.api.WorkApi;
 import com.xiayule.workwithclient.factory.DialogFactory;
 import com.xiayule.workwithclient.model.Project;
 import com.xiayule.workwithclient.model.Task;
@@ -104,8 +105,16 @@ public class AddTaskActivity extends BaseActivity {
 
         project.addTask(task);
 
-        setResult(1);
-        finish();
+        // 同步到 server
+        WorkApi.updateProject(this, project, new WorkApi.OnApiEndListener() {
+            @Override
+            public void onDo() {
+                ToastUtils.showShort("创建成功");
+                setResult(1);
+                finish();
+            }
+        });
+
     }
 
     @Override

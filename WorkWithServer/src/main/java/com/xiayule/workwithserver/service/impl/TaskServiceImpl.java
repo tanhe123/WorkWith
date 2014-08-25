@@ -10,6 +10,7 @@ import com.xiayule.workwithserver.service.TaskService;
 public class TaskServiceImpl implements TaskService {
     private TaskDao taskDao;
 
+
     public Integer saveTask(Task task) {
         return taskDao.save(task);
     }

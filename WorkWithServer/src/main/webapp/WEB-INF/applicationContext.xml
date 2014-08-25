@@ -12,7 +12,6 @@
        ">
        <!--xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">-->
 
-
     <!-- 定义数据源 Bean, 使用 C3P0 数据源实现 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">

@@ -2,13 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity" >
 
-    <item
+    <items
         android:id="@+id/action_refresh"
         android:title="@string/action_refresh"
         android:icon="@drawable/ic_refresh"
         android:showAsAction="always" />
 
-    <item
+    <items
         android:id="@+id/action_add"
         android:icon="@drawable/actionbar_add"
         android:title="add project"

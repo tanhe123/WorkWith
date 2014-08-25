@@ -14,6 +14,7 @@
     <color name="holo_orange_light">#33ffbb33</color>
     <color name="holo_purple_light">#33aa66cc</color>
 
+    <color name="activity_background_default">#fff6f3f6</color>
 
     <color name="line">#ffdcdbe0</color>
 

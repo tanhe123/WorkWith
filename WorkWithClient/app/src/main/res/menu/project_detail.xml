@@ -2,18 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.xiayule.workwithclient.ui.ProjectDetailActivity" >
 
-    <!--<item android:id="@+id/action_add"
+    <!--<items android:id="@+id/action_add"
         android:title="Add"
         android:icon="@drawable/actionbar_add"
         android:showAsAction="always"/>-->
 
-    <item
+    <items
         android:id="@id/action_add"
         android:title="add"
         android:icon="@drawable/actionbar_add"
         android:showAsAction="always"/>
 
-    <item android:id="@+id/action_settings"
+    <items android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never" />

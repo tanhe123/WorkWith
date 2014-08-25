@@ -6,7 +6,12 @@
 
     <GridView
         android:id="@id/gridview"
+        android:horizontalSpacing="@dimen/margin_item"
+        android:verticalSpacing="@dimen/margin_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_large"
+        android:numColumns="1"/>
 
 </FrameLayout>
+

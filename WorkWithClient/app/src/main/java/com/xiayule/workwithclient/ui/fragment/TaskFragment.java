@@ -22,7 +22,6 @@ import com.xiayule.workwithclient.model.Project;
 import com.xiayule.workwithclient.model.Task;
 import com.xiayule.workwithclient.model.TaskType;
 import com.xiayule.workwithclient.ui.TaskDetailActivity;
-import com.xiayule.workwithclient.util.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,7 +135,7 @@ public class TaskFragment extends Fragment {
      */
     private void registerAddTaskBroadcast() {
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Constants.ACTION_ADD_TASK);
+        intentFilter.addAction(Constants.ACTION_UPDATE_TASK);
 
         broadcastReceiver = new BroadcastReceiver() {
             @Override

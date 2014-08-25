@@ -148,8 +148,10 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
 
             // 无论添加、还是删除、移动、修改，返回后都会执行这部分, 用来刷新 3个 fragment
             // 刷新的时候，需要本地同步到网上
-            update();
-            // todo: 或者用 broadcast
+
+            // 发送更新广播
+            BroadCastSender.sendUpdateTaskBroadCast(this);
+//            update();
 //        }
         }
 
@@ -164,7 +166,7 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
 
                 // 如果更新成功，刷新显示
                 // 发送广播, 更新 listview显示 新增的 task
-//                Intent intent = new Intent(Constants.ACTION_ADD_TASK);
+//                Intent intent = new Intent(Constants.ACTION_UPDATE_TASK);
 //                sendBroadcast(intent);
                 BroadCastSender.sendUpdateTaskBroadCast(ProjectDetailActivity.this);
             }

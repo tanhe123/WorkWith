@@ -69,6 +69,7 @@ public class ProjectsListAdapter extends BaseAdapter {
 
         // 显示 标题
         cacheView.title.setText(project.getProjectName());
+        cacheView.desc.setText(project.getProjectDesc());
 
         return view;
     }
@@ -76,6 +77,9 @@ public class ProjectsListAdapter extends BaseAdapter {
     class CacheView {
         @InjectView(R.id.title)
         TextView title;
+
+        @InjectView(R.id.desc)
+        TextView desc;
 
         public CacheView(View view) {
             ButterKnife.inject(this, view);
