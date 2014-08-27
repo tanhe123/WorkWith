@@ -6,6 +6,7 @@ package com.xiayule.workwithserver.util;
 public class Result {
     private String status;
 
+    private String message;
 
     // get and set methods
 
@@ -16,5 +17,13 @@ public class Result {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

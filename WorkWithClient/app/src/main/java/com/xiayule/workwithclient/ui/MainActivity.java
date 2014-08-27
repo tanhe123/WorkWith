@@ -1,38 +1,30 @@
 package com.xiayule.workwithclient.ui;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
+import com.xiayule.workwithclient.adapter.DrawerListAdapter;
 import com.xiayule.workwithclient.api.Constants;
 import com.xiayule.workwithclient.api.WorkApi;
-import com.xiayule.workwithclient.data.GsonRequest;
 import com.xiayule.workwithclient.model.Person;
 import com.xiayule.workwithclient.model.Project;
 import com.xiayule.workwithclient.ui.fragment.ProjectsFragment;
-import com.xiayule.workwithclient.util.Result;
 import com.xiayule.workwithclient.util.ToastUtils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -48,6 +40,8 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
     private ActionBarDrawerToggle mDrawerToggle;
 
+    private DrawerListAdapter drawerListAdapter;
+
     @InjectView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
@@ -57,11 +51,8 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
     // 菜单
     private Menu mMenu;
 
-    private Person person;
+    private Person mPerson;
 
-    public void click(View v) {
-        ToastUtils.showLong("waha click gridview butter");
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +76,15 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
     }
 
     public void initData() {
-        WorkApi.queryPerson(this, new WorkApi.OnApiEndListener() {
+        String username = (String) App.get("username");
+        String password = (String) App.get("password");
+
+        WorkApi.queryPerson(this, username, password, new WorkApi.OnApiEndListener() {
             @Override
             public void onDo() {
-                person = (Person) App.get(App.PERSON);
+                mPerson = (Person) App.get(App.PERSON);
 
-                List<String> projectNames = person.projectNames();
+                List<String> projectNames = mPerson.projectNames();
 
                 // 添加原始条目，再加上项目名称一块添加到侧边栏
                 String[] drawerTitles = getResources().getStringArray(R.array.drawer_item_array);
@@ -108,59 +102,49 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
             }
         });
 
-        /*// 获取数据，并更新侧边栏
-        executeRequest(new GsonRequest(WorkApi.HOST_PERSON,
-                Person.PersonRequestData.class,
-                new Response.Listener<Person.PersonRequestData>() {
-                    @Override
-                    public void onResponse(Person.PersonRequestData data) {
-                        Log.d("TAG", new Gson().toJson(data));
-
-                        //TODO: 如果 data == null 怎么办?
-                        if (data != null && data.getStatus().equals("ok")) {
-
-                            person = data.getPerson();
-                            // 保存数据
-                            App.put(App.PERSON, person);
-
-                            List<String> projectNames = data.getPerson().projectNames();
-
-                            // 添加原始条目，再加上项目名称一块添加到侧边栏
-                            String[] drawerTitles = getResources().getStringArray(R.array.drawer_item_array);
-                            ArrayList drawerItems = new ArrayList();
-                            // 添加元素
-                            drawerItems.addAll(Arrays.asList(drawerTitles));
-                            drawerItems.addAll(projectNames);
-
-                            // 重新射灯侧边栏
-                            mDrawerTitles = (String[])drawerItems.toArray(new String[drawerItems.size()]);
-                            initDrawerLayout(mDrawerTitles);
-
-                            // 刷新显示
-                            init();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        ToastUtils.showShort("Volley error");
-                    }
-                }));*/
     }
 
     private void initDrawerLayout() {
         mDrawerTitles = getResources().getStringArray(R.array.drawer_item_array);
 
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item,
-                R.id.item, mDrawerTitles));
+        initDrawerLayout(mDrawerTitles);
     }
 
+
     private void initDrawerLayout(String[] drawerTitles) {
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item,
-                R.id.item, drawerTitles));
+        /*String[] initTitle = getResources().getStringArray(R.array.drawer_item_array);
+
+
+        List<HashMap<String, Object>> datas = new ArrayList<HashMap<String, Object>>();
+
+        for (String title : drawerTitles) {
+            HashMap<String, Object> data = new HashMap<String, Object>();
+
+            data.put("title", title);
+
+            if (title.equals(initTitle[0])) {
+                data.put("img", R.drawable.menu_dashboard_grey);
+            } else if (title.equals(initTitle[1])) {
+                data.put("img", R.drawable.menu_project_grey);
+            } else {
+                data.put("img", R.drawable.menu_team_grey);
+            }
+
+            datas.add(data);
+        }
+*/
+        /*mDrawerList.setAdapter(new SimpleAdapter(MainActivity.this,
+                datas, R.layout.drawer_list_item,
+                new String[] {"img", "title"},
+                new int[] {R.id.icon, R.id.item}));*/
+
+        drawerListAdapter = new DrawerListAdapter(MainActivity.this,
+                Arrays.asList(drawerTitles));
+        mDrawerList.setAdapter(drawerListAdapter);
+
+//        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+//                R.layout.drawer_list_item,
+//                R.id.item, drawerTitles));
     }
 
     private void setListener() {
@@ -174,6 +158,7 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 setTitle(R.string.app_name);
+
                 //设置刷新按钮不可见
                 mMenu.findItem(R.id.action_refresh).setVisible(false);
             }
@@ -208,7 +193,6 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
             mCategory = category = mDrawerTitles[0];
         }
 
-        // TODO: 设置 fragment
         if (category.equals("工作台")) {
             ToastUtils.showShort(mCategory);
             setTitle(mCategory);
@@ -243,16 +227,20 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
             return true;
         }
 
+        Intent intent = null;
+
         switch (item.getItemId()) {
             case R.id.action_refresh:
                 update();
                 ToastUtils.showShort("更新成功");
                 break;
             case R.id.action_add:
-                Intent intent = new Intent(MainActivity.this, AddProjectActivity.class);
+                intent = new Intent(MainActivity.this, AddProjectActivity.class);
                 startActivityForResult(intent, 103);
-
                 break;
+            case R.id.action_search:
+                intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -275,7 +263,7 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
 
     private void update() {
-        WorkApi.updatePerson(this, person, new WorkApi.OnApiEndListener() {
+        WorkApi.updatePerson(this, mPerson, new WorkApi.OnApiEndListener() {
             @Override
             public void onDo() {
                 ToastUtils.showShort("同步成功");
@@ -289,50 +277,6 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
                 init();
             }
         });
-
-        /*HashMap param = new HashMap();
-        param.put("method", "person");
-        param.put("person", new Gson().toJson(person));
-
-        // 显示 progressDialog
-        progressDialog.show();
-
-        // 更新 person
-        GsonRequest req = new GsonRequest<Result>(Request.Method.POST, WorkApi.HOST_UPDATE, Result.class, param,
-                new Response.Listener<Result>() {
-                    @Override
-                    public void onResponse(Result result) {
-                        if (result.getStatus().equals("ok")) {
-
-                        } else {
-                            ToastUtils.showShort("发生错误");
-                        }
-
-                        // 隐藏 progressdialog
-                        progressDialog.dismiss();
-                        ToastUtils.showShort("同步成功");
-
-                        // 调用 activity 的 update
-                       *//* // 如果更新成功，刷新显示
-                        // 发送广播, 更新 listview显示 新增的 task
-                        Intent intent = new Intent(Constants.ACTION_ADD_PROJECT);
-                        sendBroadcast(intent);*//*
-
-                        init();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        ToastUtils.showShort("网络错误，请稍后重试");
-                        Log.d("TAG", "网络错误");
-
-                        // 隐藏 progressdialog
-                        progressDialog.dismiss();
-                    }
-                });
-
-        executeRequest(req);*/
     }
 
     @Override
@@ -376,6 +320,12 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
     @Override
     public List<Project> getProjects() {
-        return ((Person)App.get(App.PERSON)).getProjects();
+        Person person = (Person) App.get(App.PERSON);
+
+        if (person == null) {
+            return null;
+        }
+
+        return person.getProjects();
     }
 }

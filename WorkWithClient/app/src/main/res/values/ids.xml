@@ -24,4 +24,6 @@
 
     <item type="id" name="line"/>
 
+    <item type="id" name="search"/>
+
 </resources>

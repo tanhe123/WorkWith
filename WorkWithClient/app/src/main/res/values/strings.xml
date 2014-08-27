@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">" WorkWithClient"</string>
+    <string name="app_name">爱协作</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="drawer_open">打开侧边栏</string>
@@ -16,7 +16,6 @@
     <string name="dialog_save">保存</string>
     <string name="dialog_cancel">取消</string>
     <string name="dialog_confirm">确定</string>
-
     <string name="tip_title">任务名称</string>
     <string name="tip_desc">任务描述(可选)</string>
     <string name="action_save">保存</string>
@@ -24,5 +23,9 @@
     <string name="project_title">项目名称</string>
     <string name="project_desc">项目描述</string>
     <string name="title_activity_select_task_type">SelectTaskTypeActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="search_hint">输入项目名称</string>
+    <string name="search">搜索</string>
+    <string name="title_activity_search">SearchActivity</string>
 
 </resources>

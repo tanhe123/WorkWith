@@ -4,6 +4,8 @@ import com.xiayule.workwithserver.dao.ProjectDao;
 import com.xiayule.workwithserver.model.Project;
 import com.xiayule.workwithserver.service.ProjectService;
 
+import java.util.List;
+
 /**
  * Created by tan on 14-8-18.
  */
@@ -22,6 +24,9 @@ public class ProjectServiceImpl implements ProjectService {
         projectDao.saveOrUpdate(project);
     }
 
+    public List<Project> findProjectByName(String projectName) {
+        return projectDao.findByName(projectName);
+    }
 
     // set and get methods
 

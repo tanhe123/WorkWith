@@ -3,22 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@id/icon"
-        android:src="@drawable/menu_dashboard_grey"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@id/item"
-        android:layout_margin="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        <ImageView
+            android:id="@id/icon"
+            android:src="@drawable/menu_dashboard_grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <ImageView
-        android:id="@id/line"
-        android:visibility="gone"
-        style="@style/line"/>
+        <TextView
+            android:id="@id/item"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        </LinearLayout>
+
+
 
 </LinearLayout>

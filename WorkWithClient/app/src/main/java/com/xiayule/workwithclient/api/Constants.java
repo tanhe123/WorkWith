@@ -6,5 +6,4 @@ package com.xiayule.workwithclient.api;
 public class Constants {
     public static final String ACTION_UPDATE_TASK = "com.xiayule.workwithclient.update.task";
     public static final String ACTION_ADD_PROJECT = "com.xiayule.workwithclient.add.project";
-
 }

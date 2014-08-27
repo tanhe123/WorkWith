@@ -2,11 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.xiayule.workwithclient.ui.TaskDetailActivity" >
 
-    <items android:id="@id/action_move"
+    <item android:id="@id/action_move"
         android:title="移动"
         android:showAsAction="collapseActionView"/>
 
-    <items android:id="@id/action_remove"
+    <item android:id="@id/action_remove"
         android:title="删除"
         android:showAsAction="collapseActionView"/>
 
