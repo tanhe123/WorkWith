@@ -18,7 +18,8 @@ public class Person {
     // 密码
     private String password;
 
-    private List<Project> projects = new ArrayList<Project>();
+//    private List<Project> projects = new ArrayList<Project>();
+    private List<Project> projects;
 
     public Project getProject(String projectName) {
         for (Project project : projects) {
@@ -63,6 +64,10 @@ public class Person {
     }
 
     public void addProject(Project project) {
+        if (projects == null) {
+            projects = new ArrayList<Project>();
+        }
+
         projects.add(project);
     }
 

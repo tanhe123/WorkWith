@@ -100,8 +100,4 @@ public class DrawerListAdapter extends BaseAdapter {
             ButterKnife.inject(this, view);
         }
     }
-
-    public void setItems(List<String> items) {
-        this.items = items;
-    }
 }

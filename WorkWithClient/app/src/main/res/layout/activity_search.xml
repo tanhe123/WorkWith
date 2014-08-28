@@ -24,9 +24,20 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@id/line"
+    <TextView
+        android:id="@+id/null_result"
+        android:text="没有搜索到相关项目"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <GridView
+        android:id="@id/gridview"
+        android:horizontalSpacing="@dimen/margin_item"
+        android:verticalSpacing="@dimen/margin_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_large"
+        android:numColumns="1"/>
 
 </LinearLayout>

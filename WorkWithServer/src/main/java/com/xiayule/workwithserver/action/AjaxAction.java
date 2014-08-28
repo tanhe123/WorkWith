@@ -220,6 +220,26 @@ public class AjaxAction {
         return Action.SUCCESS;
     }
 
+    public String registerDo() {
+        String user = username;
+        String pass = password;
+
+        String name = getName();
+
+        System.out.println(user + " " + pass + " " + name);
+
+        Person newPerson = new Person();
+        newPerson.setName(name);
+        newPerson.setUsername(user);
+        newPerson.setPassword(pass);
+
+        System.out.println(personService.savePerson(person));
+
+//        personService.saveOrUpdatePerson(newPerson);
+
+        return Action.SUCCESS;
+    }
+
     public String loginDo() {
         String user = username;
         String pass = password;
@@ -247,20 +267,27 @@ public class AjaxAction {
 
         List<Project> projects = projectService.findProjectByName(projectName);
 
-        for (Project project : projects) {
-            System.out.println(project);
+
+        Result result = new Result();
+
+        if (projects.size() == 0) {
+            result.setStatus("error");
+        } else {
+            result.setStatus("ok");
         }
+
+        result.setProjects(projects);
+
+        json = format(result);
 
         return Action.SUCCESS;
     }
-
 
     public JSONObject format(Object obj) {
         String strJson = new Gson().toJson(obj);
 
         return JSONObject.fromObject(strJson);
     }
-
 
     // get and set methods
 

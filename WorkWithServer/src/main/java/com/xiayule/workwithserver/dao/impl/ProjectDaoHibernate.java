@@ -45,7 +45,7 @@ public class ProjectDaoHibernate extends HibernateDaoSupport implements ProjectD
     @Override
     public List<Project> findByName(String name) {
         return (List<Project>)getHibernateTemplate()
-                .find("from Project p where p.projectName = ?", name);
+                .find("from Project p where p.projectName like ?", "%"+name+"%");
     }
 
     @Override

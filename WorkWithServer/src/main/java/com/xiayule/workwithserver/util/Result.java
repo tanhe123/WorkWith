@@ -1,5 +1,9 @@
 package com.xiayule.workwithserver.util;
 
+import com.xiayule.workwithserver.model.Project;
+
+import java.util.List;
+
 /**
  * Created by tan on 14-8-15.
  */
@@ -8,8 +12,9 @@ public class Result {
 
     private String message;
 
-    // get and set methods
+    private List<Project> projects;
 
+    // get and set methods
 
     public String getStatus() {
         return status;
@@ -25,5 +30,13 @@ public class Result {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
     }
 }

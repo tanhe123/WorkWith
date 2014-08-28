@@ -22,7 +22,6 @@ import com.xiayule.workwithclient.model.Project;
 import com.xiayule.workwithclient.ui.fragment.ProjectsFragment;
 import com.xiayule.workwithclient.util.ToastUtils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -82,26 +81,31 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
         WorkApi.queryPerson(this, username, password, new WorkApi.OnApiEndListener() {
             @Override
             public void onDo() {
-                mPerson = (Person) App.get(App.PERSON);
 
-                List<String> projectNames = mPerson.projectNames();
-
-                // 添加原始条目，再加上项目名称一块添加到侧边栏
-                String[] drawerTitles = getResources().getStringArray(R.array.drawer_item_array);
-                ArrayList drawerItems = new ArrayList();
-                // 添加元素
-                drawerItems.addAll(Arrays.asList(drawerTitles));
-                drawerItems.addAll(projectNames);
-
-                // 重新射灯侧边栏
-                mDrawerTitles = (String[])drawerItems.toArray(new String[drawerItems.size()]);
-                initDrawerLayout(mDrawerTitles);
+                updateDrawerList();
 
                 // 刷新显示
                 init();
             }
         });
 
+    }
+
+    private void updateDrawerList() {
+        mPerson = (Person) App.get(App.PERSON);
+
+        List<String> projectNames = mPerson.projectNames();
+
+        // 添加原始条目，再加上项目名称一块添加到侧边栏
+        String[] drawerTitles = getResources().getStringArray(R.array.drawer_item_array);
+        ArrayList drawerItems = new ArrayList();
+        // 添加元素
+        drawerItems.addAll(Arrays.asList(drawerTitles));
+        drawerItems.addAll(projectNames);
+
+        // 重新射灯侧边栏
+        mDrawerTitles = (String[])drawerItems.toArray(new String[drawerItems.size()]);
+        initDrawerLayout(mDrawerTitles);
     }
 
     private void initDrawerLayout() {
@@ -141,6 +145,10 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
         drawerListAdapter = new DrawerListAdapter(MainActivity.this,
                 Arrays.asList(drawerTitles));
         mDrawerList.setAdapter(drawerListAdapter);
+
+
+
+//        drawerListAdapter.notifyDataSetChanged();
 
 //        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
 //                R.layout.drawer_list_item,
@@ -197,6 +205,7 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
             ToastUtils.showShort(mCategory);
             setTitle(mCategory);
             mCategory = category;
+
         } else if (category.equals("项目")) {
             ToastUtils.showShort(mCategory);
             setTitle(mCategory);
@@ -231,7 +240,8 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                update();
+//                updateToServer();
+                refresh();
                 ToastUtils.showShort("更新成功");
                 break;
             case R.id.action_add:
@@ -256,19 +266,27 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
         ToastUtils.showShort("增加成功，已返回，刷新中");
 
         //TODO: 使用广播, 添加了 project
-        if (resultCode == 1) {
-            update();
+
+        if (requestCode == 103 && resultCode == 1) {// 如果添加了工程
+            ToastUtils.showShort("MainActivity：更新 task");
+
+            updateDrawerList();
+
+            updateToServer();
+
+        } else if (resultCode == 1) {
+            updateToServer();
         }
     }
 
 
-    private void update() {
+    private void updateToServer() {
         WorkApi.updatePerson(this, mPerson, new WorkApi.OnApiEndListener() {
             @Override
             public void onDo() {
                 ToastUtils.showShort("同步成功");
 
-                // 调用 activity 的 update
+                // 调用 activity 的 updateToServer
                 // 如果更新成功，刷新显示
                 // 发送广播, 更新 listview显示 新增的 task
                 Intent intent = new Intent(Constants.ACTION_ADD_PROJECT);
