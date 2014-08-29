@@ -37,7 +37,6 @@ public class ProjectsFragment extends Fragment {
 
     public ProjectsFragment() {
 
-
     }
 
     @Override

@@ -17,6 +17,8 @@
         <property name="projectDesc"/>
         <property name="projectOwnerId"/>
         <property name="createTime"/>
+        <!-- 加入密码 -->
+        <property name="joinPassword"/>
 
 
         <!-- todo: 如果需要顺序，就使用 order by -->

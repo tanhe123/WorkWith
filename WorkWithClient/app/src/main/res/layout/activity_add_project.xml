@@ -18,5 +18,10 @@
         android:hint="@string/project_desc"/>
 
 
+    <EditText
+        android:id="@id/password"
+        android:hint="加入密码(可选)"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

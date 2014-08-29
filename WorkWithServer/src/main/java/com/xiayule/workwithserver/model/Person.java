@@ -11,6 +11,7 @@ import java.util.Set;
  */
 public class Person {
     private int id;
+
     private String name;
 
     // 用户名
@@ -18,8 +19,15 @@ public class Person {
     // 密码
     private String password;
 
+    // 动态消息
+    private String trends;
+
 //    private List<Project> projects = new ArrayList<Project>();
     private List<Project> projects;
+
+    public Person() {
+        projects = new ArrayList<Project>();
+    }
 
     public Project getProject(String projectName) {
         for (Project project : projects) {
@@ -64,10 +72,6 @@ public class Person {
     }
 
     public void addProject(Project project) {
-        if (projects == null) {
-            projects = new ArrayList<Project>();
-        }
-
         projects.add(project);
     }
 

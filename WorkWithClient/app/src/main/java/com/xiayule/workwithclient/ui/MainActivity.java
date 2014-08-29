@@ -88,7 +88,6 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
                 init();
             }
         });
-
     }
 
     private void updateDrawerList() {
@@ -232,6 +231,7 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -240,7 +240,6 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
         switch (item.getItemId()) {
             case R.id.action_refresh:
-//                updateToServer();
                 refresh();
                 ToastUtils.showShort("更新成功");
                 break;
@@ -250,7 +249,7 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
                 break;
             case R.id.action_search:
                 intent = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 107);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -270,10 +269,15 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
         if (requestCode == 103 && resultCode == 1) {// 如果添加了工程
             ToastUtils.showShort("MainActivity：更新 task");
 
-            updateDrawerList();
-
             updateToServer();
 
+//            updateDrawerList();
+
+            initData();
+
+
+        } else if (requestCode == 107 && resultCode == 1) {
+            updateDrawerList();
         } else if (resultCode == 1) {
             updateToServer();
         }

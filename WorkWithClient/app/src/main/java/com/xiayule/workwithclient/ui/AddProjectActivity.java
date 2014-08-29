@@ -24,13 +24,15 @@ public class AddProjectActivity extends BaseActivity {
     @InjectView(R.id.desc)
     EditText et_desc;
 
+    @InjectView(R.id.password)
+    EditText et_join_password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_project);
 
         ButterKnife.inject(this);
-
     }
 
 
@@ -44,11 +46,11 @@ public class AddProjectActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
         if (id == R.id.action_save) {
             String title = et_title.getText().toString();
             String desc = et_desc.getText().toString();
+            String joinPassword = et_join_password.getText().toString();
 
             if (title.equals("")) {
                 ToastUtils.showShort("项目名称不能为空");
@@ -60,10 +62,15 @@ public class AddProjectActivity extends BaseActivity {
             project.setProjectName(title);
             project.setProjectDesc(desc);
 
+            project.setJoinPassword(joinPassword);
+
             project.setCreateTime(new Date());
 
             // 保存数据
-            ((Person) App.get(App.PERSON)).addProject(project);
+            Person person = ((Person) App.get(App.PERSON));
+            person.addProject(project);
+            // 设置 ownerId
+            project.setProjectOwnerId(person.getId());
 
             // 返回成功保存标识
             setResult(1);

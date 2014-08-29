@@ -13,6 +13,9 @@ public class Project {
     private Date createTime;
     private String projectDesc;
 
+    // 加入密码
+    private String joinPassword;
+
     public Project() {
         createTime = new Date();
     }
@@ -51,6 +54,20 @@ public class Project {
         public void setData(ArrayList<Project> data) {
             this.data = data;
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj==null)
+            return false;
+        if(this == obj){
+            return true;
+        }
+        if (obj instanceof Project) {
+            Project other = (Project) obj;
+            return other.getId() == id && other.getProjectName().equals(projectName);
+        }
+        return false;
     }
 
     @Override
@@ -114,5 +131,13 @@ public class Project {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public String getJoinPassword() {
+        return joinPassword;
+    }
+
+    public void setJoinPassword(String joinPassword) {
+        this.joinPassword = joinPassword;
     }
 }

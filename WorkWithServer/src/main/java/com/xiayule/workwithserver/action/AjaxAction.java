@@ -33,6 +33,9 @@ public class AjaxAction {
 
     private String projectName;
 
+    private int projectId;
+    private int requestId;
+
     public String getPersonDo() {
         /*Project project1 = new Project();
 //        project1.setId(1);
@@ -233,9 +236,21 @@ public class AjaxAction {
         newPerson.setUsername(user);
         newPerson.setPassword(pass);
 
-        System.out.println(personService.savePerson(person));
+        Result result = new Result();
 
-//        personService.saveOrUpdatePerson(newPerson);
+        if (!personService.isExist(newPerson.getUsername())) {// 如果用户名不存在
+
+            // 保存到数据库
+            personService.savePerson(newPerson);
+
+            result.setStatus("ok");
+
+        } else {// 如果用户名存在
+            result.setStatus("error");
+            result.setMessage("用户名已存在");
+        }
+
+        json = format(result);
 
         return Action.SUCCESS;
     }
@@ -279,6 +294,15 @@ public class AjaxAction {
         result.setProjects(projects);
 
         json = format(result);
+
+        return Action.SUCCESS;
+    }
+
+    public String joinProject() {
+        //TODO:
+        System.out.println(requestId + " " + projectId + " " + password);
+
+
 
         return Action.SUCCESS;
     }
@@ -353,5 +377,21 @@ public class AjaxAction {
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
+    }
+
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
+
+    public int getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(int requestId) {
+        this.requestId = requestId;
     }
 }

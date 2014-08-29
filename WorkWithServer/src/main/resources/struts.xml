@@ -53,5 +53,13 @@
                 <param name="root">json</param>
             </result>
         </action>
+
+        <action name="joinProject" class="AjaxAction" method="joinProject">
+            <result type="json">
+                <param name="root">json</param>
+            </result>
+        </action>
+
+
     </package>
 </struts>
