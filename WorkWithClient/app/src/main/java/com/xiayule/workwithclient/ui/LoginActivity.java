@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,14 +40,18 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
+
+        // 隐藏 actionbar
+        actionBar.hide();
 
         ButterKnife.inject(this);
 
         setListener();
 
-        et_username.setText("tanhe123");
-        et_password.setText("123");
+//        et_username.setText("tanhe123");
+//        et_password.setText("123");
     }
 
     private void setListener() {
