@@ -1,6 +1,7 @@
 package com.xiayule.workwithclient.ui;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -12,8 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -35,6 +38,9 @@ import com.xiayule.workwithclient.util.ToastUtils;
 import com.xiayule.workwithclient.factory.ProgressDialogFactory;
 import com.xiayule.workwithclient.view.SelectTaskTypeDialog;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import butterknife.ButterKnife;
@@ -55,6 +61,9 @@ public class TaskDetailActivity extends BaseActivity {
 
     @InjectView(R.id.ll_time)
     LinearLayout ll_time;
+
+    @InjectView(R.id.change_time)
+    RelativeLayout rl_change_time;
 
     private Task task;
 
@@ -105,6 +114,53 @@ public class TaskDetailActivity extends BaseActivity {
                 updateTaskData();
             }
         });
+
+        rl_change_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Date endTime = task.getEndTime();
+
+                // 获取年月日
+                Calendar c =  Calendar.getInstance();
+
+                // 如果没有设置截至日期
+                if (endTime != null) {
+                    c.setTime(endTime);
+                }
+
+                int y = c.get(Calendar.YEAR);
+                int m = c.get(Calendar.MONTH);
+                int d = c.get(Calendar.DAY_OF_MONTH);
+
+                ToastUtils.showShort(y + " " + m + " " + d);
+
+//                int year =
+
+                // 直接创建一个 DatePickerdialog， 并将它显示出来
+                new DatePickerDialog(TaskDetailActivity.this,
+                        new DatePickerDialog.OnDateSetListener(){
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+
+                                Calendar selectedCalendar = new GregorianCalendar(year, month, dayOfMonth);
+
+                                task.setEndTime(selectedCalendar.getTime());
+
+                                WorkApi.updateTask(TaskDetailActivity.this, task, new WorkApi.OnApiEndListener() {
+                                    @Override
+                                    public void onDo() {
+                                        showTaskDetail();
+                                    }
+                                });
+                            }
+                        },
+                        y,
+                        m,
+                        d)
+                        .show();
+            }
+        });
     }
 
     private void updateTaskData() {
@@ -135,6 +191,7 @@ public class TaskDetailActivity extends BaseActivity {
         if (task.getEndTime() != null) {
             tv_time.setText(TimeUtils.format(task.getEndTime()));
         } else {
+            // todo: 如果没有截至时间，设置之后，并没有立刻显示，必须返回一下才行的 bug
             ll_time.setVisibility(View.GONE);
         }
 

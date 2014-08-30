@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@id/desc"
-            android:padding="15dp"
+            android:padding="@dimen/margin_large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

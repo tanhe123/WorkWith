@@ -24,4 +24,10 @@
 
     <item type="id" name="line"/>
 
+    <item type="id" name="search"/>
+    <item type="id" name="name"/>
+    <item type="id" name="message"/>
+
+    <item type="id" name="password"/>
+
 </resources>

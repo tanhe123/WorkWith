@@ -20,26 +20,33 @@ import com.xiayule.workwithclient.util.ToastUtils;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by storm on 14-3-25.
  */
 public class WorkApi {
-    private static final String BASE = "http://192.168.1.172:8080";
+    private static final String BASE = "http://10.7.80.203:8080";
 
     public static final String HOST_PERSON = BASE + "/ajax/getPersonDo.action";
     public static final String HOST_UPDATE = BASE + "/ajax/updatePersonDo.action";
+    public static final String HOST_LOGIN = BASE + "/ajax/loginDo.action";
+    public static final String HOST_SEARCH_PROJECT= BASE + "/ajax/searchProject.action";
+    public static final String HOST_REGISTER = BASE + "/ajax/registerDo.action";
 
-    public static final String LIST = HOST_PERSON + "/%1$s/%2$s";
+    public static void queryPerson(Context context, String username, String password, final OnApiEndListener okListener) {
 
-    public static void queryPerson(Context context, final OnApiEndListener okListener) {
+        Map params = new HashMap();
+        params.put("username", username);
+        params.put("password", password);
 
-        GsonRequest request = new GsonRequest(WorkApi.HOST_PERSON,
+        GsonRequest request = new GsonRequest(Request.Method.POST,
+                WorkApi.HOST_PERSON,
                 Person.PersonRequestData.class,
+                params,
                 new Response.Listener<Person.PersonRequestData>() {
                     @Override
                     public void onResponse(Person.PersonRequestData data) {
-                        Log.d("TAG", new Gson().toJson(data));
 
                         //TODO: 如果 data == null 怎么办?
                         if (data != null && data.getStatus().equals("ok")) {
@@ -57,7 +64,6 @@ public class WorkApi {
                     }
                 }
         );
-
 
         executeRequest(request, context);
     }
@@ -182,8 +188,44 @@ public class WorkApi {
         executeRequest(req, context);
     }
 
+    public static void post(Context context, String url, Map params, String progressTitle, String progressMessage, final OnApiEndListenerWithResult okListener) {
+
+        final ProgressDialog progressDialog = ProgressDialogFactory.createProgressDialogWithSpinner(context,
+                progressTitle, progressMessage);
+
+        // 显示 progressDialog
+        progressDialog.show();
+
+        // 更新 task
+        GsonRequest req = new GsonRequest<Result>(Request.Method.POST, url, Result.class, params,
+                new Response.Listener<Result>() {
+                    @Override
+                    public void onResponse(Result result) {
+                            okListener.onDo(result);
+
+                            progressDialog.dismiss();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        ToastUtils.showShort("网络错误，请稍后重试");
+                        Log.d("TAG", "网络错误");
+
+                        // 隐藏 progressdialog
+                        progressDialog.dismiss();
+                    }
+                });
+
+        executeRequest(req, context);
+    }
+
     public interface OnApiEndListener {
         public void onDo();
+    }
+
+    public interface OnApiEndListenerWithResult {
+        public void onDo(Result result);
     }
 
     private static void executeRequest(Request<?> request, Context context) {

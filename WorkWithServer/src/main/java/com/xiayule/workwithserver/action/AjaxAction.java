@@ -1,28 +1,19 @@
 package com.xiayule.workwithserver.action;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.opensymphony.xwork2.Action;
-import com.xiayule.workwithserver.dao.TaskDao;
 import com.xiayule.workwithserver.model.Person;
 import com.xiayule.workwithserver.model.Project;
 import com.xiayule.workwithserver.model.Task;
-import com.xiayule.workwithserver.model.TaskType;
 import com.xiayule.workwithserver.service.PersonService;
 import com.xiayule.workwithserver.service.ProjectService;
 import com.xiayule.workwithserver.service.TaskService;
 import com.xiayule.workwithserver.util.Result;
 import net.sf.json.JSONObject;
-import org.apache.http.HttpRequest;
 import org.apache.struts2.ServletActionContext;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.Enumeration;
+import java.util.List;
 
 /**
  * Created by tan on 14-8-6.
@@ -37,8 +28,16 @@ public class AjaxAction {
     private Person person;
     private String name;
 
+    private String username;
+    private String password;
+
+    private String projectName;
+
+    private int projectId;
+    private int requestId;
+
     public String getPersonDo() {
- /*       Project project1 = new Project();
+        /*Project project1 = new Project();
 //        project1.setId(1);
         project1.setProjectName("熊猫不烧香");
         project1.setProjectDesc("齐鲁软件设计大赛");
@@ -75,11 +74,13 @@ public class AjaxAction {
 
         // person
         Person person = new Person();
+        person.setUsername("tanhe123");
+        person.setPassword("123");
         person.setName("tan");
         person.addProject(project1);
         person.addProject(project2);
 
-        personService.savePerson(person);
+        personService.savePerson(person);*/
 
         /*
         Person.PersonRequestData data = new Person.PersonRequestData();
@@ -92,16 +93,18 @@ public class AjaxAction {
 
         Person person = (Person) sess.get(Person.class, 1);*/
 
+        String user = username;
+
+        //todo: 密码暂且不用
+        String pass = password;
+
         // 从数据库中获取 信息
-        Person person = personService.getPerson(1);
+//        Person person = personService.getPerson(1);
+        Person person = personService.get(username);
 
         Person.PersonRequestData data = new Person.PersonRequestData();
         data.setStatus("ok");
         data.setPerson(person);
-
-//        String strJson = new Gson().toJson(data);
-
-//        json = JSONObject.fromObject(strJson);
 
         json = format(data);
 
@@ -220,6 +223,90 @@ public class AjaxAction {
         return Action.SUCCESS;
     }
 
+    public String registerDo() {
+        String user = username;
+        String pass = password;
+
+        String name = getName();
+
+        System.out.println(user + " " + pass + " " + name);
+
+        Person newPerson = new Person();
+        newPerson.setName(name);
+        newPerson.setUsername(user);
+        newPerson.setPassword(pass);
+
+        Result result = new Result();
+
+        if (!personService.isExist(newPerson.getUsername())) {// 如果用户名不存在
+
+            // 保存到数据库
+            personService.savePerson(newPerson);
+
+            result.setStatus("ok");
+
+        } else {// 如果用户名存在
+            result.setStatus("error");
+            result.setMessage("用户名已存在");
+        }
+
+        json = format(result);
+
+        return Action.SUCCESS;
+    }
+
+    public String loginDo() {
+        String user = username;
+        String pass = password;
+
+        Person p = personService.login(user, pass);
+
+        // 设置返回结果
+        Result result = new Result();
+
+        if (p != null) {
+            result.setStatus("ok");
+        } else {
+            result.setStatus("error");
+            result.setMessage("用户名或密码错误");
+        }
+
+        json = format(result);
+
+        return Action.SUCCESS;
+    }
+
+    public String searchProject() {
+
+        System.out.println(projectName);
+
+        List<Project> projects = projectService.findProjectByName(projectName);
+
+
+        Result result = new Result();
+
+        if (projects.size() == 0) {
+            result.setStatus("error");
+        } else {
+            result.setStatus("ok");
+        }
+
+        result.setProjects(projects);
+
+        json = format(result);
+
+        return Action.SUCCESS;
+    }
+
+    public String joinProject() {
+        //TODO:
+        System.out.println(requestId + " " + projectId + " " + password);
+
+
+
+        return Action.SUCCESS;
+    }
+
     public JSONObject format(Object obj) {
         String strJson = new Gson().toJson(obj);
 
@@ -235,7 +322,6 @@ public class AjaxAction {
     public void setJson(JSONObject json) {
         this.json = json;
     }
-
 
     public Person getPerson() {
         return person;
@@ -267,5 +353,45 @@ public class AjaxAction {
 
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
+
+    public int getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(int requestId) {
+        this.requestId = requestId;
     }
 }

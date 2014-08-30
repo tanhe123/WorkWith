@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xiayule.workwithclient.R;
@@ -71,30 +72,29 @@ public class DrawerListAdapter extends BaseAdapter {
 
         cacheView.item.setText(itemTitle);
 
-//        if (itemTitle.equals(initTitles[0])) {
-//            cacheView.image.setImageResource(R.drawable.menu_dashboard_grey);
-//        } else if (itemTitle.equals(initTitles[1])) {
-//            cacheView.image.setImageResource(R.drawable.menu_project_grey);
-//
-//            cacheView.line.setVisibility(View.VISIBLE);
-//
-//        } else {
-//            cacheView.image.setImageResource(R.drawable.menu_team_grey);
-//        }
-//
+        if (itemTitle.equals(initTitles[0])) {
+            cacheView.image.setImageResource(R.drawable.menu_dashboard_grey);
+        } else if (itemTitle.equals(initTitles[1])) {
+            cacheView.image.setImageResource(R.drawable.menu_project_grey);
+        } else {
+            // todo: 设置合理
+            cacheView.ll_content.setPadding(50, 0, 0, 0);
+
+            cacheView.image.setImageResource(R.drawable.menu_team_grey);
+        }
 
         return view;
     }
 
     class CacheView {
-//        @InjectView(R.id.icon)
-//        ImageView image;
+        @InjectView(R.id.icon)
+        ImageView image;
 
         @InjectView(R.id.item)
         TextView item;
 
-//        @InjectView(R.id.line)
-//        ImageView line;
+        @InjectView(R.id.ll_content)
+        LinearLayout ll_content;
 
         public CacheView(View view) {
             ButterKnife.inject(this, view);

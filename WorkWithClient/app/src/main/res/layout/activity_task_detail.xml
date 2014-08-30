@@ -3,10 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/activity_background_default"
+    android:padding="@dimen/padding_large"
     tools:context="com.xiayule.workwithclient.ui.TaskDetailActivity">
 
     <LinearLayout
         android:orientation="horizontal"
+        android:background="@drawable/projects_item_selector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -19,6 +22,7 @@
 
         <LinearLayout
             android:id="@id/detail"
+            android:padding="@dimen/padding_small"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,12 +33,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="task title"
+                android:singleLine="true"
                 android:id="@id/title" />
+
+            <ImageView
+                style="@style/line"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="task desc"
+                android:padding="@dimen/padding_large"
                 android:id="@id/desc"/>
             
             <!-- 显示时间 -->
@@ -59,6 +68,27 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ImageView
-        style="@style/line" />
+    <RelativeLayout
+        android:id="@+id/change_time"
+        android:background="@color/white"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="截至日期"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:src="@drawable/rightarrow_"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
 </LinearLayout>

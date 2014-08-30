@@ -43,6 +43,6 @@ public class TaskDaoHibernate extends HibernateDaoSupport implements TaskDao {
     @Override
     public List<Task> findByName(String name) {
         return (List<Task>)getHibernateTemplate()
-                .find("from Task t where t.taskName = ?", name);
+                .find("from Task t where t.taskName = ?", "%"+name+"%");
     }
 }

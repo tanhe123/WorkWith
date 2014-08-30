@@ -34,10 +34,32 @@
                 <param name="root">json</param>
             </result>
 
-<!--
-            <interceptor-ref name="json"/>
--->
         </action>
+
+        <action name="loginDo" class="AjaxAction" method="loginDo">
+            <result type="json">
+                <param name="root">json</param>
+            </result>
+        </action>
+
+        <action name="searchProject" class="AjaxAction" method="searchProject">
+            <result type="json">
+                <param name="root">json</param>
+            </result>
+        </action>
+
+        <action name="registerDo" class="AjaxAction" method="registerDo">
+            <result type="json">
+                <param name="root">json</param>
+            </result>
+        </action>
+
+        <action name="joinProject" class="AjaxAction" method="joinProject">
+            <result type="json">
+                <param name="root">json</param>
+            </result>
+        </action>
+
 
     </package>
 </struts>

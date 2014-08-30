@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xiayule.workwithclient.R;
@@ -87,7 +88,7 @@ public class TaskListAdapter extends BaseAdapter {
             cacheView.time.setText(time);
             cacheView.time.setVisibility(View.VISIBLE);
         } else {
-            cacheView.time.setVisibility(View.GONE);
+            cacheView.ll_time.setVisibility(View.GONE);
         }
 
         cacheView.complete.setChecked(task.isComplete());
@@ -103,6 +104,8 @@ public class TaskListAdapter extends BaseAdapter {
         @InjectView(R.id.desc) TextView desc;
         @InjectView(R.id.time) TextView time;
         @InjectView(R.id.complete) CheckBox complete;
+        @InjectView(R.id.ll_time)
+        LinearLayout ll_time;
 
         public CacheView(View view) {
             ButterKnife.inject(this, view);
