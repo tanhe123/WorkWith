@@ -80,7 +80,6 @@ public class TaskFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
             taskType = TaskType.valueOf(getArguments().getString(ARG_TASK_TYPE));
         }
     }
@@ -199,6 +198,4 @@ public class TaskFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
         public Project getProject();
     }
-
-
 }

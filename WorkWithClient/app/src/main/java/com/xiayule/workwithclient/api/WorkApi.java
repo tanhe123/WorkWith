@@ -26,7 +26,7 @@ import java.util.Map;
  * Created by storm on 14-3-25.
  */
 public class WorkApi {
-    private static final String BASE = "http://10.7.80.203:8080";
+    private static final String BASE = "http://192.168.1.172:8080";
 
     public static final String HOST_PERSON = BASE + "/ajax/getPersonDo.action";
     public static final String HOST_UPDATE = BASE + "/ajax/updatePersonDo.action";

@@ -1,6 +1,7 @@
 package com.xiayule.workwithclient.adapter;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,10 @@ public class ProjectsListAdapter extends BaseAdapter {
         cacheView.title.setText(project.getProjectName());
         cacheView.desc.setText(project.getProjectDesc());
 
+        // 转换为更通俗的时间，如1个小时前、1天前
+        String time = DateUtils.getRelativeTimeSpanString(project.getCreateTime().getTime()).toString();
+        cacheView.time.setText(time);
+
         return view;
     }
 
@@ -80,6 +85,9 @@ public class ProjectsListAdapter extends BaseAdapter {
 
         @InjectView(R.id.desc)
         TextView desc;
+
+        @InjectView(R.id.time)
+        TextView time;
 
         public CacheView(View view) {
             ButterKnife.inject(this, view);

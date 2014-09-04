@@ -8,7 +8,6 @@
     <color name="light_yellow">#FFF6F7</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="drawer_bg">#FFFFFFcc</color>
 
     <color name="holo_blue_light">#3333b5e5</color>
     <color name="holo_green_light">#3399cc00</color>
@@ -22,4 +21,14 @@
 
     <color name="app_lable">#96000000</color>
 
+
+    <color name="gray">#c1515151</color>
+    <color name="time">@color/gray</color>
+    <color name="desc">@color/gray</color>
+
+    <color name="drawer_bg">#FFFFFFcc</color>
+
+    <color name="font_drawer">#ff2b2c2c</color>
+
+    <color name="label_red">#f9cf0000</color>
 </resources>

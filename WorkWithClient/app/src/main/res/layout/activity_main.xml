@@ -16,14 +16,14 @@
             android:layout_height="match_parent"
             android:background="@color/activity_background_default"/>
 
+
         <!-- The navigation drawer -->
         <ListView
             android:id="@id/left_drawer"
-            android:layout_width="240dp"
+            android:layout_width="360dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:padding="@dimen/padding_small"
-            android:background="#ffc0c8d2"
+            android:background="@drawable/drawer_bg"
             android:choiceMode="singleChoice"
             android:drawSelectorOnTop="false"
             android:cacheColorHint="#00000000"

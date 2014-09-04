@@ -3,25 +3,44 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_login"
     tools:context="com.xiayule.workwithclient.ui.AddProjectActivity">
 
-    <EditText
-        android:id="@id/title"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/div_margin_top"
+        android:layout_marginLeft="@dimen/margin_large"
+        android:layout_marginRight="@dimen/margin_large"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/project_title"/>
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@id/desc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/project_desc"/>
+        <EditText
+            android:id="@id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/project_title"/>
+
+        <EditText
+            android:id="@id/desc"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/project_desc"/>
 
 
-    <EditText
-        android:id="@id/password"
-        android:hint="加入密码(可选)"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <EditText
+            android:id="@id/password"
+            android:hint="加入密码(可选)"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
+        <Button
+            android:id="@id/bt_add"
+            android:text="添加"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/login_button_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </LinearLayout>

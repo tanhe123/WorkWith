@@ -1,15 +1,13 @@
 package com.xiayule.workwithclient.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
@@ -28,8 +26,8 @@ public class LoginActivity extends BaseActivity {
     @InjectView(R.id.bt_login)
     Button bt_login;
 
-    @InjectView(R.id.bt_register)
-    Button bt_register;
+    @InjectView(R.id.tv_register)
+    TextView tv_register;
 
     @InjectView(R.id.username)
     EditText et_username;
@@ -49,9 +47,6 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.inject(this);
 
         setListener();
-
-//        et_username.setText("tanhe123");
-//        et_password.setText("123");
     }
 
     private void setListener() {
@@ -90,7 +85,7 @@ public class LoginActivity extends BaseActivity {
         });
 
         // 注册
-        bt_register.setOnClickListener(new View.OnClickListener() {
+        tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);

@@ -1,6 +1,7 @@
 package com.xiayule.workwithclient.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,7 @@ public class DrawerListAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.drawer_list_item, null);
 
             cacheView = new CacheView(view);
+            cacheView.iv_right_arrow.setVisibility(View.INVISIBLE);
 
             view.setTag(cacheView);
         } else {
@@ -72,29 +74,49 @@ public class DrawerListAdapter extends BaseAdapter {
 
         cacheView.item.setText(itemTitle);
 
+        Drawable drawable = null;
+        //TODO:
         if (itemTitle.equals(initTitles[0])) {
-            cacheView.image.setImageResource(R.drawable.menu_dashboard_grey);
+//            cacheView.image.setImageResource(R.drawable.menu_dashboard_grey);
+
+            drawable = context.getResources().getDrawable(R.drawable.menu_dashboard_grey);
+
+//            cacheView.item.setdrawer
+
         } else if (itemTitle.equals(initTitles[1])) {
-            cacheView.image.setImageResource(R.drawable.menu_project_grey);
+//            cacheView.image.setImageResource(R.drawable.menu_project_grey);
+            drawable = context.getResources().getDrawable(R.drawable.menu_project_grey);
+
         } else {
             // todo: 设置合理
-            cacheView.ll_content.setPadding(50, 0, 0, 0);
+//            cacheView.ll_content.setPadding(50, 0, 0, 0);
 
-            cacheView.image.setImageResource(R.drawable.menu_team_grey);
+//            cacheView.image.setImageResource(R.drawable.menu_team_grey);
+            drawable = context.getResources().getDrawable(R.drawable.menu_team_grey);
+            cacheView.iv_right_arrow.setVisibility(View.VISIBLE);
         }
+
+        drawable.setBounds(0, 0,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight());
+
+        cacheView.item.setCompoundDrawables(drawable, null, null, null);
 
         return view;
     }
 
     class CacheView {
-        @InjectView(R.id.icon)
-        ImageView image;
+//        @InjectView(R.id.icon)
+//        ImageView image;
 
         @InjectView(R.id.item)
         TextView item;
 
         @InjectView(R.id.ll_content)
         LinearLayout ll_content;
+
+        @InjectView(R.id.right_arrow)
+        ImageView iv_right_arrow;
 
         public CacheView(View view) {
             ButterKnife.inject(this, view);

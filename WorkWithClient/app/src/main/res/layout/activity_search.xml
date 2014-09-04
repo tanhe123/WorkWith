@@ -7,20 +7,28 @@
     <LinearLayout
         android:gravity="center"
         android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_large"
+        android:paddingRight="@dimen/padding_large"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="6"
             android:layout_height="wrap_content"
             android:hint="@string/search_hint"/>
 
         <Button
             android:id="@id/search"
             android:text="@string/search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:textSize="@dimen/font_medim"
+            android:background="@drawable/login_button_selector"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
 
     </LinearLayout>
 

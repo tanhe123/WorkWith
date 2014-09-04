@@ -29,5 +29,7 @@
     <item type="id" name="message"/>
 
     <item type="id" name="password"/>
+    <item type="id" name="bt_register"/>
+    <item type="id" name="bt_add"/>
 
 </resources>

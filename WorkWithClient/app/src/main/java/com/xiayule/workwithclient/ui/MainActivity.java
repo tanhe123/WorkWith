@@ -61,8 +61,11 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
         ButterKnife.inject(this);
 
         initDrawerLayout();
+        ToastUtils.showShort("initdrawer finished");
         init();
+        ToastUtils.showShort("init finished");
         initData();
+        ToastUtils.showShort("init data finished");
     }
 
     public void init() {
@@ -264,17 +267,17 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
         ToastUtils.showShort("增加成功，已返回，刷新中");
 
-        //TODO: 使用广播, 添加了 project
-
         if (requestCode == 103 && resultCode == 1) {// 如果添加了工程
             ToastUtils.showShort("MainActivity：更新 task");
 
+
+            // 上传完之后都会刷新
             updateToServer();
 
 //            updateDrawerList();
 
-            initData();
-
+//            initData();
+//            refresh();
 
         } else if (requestCode == 107 && resultCode == 1) {
             updateDrawerList();
@@ -282,7 +285,6 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
             updateToServer();
         }
     }
-
 
     private void updateToServer() {
         WorkApi.updatePerson(this, mPerson, new WorkApi.OnApiEndListener() {
@@ -296,7 +298,8 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
                 Intent intent = new Intent(Constants.ACTION_ADD_PROJECT);
                 sendBroadcast(intent);
 
-                init();
+//                init();
+                refresh();
             }
         });
     }
