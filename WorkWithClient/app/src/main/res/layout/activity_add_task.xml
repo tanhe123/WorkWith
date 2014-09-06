@@ -1,23 +1,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:padding="@dimen/padding_large"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_login"
     tools:context="com.xiayule.workwithclient.ui.AddTaskActivity">
 
     <LinearLayout
         android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="添加任务"
+            android:textColor="@color/app_lable"
+            android:textSize="@dimen/font_super_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/div_margin_top"
+        android:layout_marginLeft="@dimen/margin_large"
+        android:layout_marginRight="@dimen/margin_large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
             android:id="@id/title"
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/tip_title"/>
 
         <EditText
             android:id="@id/desc"
+            android:layout_marginTop="@dimen/margin_large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/tip_desc"/>
@@ -27,14 +50,15 @@
     <LinearLayout
         android:id="@id/taskType"
         android:orientation="vertical"
+        android:layout_margin="@dimen/margin_large"
         android:background="@color/holo_green_light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:layout_marginTop="20dp"
+            android:background="@drawable/projects_item_selector"
             android:layout_width="match_parent"
-            android:layout_height="30dp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_alignParentLeft="true"

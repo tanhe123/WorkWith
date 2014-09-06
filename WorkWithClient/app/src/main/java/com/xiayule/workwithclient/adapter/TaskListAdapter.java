@@ -1,6 +1,7 @@
 package com.xiayule.workwithclient.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class TaskListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
 
     public TaskListAdapter(Context context, List<Task> tasks) {
+        this.context = context;
         this.tasks = tasks;
         inflater = LayoutInflater.from(context);
     }
@@ -84,6 +86,21 @@ public class TaskListAdapter extends BaseAdapter {
 
         Date t = task.getEndTime();
         if (t != null) {
+            Date endTime = task.getEndTime();
+            Date nowTime = new Date();
+
+            // 如果endTime 大于现在的事件， 则没有超期
+            boolean aboveDeadLine = TimeUtils.compareTime(endTime, nowTime) > 0 ? false : true;
+
+
+            if (aboveDeadLine) {// 如果超期了
+                Drawable drawable = context.getResources().getDrawable(R.drawable.tv_shape_red);
+                cacheView.time.setBackgroundDrawable(drawable);
+            } else {// 如果没超期
+                Drawable drawable = context.getResources().getDrawable(R.drawable.tv_shape_green);
+                cacheView.time.setBackgroundDrawable(drawable);
+            }
+
             String time = TimeUtils.format(task.getEndTime());
             cacheView.time.setText(time);
             cacheView.time.setVisibility(View.VISIBLE);

@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -64,6 +65,12 @@ public class TaskDetailActivity extends BaseActivity {
 
     @InjectView(R.id.change_time)
     RelativeLayout rl_change_time;
+
+    @InjectView(R.id.remove)
+    RelativeLayout rl_remove;
+
+    @InjectView(R.id.change_type)
+    RelativeLayout rl_change_type;
 
     private Task task;
 
@@ -151,6 +158,7 @@ public class TaskDetailActivity extends BaseActivity {
                                     @Override
                                     public void onDo() {
                                         showTaskDetail();
+                                        setResult(1);
                                     }
                                 });
                             }
@@ -161,6 +169,38 @@ public class TaskDetailActivity extends BaseActivity {
                         .show();
             }
         });
+
+        rl_remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeTask();
+            }
+        });
+
+        rl_change_type.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeTaskType();
+            }
+        });
+    }
+
+    private void changeTaskType() {
+        SelectTaskTypeDialog selectTaskTypeDialog = DialogFactory.createSelectTaskTypeDialog(this, task.getTaskType(), new SelectTaskTypeDialog.onSelectedListener() {
+            @Override
+            public void onClick(TaskType taskType) {
+
+                // 修改 taskType 类型
+                task.setTaskType(taskType);
+
+                // 更新
+                updateTaskData();
+
+                setResult(1);
+            }
+        });
+
+        selectTaskTypeDialog.show();
     }
 
     private void updateTaskData() {
@@ -189,9 +229,26 @@ public class TaskDetailActivity extends BaseActivity {
 
         // 如果设置了时间
         if (task.getEndTime() != null) {
+            Date endTime = task.getEndTime();
+            Date nowTime = new Date();
+
+            // 如果endTime 大于现在的事件， 则没有超期
+            boolean aboveDeadLine = TimeUtils.compareTime(endTime, nowTime) > 0 ? false : true;
+
+
+            if (aboveDeadLine) {// 如果超期了
+                Drawable drawable = getResources().getDrawable(R.drawable.tv_shape_red);
+                tv_time.setBackgroundDrawable(drawable);
+            } else {// 如果没超期
+                Drawable drawable = getResources().getDrawable(R.drawable.tv_shape_green);
+                tv_time.setBackgroundDrawable(drawable);
+            }
+
             tv_time.setText(TimeUtils.format(task.getEndTime()));
+
+
+
         } else {
-            // todo: 如果没有截至时间，设置之后，并没有立刻显示，必须返回一下才行的 bug
             ll_time.setVisibility(View.GONE);
         }
 
@@ -256,48 +313,35 @@ public class TaskDetailActivity extends BaseActivity {
 
         int id = item.getItemId();
         if (id == R.id.action_move) {
-            SelectTaskTypeDialog selectTaskTypeDialog = DialogFactory.createSelectTaskTypeDialog(this, task.getTaskType(), new SelectTaskTypeDialog.onSelectedListener() {
-                @Override
-                public void onClick(TaskType taskType) {
-
-                    // 修改 taskType 类型
-                    task.setTaskType(taskType);
-
-                    // 更新
-                    updateTaskData();
-
-                    setResult(1);
-
-
-                    //todo: 设置修改状态为 true，返回后， 在 activityresult中刷新
-                }
-            });
-
-            selectTaskTypeDialog.show();
+            changeTaskType();
 
             return true;
         } else if (id == R.id.action_remove) {
-            Dialog deleteConfirmDialog = DialogFactory.createConfirmDialog(this, "删除提示", "您确定要删除?", new DialogFactory.OnClickListener() {
-                @Override
-                public void onClick() {
-                    //todo: 删除操作
-                    // 获取 项目
-                    Project project = (Project)App.get(App.PROJECT);
-
-                    // 从列表中删除
-                    project.getTasks().remove(task);
-
-                    ToastUtils.showShort("删除成功");
-
-                    setResult(1);
-
-                    finish();
-                }
-            });
-
-            deleteConfirmDialog.show();
+            removeTask();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void removeTask() {
+        Dialog deleteConfirmDialog = DialogFactory.createConfirmDialog(this, "删除提示", "您确定要删除?", new DialogFactory.OnClickListener() {
+            @Override
+            public void onClick() {
+                // 获取 项目
+                Project project = (Project)App.get(App.PROJECT);
+
+                // 从列表中删除
+                project.getTasks().remove(task);
+
+                ToastUtils.showShort("删除成功");
+
+                setResult(1);
+
+                finish();
+            }
+        });
+
+        deleteConfirmDialog.show();
     }
 }

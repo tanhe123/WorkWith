@@ -20,9 +20,11 @@
     <dimen name="font_small">9sp</dimen>
     <dimen name="font_medim">12sp</dimen>
     <dimen name="font_large">16sp</dimen>
+    <dimen name="font_super_large">80sp</dimen>
 
     <dimen name="font_drawer">20sp</dimen>
 
     <dimen name="drawer_left_padding">12dp</dimen>
     <dimen name="item_margin_label">20dp</dimen>
+
 </resources>

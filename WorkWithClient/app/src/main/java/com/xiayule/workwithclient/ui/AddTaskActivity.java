@@ -17,6 +17,7 @@ import com.xiayule.workwithclient.factory.DialogFactory;
 import com.xiayule.workwithclient.model.Project;
 import com.xiayule.workwithclient.model.Task;
 import com.xiayule.workwithclient.model.TaskType;
+import com.xiayule.workwithclient.ui.fragment.TaskFragment;
 import com.xiayule.workwithclient.util.ToastUtils;
 import com.xiayule.workwithclient.view.SelectTaskTypeDialog;
 
@@ -45,8 +46,6 @@ public class AddTaskActivity extends BaseActivity {
 
     private TaskType selectedTaskType;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,16 +59,21 @@ public class AddTaskActivity extends BaseActivity {
     }
 
     private void init() {
+        // 根据传过来 index，来设定默认的 taskType
+        int indexOfSelected = getIntent().getIntExtra("indexOfSelected", 0);
+        selectedTaskType = TaskFragment.TASK_TYPES[indexOfSelected];
+
         project = (Project) App.get(App.PROJECT);
 
-        updateTaskName(TaskType.TODO);
+        ToastUtils.showShort(selectedTaskType.toString());
+        updateTaskName(selectedTaskType);
     }
 
     public void updateTaskName(TaskType taskType) {
-        if (selectedTaskType != taskType) {
+//        if (selectedTaskType != taskType) {
             selectedTaskType = taskType;
             tv_taskTypeName.setText(selectedTaskType.getType());
-        }
+//        }
     }
 
     private void setListener() {

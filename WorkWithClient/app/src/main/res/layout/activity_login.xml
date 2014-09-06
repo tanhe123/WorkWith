@@ -16,7 +16,7 @@
         <TextView
             android:text="爱协作"
             android:textColor="@color/app_lable"
-            android:textSize="80sp"
+            android:textSize="@dimen/font_super_large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

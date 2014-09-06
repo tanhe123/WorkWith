@@ -17,6 +17,7 @@
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_weight="6"
+            android:singleLine="true"
             android:layout_height="wrap_content"
             android:hint="@string/search_hint"/>
 

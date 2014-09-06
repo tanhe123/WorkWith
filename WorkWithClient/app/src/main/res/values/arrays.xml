@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="drawer_item_array">
-        <item>工作台</item>
+        <item>动态</item>
         <item>项目</item>
     </array>
 </resources>

@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import com.xiayule.workwithclient.api.WorkApi;
 import com.xiayule.workwithclient.model.Person;
 import com.xiayule.workwithclient.model.Project;
 import com.xiayule.workwithclient.ui.fragment.ProjectsFragment;
+import com.xiayule.workwithclient.ui.fragment.TrendsFragment;
 import com.xiayule.workwithclient.util.ToastUtils;
 
 import java.util.ArrayList;
@@ -61,11 +63,11 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
         ButterKnife.inject(this);
 
         initDrawerLayout();
-        ToastUtils.showShort("initdrawer finished");
+//        ToastUtils.showShort("initdrawer finished");
         init();
-        ToastUtils.showShort("init finished");
+//        ToastUtils.showShort("init finished");
         initData();
-        ToastUtils.showShort("init data finished");
+//        ToastUtils.showShort("init data finished");
     }
 
     public void init() {
@@ -203,12 +205,17 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
             mCategory = category = mDrawerTitles[0];
         }
 
-        if (category.equals("工作台")) {
+        if (category.equals(mDrawerTitles[0])) {
             ToastUtils.showShort(mCategory);
             setTitle(mCategory);
             mCategory = category;
 
-        } else if (category.equals("项目")) {
+            Fragment fragment = TrendsFragment.newInstance();
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, fragment).commit();
+
+        } else if (category.equals(mDrawerTitles[1])) {
             ToastUtils.showShort(mCategory);
             setTitle(mCategory);
             mCategory = category;

@@ -129,6 +129,11 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
         switch (id) {
             case R.id.action_add:
                 Intent intent = new Intent(ProjectDetailActivity.this, AddTaskActivity.class);
+
+                int indexOfSelected = mViewPager.getCurrentItem();
+                intent.putExtra("indexOfSelected", indexOfSelected);
+
+
                 startActivityForResult(intent, 102);
 
                 return true;
@@ -149,13 +154,13 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
             // 无论添加、还是删除、移动、修改，返回后都会执行这部分, 用来刷新 3个 fragment
             // 刷新的时候，需要本地同步到网上
 
+            update();
+
             // 发送更新广播
-            BroadCastSender.sendUpdateTaskBroadCast(this);
+//            BroadCastSender.sendUpdateTaskBroadCast(this);
 //            update();
 //        }
         }
-
-        //myPagerAdapter.notifyDataSetChanged();
     }
 
     private void update() {
@@ -176,7 +181,7 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ToastUtils.showShort("project activity destroy");
+//        ToastUtils.showShort("project activity destroy");
     }
 
     @Override

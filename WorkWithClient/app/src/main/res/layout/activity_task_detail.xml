@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#ffffffff"
                     android:padding="4dp"
-                    android:background="@drawable/tv_shape_red"
+                    android:background="@drawable/tv_shape_green"
                     android:text="2014-08-10"/>
             </LinearLayout>
         </LinearLayout>
@@ -174,7 +174,7 @@
 
     <RelativeLayout
         android:id="@+id/change_time"
-        android:background="@color/white"
+        android:background="@drawable/projects_item_selector"
         android:layout_marginTop="50dp"
         android:orientation="horizontal"
         android:padding="10dp"
@@ -192,7 +192,50 @@
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
         </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/change_type"
+        android:background="@drawable/projects_item_selector"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="任务类型"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:src="@drawable/rightarrow_"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/remove"
+        android:background="@drawable/projects_item_selector"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="删除任务"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:src="@drawable/rightarrow_"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
 </LinearLayout>

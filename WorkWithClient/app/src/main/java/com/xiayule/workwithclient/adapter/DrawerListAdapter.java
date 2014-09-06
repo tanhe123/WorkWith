@@ -63,7 +63,7 @@ public class DrawerListAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.drawer_list_item, null);
 
             cacheView = new CacheView(view);
-            cacheView.iv_right_arrow.setVisibility(View.INVISIBLE);
+            cacheView.iv_right_arrow.setVisibility(View.GONE);
 
             view.setTag(cacheView);
         } else {

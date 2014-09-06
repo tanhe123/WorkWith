@@ -31,4 +31,5 @@
     <color name="font_drawer">#ff2b2c2c</color>
 
     <color name="label_red">#f9cf0000</color>
+    <color name="label_green">#ff29902a</color>
 </resources>

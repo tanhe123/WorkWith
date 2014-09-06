@@ -3,8 +3,23 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/padding_large"
     android:background="@drawable/background_login"
     tools:context="com.xiayule.workwithclient.ui.AddProjectActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="添加工程"
+            android:textColor="@color/app_lable"
+            android:textSize="@dimen/font_super_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
@@ -16,6 +31,7 @@
 
         <EditText
             android:id="@id/title"
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/project_title"/>
@@ -31,6 +47,7 @@
         <EditText
             android:id="@id/password"
             android:hint="加入密码(可选)"
+            android:singleLine="true"
             android:layout_marginTop="@dimen/margin_large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
