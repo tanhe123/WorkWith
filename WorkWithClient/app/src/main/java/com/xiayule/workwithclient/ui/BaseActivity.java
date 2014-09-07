@@ -3,6 +3,7 @@ package com.xiayule.workwithclient.ui;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.v4.app.FragmentActivity;
@@ -36,6 +37,11 @@ public class BaseActivity extends FragmentActivity {
 
     private void initActionBar() {
         actionBar = getActionBar();
+
+        // 设置背景颜色
+        Drawable drawable = getResources().getDrawable(R.drawable.actionbar_shape);
+        actionBar.setBackgroundDrawable(drawable);
+
         // 显示返回上一层的图标
 
         actionBar.setDisplayHomeAsUpEnabled(true);

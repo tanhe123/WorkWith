@@ -7,14 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xiayule.workwithclient.R;
 import com.xiayule.workwithclient.model.Task;
 import com.xiayule.workwithclient.util.TimeUtils;
-import com.xiayule.workwithclient.util.ToastUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -23,16 +21,15 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by tan on 14-8-9.
- * 任务ListView 的 Adapter
+ * Created by tan on 14-9-7.
  */
-public class TaskListAdapter extends BaseAdapter {
+public class TrendsListAdapter extends BaseAdapter {
     private List<Task> tasks;
 
     private Context context;
     private LayoutInflater inflater;
 
-    public TaskListAdapter(Context context, List<Task> tasks) {
+    public TrendsListAdapter(Context context, List<Task> tasks) {
         this.context = context;
         this.tasks = tasks;
         inflater = LayoutInflater.from(context);
@@ -86,7 +83,14 @@ public class TaskListAdapter extends BaseAdapter {
 
         Date t = task.getEndTime();
         if (t != null) {
-            if (task.isOverDeadline()) {// 如果超期了
+            Date endTime = task.getEndTime();
+            Date nowTime = new Date();
+
+            // 如果endTime 大于现在的事件， 则没有超期
+            boolean aboveDeadLine = TimeUtils.compareTime(endTime, nowTime) > 0 ? false : true;
+
+
+            if (aboveDeadLine) {// 如果超期了
                 Drawable drawable = context.getResources().getDrawable(R.drawable.tv_shape_red);
                 cacheView.time.setBackgroundDrawable(drawable);
             } else {// 如果没超期
@@ -110,10 +114,14 @@ public class TaskListAdapter extends BaseAdapter {
      * 详情参见 Butter Knife
      */
     class CacheView {
-        @InjectView(R.id.title) TextView title;
-        @InjectView(R.id.desc) TextView desc;
-        @InjectView(R.id.time) TextView time;
-        @InjectView(R.id.complete) CheckBox complete;
+        @InjectView(R.id.title)
+        TextView title;
+        @InjectView(R.id.desc)
+        TextView desc;
+        @InjectView(R.id.time)
+        TextView time;
+        @InjectView(R.id.complete)
+        CheckBox complete;
         @InjectView(R.id.ll_time)
         LinearLayout ll_time;
 
@@ -132,3 +140,5 @@ public class TaskListAdapter extends BaseAdapter {
         this.tasks = tasks;
     }
 }
+
+

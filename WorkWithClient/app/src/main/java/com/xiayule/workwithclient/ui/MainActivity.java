@@ -1,11 +1,13 @@
 package com.xiayule.workwithclient.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +18,7 @@ import android.widget.ListView;
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
 import com.xiayule.workwithclient.adapter.DrawerListAdapter;
+import com.xiayule.workwithclient.api.BroadCastSender;
 import com.xiayule.workwithclient.api.Constants;
 import com.xiayule.workwithclient.api.WorkApi;
 import com.xiayule.workwithclient.model.Person;
@@ -55,6 +58,7 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
     private Person mPerson;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,11 +67,10 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
         ButterKnife.inject(this);
 
         initDrawerLayout();
-//        ToastUtils.showShort("initdrawer finished");
         init();
-//        ToastUtils.showShort("init finished");
         initData();
-//        ToastUtils.showShort("init data finished");
+
+//        registerUpdatePersonBroadcast();
     }
 
     public void init() {
@@ -91,6 +94,8 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
                 // 刷新显示
                 init();
+
+                BroadCastSender.sendPersonUpdatedBroadCast(MainActivity.this);
             }
         });
     }
@@ -120,43 +125,10 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
 
     private void initDrawerLayout(String[] drawerTitles) {
-        /*String[] initTitle = getResources().getStringArray(R.array.drawer_item_array);
-
-
-        List<HashMap<String, Object>> datas = new ArrayList<HashMap<String, Object>>();
-
-        for (String title : drawerTitles) {
-            HashMap<String, Object> data = new HashMap<String, Object>();
-
-            data.put("title", title);
-
-            if (title.equals(initTitle[0])) {
-                data.put("img", R.drawable.menu_dashboard_grey);
-            } else if (title.equals(initTitle[1])) {
-                data.put("img", R.drawable.menu_project_grey);
-            } else {
-                data.put("img", R.drawable.menu_team_grey);
-            }
-
-            datas.add(data);
-        }
-*/
-        /*mDrawerList.setAdapter(new SimpleAdapter(MainActivity.this,
-                datas, R.layout.drawer_list_item,
-                new String[] {"img", "title"},
-                new int[] {R.id.icon, R.id.item}));*/
-
         drawerListAdapter = new DrawerListAdapter(MainActivity.this,
                 Arrays.asList(drawerTitles));
         mDrawerList.setAdapter(drawerListAdapter);
 
-
-
-//        drawerListAdapter.notifyDataSetChanged();
-
-//        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-//                R.layout.drawer_list_item,
-//                R.id.item, drawerTitles));
     }
 
     private void setListener() {
@@ -206,21 +178,20 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
         }
 
         if (category.equals(mDrawerTitles[0])) {
-            ToastUtils.showShort(mCategory);
             setTitle(mCategory);
             mCategory = category;
 
             Fragment fragment = TrendsFragment.newInstance();
 
             getSupportFragmentManager().beginTransaction()
+                    //todo: 用 replace 会自动销毁，不知道为什么
                     .replace(R.id.container, fragment).commit();
 
         } else if (category.equals(mDrawerTitles[1])) {
-            ToastUtils.showShort(mCategory);
             setTitle(mCategory);
             mCategory = category;
 
-            // 设置 fragment
+//            设置 fragment
             Fragment fragment = ProjectsFragment.newInstance();
 
             getSupportFragmentManager().beginTransaction()

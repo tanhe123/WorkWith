@@ -15,14 +15,23 @@
     <!-- 定义数据源 Bean, 使用 C3P0 数据源实现 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
+   <!--     &lt;!&ndash; 指定链接数据库的 url &ndash;&gt;
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/mytest?useUnicode=true&amp;characterEncoding=utf8"/>
+        &lt;!&ndash; 指定链接数据库的用户名 &ndash;&gt;
+        <property name="user" value="root"/>
+        &lt;!&ndash; 指定链接数据库的密码 &ndash;&gt;
+        <property name="password" value="622"/>-->
+
+
+        <!-- sae 数据库 配置 -->
+        <property name="user" value="221n2j5mmn"/>
+        <property name="jdbcUrl" value="jdbc:mysql://w.rdc.sae.sina.com.cn:3307/app_workwith?useUnicode=true&amp;characterEncoding=utf8"/>
+        <property name="password" value="z44kmk21ikmw54yj4kz0xzjwk4mlllxkk2wiw0x3"/>
+
+
         <!-- 指定链接数据库的驱动-->
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-        <!-- 指定链接数据库的 url -->
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/mytest?useUnicode=true&amp;characterEncoding=utf8"/>
-        <!-- 指定链接数据库的用户名 -->
-        <property name="user" value="root"/>
-        <!-- 指定链接数据库的密码 -->
-        <property name="password" value="622"/>
+
 
         <!-- 指定链接数据库连接池的最大连接数 -->
         <property name="maxPoolSize" value="40"/>

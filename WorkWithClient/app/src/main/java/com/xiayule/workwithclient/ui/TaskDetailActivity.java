@@ -142,7 +142,6 @@ public class TaskDetailActivity extends BaseActivity {
 
                 ToastUtils.showShort(y + " " + m + " " + d);
 
-//                int year =
 
                 // 直接创建一个 DatePickerdialog， 并将它显示出来
                 new DatePickerDialog(TaskDetailActivity.this,
@@ -229,14 +228,8 @@ public class TaskDetailActivity extends BaseActivity {
 
         // 如果设置了时间
         if (task.getEndTime() != null) {
-            Date endTime = task.getEndTime();
-            Date nowTime = new Date();
 
-            // 如果endTime 大于现在的事件， 则没有超期
-            boolean aboveDeadLine = TimeUtils.compareTime(endTime, nowTime) > 0 ? false : true;
-
-
-            if (aboveDeadLine) {// 如果超期了
+            if (task.isOverDeadline()) {// 如果超期了
                 Drawable drawable = getResources().getDrawable(R.drawable.tv_shape_red);
                 tv_time.setBackgroundDrawable(drawable);
             } else {// 如果没超期
@@ -245,8 +238,7 @@ public class TaskDetailActivity extends BaseActivity {
             }
 
             tv_time.setText(TimeUtils.format(task.getEndTime()));
-
-
+            ll_time.setVisibility(View.VISIBLE);
 
         } else {
             ll_time.setVisibility(View.GONE);

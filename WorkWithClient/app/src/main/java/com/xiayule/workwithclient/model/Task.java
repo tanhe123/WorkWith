@@ -1,5 +1,7 @@
 package com.xiayule.workwithclient.model;
 
+import com.xiayule.workwithclient.util.TimeUtils;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -31,6 +33,19 @@ public class Task {
     public String toString() {
         return "taskName:" + taskName + ";taskDesc:" + taskDesc + ";taskType:" + taskType
                 + ";taskCreateTime:" + createTime + ";endTime:" + endTime;
+    }
+
+    public boolean isOverDeadline() {
+        Date endTime = this.getEndTime();
+
+        if (endTime == null) return false;
+
+        Date nowTime = new Date();
+
+        // 如果endTime 大于现在的事件， 则没有超期
+        boolean overDeadLine = TimeUtils.compareTime(endTime, nowTime) > 0 ? false : true;
+
+        return overDeadLine;
     }
 
     // set and get methods

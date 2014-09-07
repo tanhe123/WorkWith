@@ -26,10 +26,12 @@
     <color name="time">@color/gray</color>
     <color name="desc">@color/gray</color>
 
-    <color name="drawer_bg">#FFFFFFcc</color>
+    <color name="drawer_bg">#ff2aa07e</color>
 
     <color name="font_drawer">#ff2b2c2c</color>
 
     <color name="label_red">#f9cf0000</color>
     <color name="label_green">#ff29902a</color>
+
+    <color name="actionbar_bg">#e4378d8b</color>
 </resources>
