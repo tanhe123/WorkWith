@@ -140,8 +140,6 @@ public class TaskDetailActivity extends BaseActivity {
                 int m = c.get(Calendar.MONTH);
                 int d = c.get(Calendar.DAY_OF_MONTH);
 
-                ToastUtils.showShort(y + " " + m + " " + d);
-
 
                 // 直接创建一个 DatePickerdialog， 并将它显示出来
                 new DatePickerDialog(TaskDetailActivity.this,
@@ -286,7 +284,7 @@ public class TaskDetailActivity extends BaseActivity {
                 .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        ToastUtils.showShort("返回");
+
                     }
                 });
 

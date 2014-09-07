@@ -170,9 +170,6 @@ public class TrendsFragment extends Fragment {
         super.onDetach();
 
         getActivity().unregisterReceiver(broadcastReceiver);
-
-        ToastUtils.showShort("undetach");
-
     }
 
 

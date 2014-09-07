@@ -149,16 +149,10 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
 
         if (resultCode == 1) {
 //        if (requestCode == 102 && resultCode == 1) {// 如果选择保存数据
-            ToastUtils.showShort("backing project,data changing\nresult code is" + resultCode);
-
             // 无论添加、还是删除、移动、修改，返回后都会执行这部分, 用来刷新 3个 fragment
             // 刷新的时候，需要本地同步到网上
 
             update();
-
-            // 发送更新广播
-//            BroadCastSender.sendUpdateTaskBroadCast(this);
-//            update();
 //        }
         }
     }

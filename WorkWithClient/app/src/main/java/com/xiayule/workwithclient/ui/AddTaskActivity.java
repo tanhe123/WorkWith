@@ -65,7 +65,6 @@ public class AddTaskActivity extends BaseActivity {
 
         project = (Project) App.get(App.PROJECT);
 
-        ToastUtils.showShort(selectedTaskType.toString());
         updateTaskName(selectedTaskType);
     }
 

@@ -246,16 +246,8 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
         ToastUtils.showShort("增加成功，已返回，刷新中");
 
         if (requestCode == 103 && resultCode == 1) {// 如果添加了工程
-            ToastUtils.showShort("MainActivity：更新 task");
-
-
             // 上传完之后都会刷新
             updateToServer();
-
-//            updateDrawerList();
-
-//            initData();
-//            refresh();
 
         } else if (requestCode == 107 && resultCode == 1) {
             updateDrawerList();
