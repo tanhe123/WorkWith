@@ -243,14 +243,19 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        ToastUtils.showShort("增加成功，已返回，刷新中");
-
         if (requestCode == 103 && resultCode == 1) {// 如果添加了工程
             // 上传完之后都会刷新
             updateToServer();
 
         } else if (requestCode == 107 && resultCode == 1) {
             updateDrawerList();
+        } else if (requestCode == 110 && resultCode == 1) {// 在 trends 打开的 taskDetail 中修改了 task
+            WorkApi.updatePerson(this, mPerson, new WorkApi.OnApiEndListener() {
+                @Override
+                public void onDo() {
+                    BroadCastSender.sendUpdateTaskBroadCast(MainActivity.this);
+                }
+            });
         } else if (resultCode == 1) {
             updateToServer();
         }
@@ -260,8 +265,6 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
         WorkApi.updatePerson(this, mPerson, new WorkApi.OnApiEndListener() {
             @Override
             public void onDo() {
-                ToastUtils.showShort("同步成功");
-
                 // 调用 activity 的 updateToServer
                 // 如果更新成功，刷新显示
                 // 发送广播, 更新 listview显示 新增的 task

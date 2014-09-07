@@ -208,9 +208,11 @@ public class TaskDetailActivity extends BaseActivity {
 
                 // 刷新显示
                 showTaskDetail();
+
+                // todo: 这里可以返回2, 即返回后，不用不上传到服务器，只更新
+                setResult(1);
             }
         });
-
     }
 
     @Override

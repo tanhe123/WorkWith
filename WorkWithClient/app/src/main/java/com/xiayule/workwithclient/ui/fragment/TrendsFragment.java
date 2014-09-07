@@ -53,6 +53,10 @@ public class TrendsFragment extends Fragment {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Constants.ACTION_QUERY_PERSON);
 
+        // 如果修改了任务，也要重新更新下
+        intentFilter.addAction(Constants.ACTION_UPDATE_TASK);
+
+
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -77,7 +81,7 @@ public class TrendsFragment extends Fragment {
         List<Task> tasks = new ArrayList<Task>();
         for (Project project : mPerson.getProjects()) {
             for (Task task : project.getTasks()) {
-                if (task.isOverDeadline()) {
+                if (task.isOverDeadline() && !task.isComplete()) {
                     tasks.add(task);
                 }
             }
@@ -90,7 +94,6 @@ public class TrendsFragment extends Fragment {
             tv_null_result.setVisibility(View.GONE);
         }
 
-
 //                ToastUtils.showShort("broadcast" + " ;" + getActivity());
 
         if (getActivity() != null) {
@@ -100,6 +103,13 @@ public class TrendsFragment extends Fragment {
         }
     }
 
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+    }
 
     public static TrendsFragment newInstance() {
         TrendsFragment fragment = new TrendsFragment();
@@ -146,17 +156,17 @@ public class TrendsFragment extends Fragment {
         return view;
     }
 
-    @Override
+   /* @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 110 && resultCode == 1) {
             fresh();
         }
-    }
+    }*/
 
     public void fresh() {
-
+        updateShow();
     }
 
     @Override
