@@ -51,6 +51,8 @@ public class AddTaskActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
+        setTitle(R.string.title_activity_add_task);
+
         ButterKnife.inject(this);
 
         init();

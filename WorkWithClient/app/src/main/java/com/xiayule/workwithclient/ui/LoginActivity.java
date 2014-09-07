@@ -76,6 +76,9 @@ public class LoginActivity extends BaseActivity {
                                     ToastUtils.showShort("登录成功");
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
+
+                                    //第一个参数为启动时动画效果，第二个参数为退出时动画效果
+                                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                                 } else {
                                     ToastUtils.showShort(result.getMessage());
                                 }
@@ -90,6 +93,8 @@ public class LoginActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
+                //第一个参数为启动时动画效果，第二个参数为退出时动画效果
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             }
         });
     }

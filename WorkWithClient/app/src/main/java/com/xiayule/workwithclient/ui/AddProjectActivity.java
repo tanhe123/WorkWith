@@ -37,6 +37,10 @@ public class AddProjectActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_project);
 
+//        actionBar.hide();
+
+        setTitle(R.string.title_activity_add_project);
+
         ButterKnife.inject(this);
 
         bt_add.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +68,10 @@ public class AddProjectActivity extends BaseActivity {
             // add project
             add();
 
+            return true;
+        } else if (id == android.R.id.home) {
+            finish();
+            overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
             return true;
         }
 

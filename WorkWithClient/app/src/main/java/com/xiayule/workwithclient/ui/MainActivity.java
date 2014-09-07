@@ -200,13 +200,16 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
         } else {
             Intent intent = new Intent(MainActivity.this, ProjectDetailActivity.class);
 
-            Project selectedProject = ((Person)App.get(App.PERSON)).getProject(category);
+            Project selectedProject = ((Person) App.get(App.PERSON)).getProject(category);
 
             // 设置要传递的数据
             App.put(App.PROJECT, selectedProject);
 
 
             startActivity(intent);
+
+            //第一个参数为启动时动画效果，第二个参数为退出时动画效果
+            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         }
     }
 
