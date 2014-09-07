@@ -34,4 +34,5 @@
     <color name="label_green">#ff29902a</color>
 
     <color name="actionbar_bg">#e4378d8b</color>
+    <color name="actionbar_tab">#d113646f</color>
 </resources>

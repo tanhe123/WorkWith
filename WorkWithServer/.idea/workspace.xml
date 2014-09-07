@@ -41,7 +41,7 @@
       <file leaf-file-name="Task.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/xiayule/workwithserver/model/Task.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.91822094" vertical-offset="280" max-vertical-offset="1740">
+            <state vertical-scroll-proportion="0.57388806" vertical-offset="520" max-vertical-offset="1740">
               <caret line="46" column="35" selection-start-line="46" selection-start-column="35" selection-end-line="46" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -962,12 +962,12 @@
       <workItem from="1409794831738" duration="8125000" />
       <workItem from="1410003151807" duration="2087000" />
       <workItem from="1410052697790" duration="2107000" />
-      <workItem from="1410073107998" duration="945000" />
+      <workItem from="1410073107998" duration="2144000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="205735000" />
+    <option name="totallyTimeSpent" value="206934000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1464,7 +1464,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/xiayule/workwithserver/model/Task.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.91822094" vertical-offset="280" max-vertical-offset="1740">
+        <state vertical-scroll-proportion="0.57388806" vertical-offset="520" max-vertical-offset="1740">
           <caret line="46" column="35" selection-start-line="46" selection-start-column="35" selection-end-line="46" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />

@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -57,6 +58,10 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
 
         // 初始化
         init();
+
+        actionBar.setStackedBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.actionbar_tab)));
+//        actionBar.setStackedBackgroundDrawable(getResources().getDrawable(
+//                R.drawable.tv_shape_green));
     }
 
     private void init() {
@@ -100,8 +105,12 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
             }
         };
 
+        //定义ActionBar模式为NAVIGATION_MODE_TABS
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
         // 添加3个tab, 并指定tab的文字和TabListener
         for (TaskType tab : tabTitles) {
+
             actionBar.addTab(
                     actionBar.newTab()
                             .setText(tab.getType())
