@@ -150,6 +150,7 @@ public class TrendsFragment extends Fragment {
 
                 // 启动 TaskDetailActivity
                 startActivityForResult(intent, 110);
+                getActivity().overridePendingTransition(R.anim.slide_up_in, R.anim.slide_down_out);
             }
         });
 

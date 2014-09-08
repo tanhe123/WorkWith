@@ -141,6 +141,10 @@ public class AddTaskActivity extends BaseActivity {
             case R.id.action_save:
                 save();
                 return true;
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.slide_up_in, R.anim.slide_down_out);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
