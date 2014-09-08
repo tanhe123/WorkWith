@@ -78,7 +78,15 @@ public class LoginActivity extends BaseActivity {
                                     startActivity(intent);
 
                                     //第一个参数为启动时动画效果，第二个参数为退出时动画效果
-                                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+//                                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                                    /*overridePendingTransition(R.anim.hyperspace_in,
+                                            R.anim.hyperspace_out);*/
+                                    overridePendingTransition(R.anim.scale_rotate,
+                                            R.anim.my_alpha_action);
+
+                                   /* overridePendingTransition(R.anim.push_left_in,
+                                            R.anim.push_left_out);*/
+
                                 } else {
                                     ToastUtils.showShort(result.getMessage());
                                 }

@@ -311,6 +311,10 @@ public class TaskDetailActivity extends BaseActivity {
         } else if (id == R.id.action_remove) {
             removeTask();
             return true;
+        } else if (id == android.R.id.home) {
+            finish();
+            overridePendingTransition(R.anim.slide_up_in, R.anim.slide_down_out);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -331,6 +335,7 @@ public class TaskDetailActivity extends BaseActivity {
                 setResult(1);
 
                 finish();
+                overridePendingTransition(R.anim.slide_up_in, R.anim.slide_down_out);
             }
         });
 

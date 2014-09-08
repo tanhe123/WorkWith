@@ -71,7 +71,13 @@ public class AddProjectActivity extends BaseActivity {
             return true;
         } else if (id == android.R.id.home) {
             finish();
-            overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+//            overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+/*
+            overridePendingTransition(R.anim.push_left_in,
+                    R.anim.push_left_out);
+*/
+            overridePendingTransition(R.anim.slide_up_in, R.anim.slide_down_out);
+
             return true;
         }
 
@@ -106,5 +112,6 @@ public class AddProjectActivity extends BaseActivity {
         // 返回成功保存标识
         setResult(1);
         this.finish();
+        overridePendingTransition(R.anim.slide_up_in, R.anim.slide_down_out);
     }
 }

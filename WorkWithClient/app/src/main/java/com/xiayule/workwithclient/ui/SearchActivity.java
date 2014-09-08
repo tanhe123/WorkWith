@@ -53,6 +53,8 @@ public class SearchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        setTitle(R.string.title_activity_search);
+
         ButterKnife.inject(this);
 
         person = (Person)App.get(App.PERSON);
@@ -129,6 +131,7 @@ public class SearchActivity extends BaseActivity {
 
                                                         ToastUtils.showShort("加入成功");
                                                         finish();
+                                                        overridePendingTransition(R.anim.slide_up_in, R.anim.slide_down_out);
                                                     }
                                                 });
 
@@ -172,9 +175,12 @@ public class SearchActivity extends BaseActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == android.R.id.home) {
+            finish();
+            overridePendingTransition(R.anim.slide_up_in, R.anim.slide_down_out);
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

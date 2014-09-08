@@ -209,7 +209,8 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
             startActivity(intent);
 
             //第一个参数为启动时动画效果，第二个参数为退出时动画效果
-            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+            overridePendingTransition(R.anim.push_left_in,
+                    R.anim.push_left_out);
         }
     }
 
@@ -230,10 +231,14 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
             case R.id.action_add:
                 intent = new Intent(MainActivity.this, AddProjectActivity.class);
                 startActivityForResult(intent, 103);
+                overridePendingTransition(R.anim.push_left_in,
+                        R.anim.push_left_out);
                 break;
             case R.id.action_search:
                 intent = new Intent(MainActivity.this, SearchActivity.class);
                 startActivityForResult(intent, 107);
+                overridePendingTransition(R.anim.push_left_in,
+                        R.anim.push_left_out);
             default:
                 return super.onOptionsItemSelected(item);
         }

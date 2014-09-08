@@ -146,6 +146,11 @@ public class ProjectDetailActivity extends BaseActivity implements TaskFragment.
                 startActivityForResult(intent, 102);
 
                 return true;
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.slide_up_in, R.anim.slide_down_out);
+
+                return true;
         }
 
 

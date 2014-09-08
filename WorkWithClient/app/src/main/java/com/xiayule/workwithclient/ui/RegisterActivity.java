@@ -40,6 +40,8 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        setTitle(R.string.title_activity_register);
+
         ButterKnife.inject(this);
 
         bt_register.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +82,7 @@ public class RegisterActivity extends Activity {
 
                                     // 结束，返回登录界面
                                     finish();
-
+                                    overridePendingTransition(R.anim.slide_up_in, R.anim.slide_down_out);
                                 } else { // 注册失败
                                     ToastUtils.showShort("注册失败");
                                     tv_message.setText(result.getMessage());

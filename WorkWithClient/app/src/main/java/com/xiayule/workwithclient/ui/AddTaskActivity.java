@@ -117,6 +117,7 @@ public class AddTaskActivity extends BaseActivity {
                 ToastUtils.showShort("创建成功");
                 setResult(1);
                 finish();
+                overridePendingTransition(R.anim.slide_up_in, R.anim.slide_down_out);
             }
         });
 

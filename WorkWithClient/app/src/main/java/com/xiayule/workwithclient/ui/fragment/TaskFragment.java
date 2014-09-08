@@ -104,6 +104,7 @@ public class TaskFragment extends Fragment {
 
                 // 启动 TaskDetailActivity
                 startActivityForResult(intent, 100);
+                getActivity().overridePendingTransition(R.anim.slide_up_in, R.anim.slide_down_out);
             }
         });
 
