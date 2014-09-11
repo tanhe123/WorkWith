@@ -26,7 +26,7 @@
     <color name="time">@color/gray</color>
     <color name="desc">@color/gray</color>
 
-    <color name="drawer_bg">#e03087c1</color>
+    <color name="drawer_bg">#e0f1ebf1</color>
 
     <color name="font_drawer">#ff2b2c2c</color>
 
