@@ -33,6 +33,7 @@ import com.xiayule.workwithclient.model.Person;
 import com.xiayule.workwithclient.model.Project;
 import com.xiayule.workwithclient.model.Task;
 import com.xiayule.workwithclient.ui.TaskDetailActivity;
+import com.xiayule.workwithclient.util.DimenUtils;
 import com.xiayule.workwithclient.util.ToastUtils;
 
 import java.util.ArrayList;
@@ -89,20 +90,13 @@ public class TrendsFragment extends Fragment {
             deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
                     0x3F, 0x25)));
             // set item width
-            deleteItem.setWidth(dp2px(50));
+            deleteItem.setWidth(DimenUtils.dp2px(App.getContext(), 50));
             // set a icon
             deleteItem.setIcon(R.drawable.ic_ok);
             // add to menu
             menu.addMenuItem(deleteItem);
         }
     };
-
-    private int dp2px(int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-                getResources().getDisplayMetrics());
-    }
-
-
 
     private void registerUpdatePersonBroadcast() {
         IntentFilter intentFilter = new IntentFilter();
