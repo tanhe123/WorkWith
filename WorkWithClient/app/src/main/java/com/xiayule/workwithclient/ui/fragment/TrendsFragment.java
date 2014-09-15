@@ -1,14 +1,17 @@
 package com.xiayule.workwithclient.ui.fragment;
 
 import android.app.Activity;
-import android.app.Instrumentation;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +19,16 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
-import com.xiayule.workwithclient.adapter.TaskListAdapter;
 import com.xiayule.workwithclient.adapter.TrendsListAdapter;
 import com.xiayule.workwithclient.api.Constants;
+import com.xiayule.workwithclient.api.WorkApi;
+import com.xiayule.workwithclient.factory.DialogFactory;
 import com.xiayule.workwithclient.model.Person;
 import com.xiayule.workwithclient.model.Project;
 import com.xiayule.workwithclient.model.Task;
@@ -44,10 +52,57 @@ public class TrendsFragment extends Fragment {
     private TrendsListAdapter trendsListAdapter;
 
     @InjectView(R.id.gridview)
-    GridView gridView;
+    SwipeMenuListView listview;
 
     @InjectView(R.id.null_result)
     TextView tv_null_result;
+
+    private List<Task> tasks;
+
+
+    SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+        @Override
+        public void create(SwipeMenu menu) {
+/*            // create "open" item
+            SwipeMenuItem openItem = new SwipeMenuItem(
+                    getActivity());
+            // set item background
+            openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
+                    0xCE)));
+            // set item width
+//            openItem.setWidth(dp2px(50));
+            // set item title
+//            openItem.setTitle("Open");
+            // set item title fontsize
+//            openItem.setTitleSize(18);
+            // set item title font color
+//            openItem.setTitleColor(Color.WHITE);
+            openItem.setIcon(R.drawable.ic_ok);
+            // add to menu
+            menu.addMenuItem(openItem);*/
+
+            // create "delete" item
+            SwipeMenuItem deleteItem = new SwipeMenuItem(
+                    getActivity());
+            // set item background
+            deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                    0x3F, 0x25)));
+            // set item width
+            deleteItem.setWidth(dp2px(50));
+            // set a icon
+            deleteItem.setIcon(R.drawable.ic_ok);
+            // add to menu
+            menu.addMenuItem(deleteItem);
+        }
+    };
+
+    private int dp2px(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                getResources().getDisplayMetrics());
+    }
+
+
 
     private void registerUpdatePersonBroadcast() {
         IntentFilter intentFilter = new IntentFilter();
@@ -65,7 +120,6 @@ public class TrendsFragment extends Fragment {
         };
 
 
-
         getActivity().registerReceiver(broadcastReceiver, intentFilter);
     }
 
@@ -78,7 +132,7 @@ public class TrendsFragment extends Fragment {
         }
 
         // 添加所有过期的任务
-        List<Task> tasks = new ArrayList<Task>();
+        tasks = new ArrayList<Task>();
         for (Project project : mPerson.getProjects()) {
             for (Task task : project.getTasks()) {
                 if (task.isOverDeadline() && !task.isComplete()) {
@@ -94,11 +148,9 @@ public class TrendsFragment extends Fragment {
             tv_null_result.setVisibility(View.GONE);
         }
 
-//                ToastUtils.showShort("broadcast" + " ;" + getActivity());
-
         if (getActivity() != null) {
             trendsListAdapter = new TrendsListAdapter(getActivity(), tasks);
-            gridView.setAdapter(trendsListAdapter);
+            listview.setAdapter(trendsListAdapter);
 
         }
     }
@@ -136,9 +188,11 @@ public class TrendsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_trends, container, false);
         ButterKnife.inject(this, view);
 
+        setListener();
+
         updateShow();
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Task task = trendsListAdapter.getItem(position);
@@ -155,6 +209,32 @@ public class TrendsFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void setListener() {
+        listview.setMenuCreator(creator);
+
+        listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public void onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        // 设置项目完成
+                        Task task = tasks.get(position);
+                        task.setComplete(true);
+
+                        WorkApi.updateTask(getActivity(), task, new WorkApi.OnApiEndListener() {
+                            @Override
+                            public void onDo() {
+                                // 刷新显示
+                                updateShow();
+                            }
+                        });
+
+                        break;
+                }
+            }
+        });
     }
 
    /* @Override

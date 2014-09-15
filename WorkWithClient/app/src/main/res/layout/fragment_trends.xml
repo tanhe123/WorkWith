@@ -22,13 +22,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <GridView
+    <!--<GridView
         android:id="@id/gridview"
         android:horizontalSpacing="@dimen/margin_item"
         android:verticalSpacing="@dimen/margin_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/padding_large"
-        android:numColumns="1"/>
+        android:numColumns="1"/>-->
+
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:id="@id/gridview"
+        android:horizontalSpacing="@dimen/margin_item"
+        android:verticalSpacing="@dimen/margin_item"
+        android:padding="@dimen/padding_large"
+        android:divider="#00000000"
+        android:dividerHeight="@dimen/margin_medium"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
