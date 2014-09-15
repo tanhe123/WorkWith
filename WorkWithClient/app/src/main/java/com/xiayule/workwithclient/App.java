@@ -38,14 +38,6 @@ public class App extends Application {
         App.sContext = sContext;
     }
 
-//    public static Person getData() {
-//        return data;
-//    }
-
-//    public static void setData(Person data) {
-//        App.data = data;
-//    }
-
     public static Object get(String key) {
         return data.get(key);
     }

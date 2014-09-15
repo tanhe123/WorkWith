@@ -22,7 +22,6 @@
     </LinearLayout>
 
 
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_marginTop="@dimen/div_margin_top"
