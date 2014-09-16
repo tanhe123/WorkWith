@@ -33,7 +33,9 @@
         android:text="爱协作"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#212121"
+        android:textColor="#d61b7f42"
         android:textSize="70sp"/>
+
+
 
 </LinearLayout>

@@ -31,7 +31,8 @@ public class WelcomeActivity extends BaseActivity {
         Thread thread = new Thread() {
             @Override
             public void run() {
-                int waitingTime = 5000; // ms
+                // titanic 完成一次动画的时间正好为 6000
+                int waitingTime = 6000; // ms
                 try {
                     Thread.sleep(waitingTime);
                 } catch (InterruptedException e) {
