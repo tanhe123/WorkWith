@@ -20,6 +20,7 @@ import java.util.HashMap;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
 public class RegisterActivity extends Activity {
     @InjectView(R.id.bt_register)

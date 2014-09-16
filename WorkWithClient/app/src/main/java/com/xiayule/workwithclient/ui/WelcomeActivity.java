@@ -39,6 +39,8 @@ public class WelcomeActivity extends BaseActivity {
         };
 
         thread.start();
+
+
     }
 
 
