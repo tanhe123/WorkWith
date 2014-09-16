@@ -19,6 +19,8 @@ import com.xiayule.workwithclient.R;
 import com.xiayule.workwithclient.api.WorkApi;
 import com.xiayule.workwithclient.util.Result;
 import com.xiayule.workwithclient.util.ToastUtils;
+import com.xiayule.workwithclient.view.titanic.Titanic;
+import com.xiayule.workwithclient.view.titanic.TitanicTextView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +42,7 @@ public class LoginActivity extends BaseActivity {
 
     @InjectView(R.id.password)
     EditText et_password;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

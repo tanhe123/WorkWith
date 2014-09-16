@@ -6,8 +6,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.xiayule.workwithclient.R;
+import com.xiayule.workwithclient.view.titanic.Titanic;
+import com.xiayule.workwithclient.view.titanic.TitanicTextView;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 public class WelcomeActivity extends BaseActivity {
+
+    @InjectView(R.id.titanic_tv)
+    TitanicTextView titanicTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,15 +24,16 @@ public class WelcomeActivity extends BaseActivity {
 
         actionBar.hide();
 
+        ButterKnife.inject(this);
+
+        new Titanic().start(titanicTextView);
+
         Thread thread = new Thread() {
             @Override
             public void run() {
-                int waitingTime = 3000; // ms
+                int waitingTime = 5000; // ms
                 try {
-                    while(waitingTime > 0) {
-                        sleep(100);
-                        waitingTime -= 100; // 100ms per time
-                    }
+                    Thread.sleep(waitingTime);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
