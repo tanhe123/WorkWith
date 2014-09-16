@@ -71,8 +71,8 @@
             android:layout_marginTop="@dimen/margin_large"
             android:id="@+id/bt_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="登录 "
+            android:layout_height="@dimen/button"
+            android:text="登录"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:background="@drawable/login_button_selector"
             android:gravity="center"
@@ -80,6 +80,7 @@
             ripple:rippleColor="#a5c03034"
             ripple:hover="true"
             />
+
 
     </LinearLayout>
     

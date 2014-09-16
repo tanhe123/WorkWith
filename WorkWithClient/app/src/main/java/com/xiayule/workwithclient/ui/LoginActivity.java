@@ -43,7 +43,6 @@ public class LoginActivity extends BaseActivity {
     @InjectView(R.id.password)
     EditText et_password;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

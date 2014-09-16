@@ -3,11 +3,17 @@ package com.xiayule.workwithclient.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.xiayule.workwithclient.R;
+import com.xiayule.workwithclient.view.SecretTextView;
 import com.xiayule.workwithclient.view.titanic.Titanic;
 import com.xiayule.workwithclient.view.titanic.TitanicTextView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -16,6 +22,9 @@ public class WelcomeActivity extends BaseActivity {
 
     @InjectView(R.id.titanic_tv)
     TitanicTextView titanicTextView;
+
+    @InjectView(R.id.textview)
+    SecretTextView secretTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,33 +35,52 @@ public class WelcomeActivity extends BaseActivity {
 
         ButterKnife.inject(this);
 
+        // 波纹效果
         new Titanic().start(titanicTextView);
 
-        Thread thread = new Thread() {
+        // 显示 scretTextView
+        new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                // titanic 完成一次动画的时间正好为 6000
-                int waitingTime = 6000; // ms
-                try {
-                    Thread.sleep(waitingTime);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-                    startActivity(intent);  // enter the main activity finally
-                    overridePendingTransition(R.anim.push_left_in,
-                            R.anim.push_left_out);
-
-                    finish();
-                }
+                Message message = new Message();
+                message.what = 1;// 开始 secretTextview 动画
+                handler.sendMessage(message);
             }
-        };
+        }, 3000);
 
-        thread.start();
-
-
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Message message = new Message();
+                message.what = 2;// 启动loginactivity
+                handler.sendMessage(message);
+            }
+        }, 6000);
     }
 
+
+    // 定时事件处理
+    Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                // 显示隐藏的文字
+                secretTextView.setmDuration(3000);
+                // 默认隐藏
+                secretTextView.setIsVisible(false);
+
+                secretTextView.toggle();
+            } else if (msg.what == 2) {
+                // 启动 login activity
+                Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                startActivity(intent);  // enter the main activity finally
+                overridePendingTransition(R.anim.push_left_in,
+                        R.anim.push_left_out);
+
+                finish();
+            }
+            super.handleMessage(msg);
+        };
+    };
 
 
     @Override

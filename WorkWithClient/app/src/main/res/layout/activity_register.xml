@@ -49,13 +49,12 @@
             android:layout_marginTop="25dp"
             android:background="@drawable/login_button_selector"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/button"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:gravity="center"
             ripple:alphaFactor="0.5"
             ripple:rippleColor="#a5c03034"
             ripple:hover="true"/>
-
         </LinearLayout>
 
 

@@ -27,4 +27,5 @@
     <dimen name="drawer_left_padding">12dp</dimen>
     <dimen name="item_margin_label">20dp</dimen>
 
+    <dimen name="button">40dp</dimen>
 </resources>

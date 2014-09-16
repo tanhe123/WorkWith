@@ -36,6 +36,13 @@
         android:textColor="#d61b7f42"
         android:textSize="70sp"/>
 
-
+    <com.xiayule.workwithclient.view.SecretTextView
+        android:id="@+id/textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="从此爱上协作"
+        android:textSize="15sp"
+        android:textColor="@android:color/black"
+        />
 
 </LinearLayout>
