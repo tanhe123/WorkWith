@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -51,13 +53,31 @@ public class RegisterActivity extends Activity {
                 String password = et_password.getText().toString();
                 String name = et_name.getText().toString();
 
-                if (username.equals("") || password.equals("") || name.equals("")) {
+                if (username.equals("")) {
 
-                    tv_message.setText("请检查注册信息");
+                    tv_message.setText("用户名不能为空");
                     tv_message.setVisibility(View.VISIBLE);
 
+                    Animation shake = AnimationUtils.loadAnimation(RegisterActivity.this, R.anim.shake);//加载动画资源文件
+                    et_username.startAnimation(shake); //给组件播放动画效果
+
                     return ;
+                } else if (password.equals("")) {
+                    tv_message.setText("用户名不能为空");
+                    tv_message.setVisibility(View.VISIBLE);
+
+                    Animation shake = AnimationUtils.loadAnimation(RegisterActivity.this, R.anim.shake);//加载动画资源文件
+                    et_password.startAnimation(shake); //给组件播放动画效果
+
+                } else if (name.equals("")) {
+                    tv_message.setText("用户名不能为空");
+                    tv_message.setVisibility(View.VISIBLE);
+
+                    Animation shake = AnimationUtils.loadAnimation(RegisterActivity.this, R.anim.shake);//加载动画资源文件
+                    et_name.startAnimation(shake); //给组件播放动画效果
                 }
+
+
 
                 ToastUtils.showShort(username + " " + name + " " + password);
 
