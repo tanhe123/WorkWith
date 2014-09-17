@@ -16,18 +16,30 @@
             android:layout_height="match_parent"
             android:background="@color/activity_background_default"/>
 
-        
-        <!-- The navigation drawer -->
-        <ListView
+        <LinearLayout
             android:id="@id/left_drawer"
-            android:layout_width="290dp"
+            android:layout_width="320dp"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
             android:background="@drawable/drawer_bg"
-            android:choiceMode="singleChoice"
-            android:drawSelectorOnTop="false"
-            android:cacheColorHint="#00000000"
-            />
+            android:layout_gravity="start"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:textSize="40sp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ListView
+                android:id="@+id/left_drawer_child"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:choiceMode="singleChoice"
+                android:drawSelectorOnTop="false"
+                android:cacheColorHint="#00000000"
+                />
+            </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 
 </LinearLayout>

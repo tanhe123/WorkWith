@@ -13,7 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
@@ -49,14 +51,19 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
     @InjectView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
-    @InjectView(R.id.left_drawer)
+    @InjectView(R.id.left_drawer_child)
     ListView mDrawerList;
+
+    @InjectView(R.id.left_drawer)
+    LinearLayout ll_drawer;
+
+    @InjectView(R.id.name)
+    TextView tv_name;
 
     // 菜单
     private Menu mMenu;
 
     private Person mPerson;
-
 
 
     @Override
@@ -102,6 +109,9 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
     private void updateDrawerList() {
         mPerson = (Person) App.get(App.PERSON);
+
+        // 设置人名
+        tv_name.setText(mPerson.getName());
 
         List<String> projectNames = mPerson.projectNames();
 
@@ -165,7 +175,7 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
 
                 setCaegory(mDrawerTitles[position]);
 
-                mDrawerLayout.closeDrawer(mDrawerList);
+                mDrawerLayout.closeDrawer(ll_drawer);
             }
         });
     }
@@ -184,7 +194,6 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
             Fragment fragment = TrendsFragment.newInstance();
 
             getSupportFragmentManager().beginTransaction()
-                    //todo: 用 replace 会自动销毁，不知道为什么
                     .replace(R.id.container, fragment).commit();
 
         } else if (category.equals(mDrawerTitles[1])) {
