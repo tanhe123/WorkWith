@@ -128,7 +128,6 @@ public class AjaxAction {
             personService.saveOrUpdatePerson(p);
 
         } else if (method.equals("project")) {// 更新 project
-            // todo: 更新 project
             String pro = request.getParameter("project");
 
             System.out.println(pro);
