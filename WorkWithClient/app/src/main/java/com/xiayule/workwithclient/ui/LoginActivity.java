@@ -10,6 +10,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
 import com.xiayule.workwithclient.api.WorkApi;
+import com.xiayule.workwithclient.service.DataService;
 import com.xiayule.workwithclient.util.Result;
 import com.xiayule.workwithclient.util.ToastUtils;
 import com.xiayule.workwithclient.view.titanic.Titanic;
@@ -42,6 +44,9 @@ public class LoginActivity extends BaseActivity {
 
     @InjectView(R.id.password)
     EditText et_password;
+
+    @InjectView(R.id.save_status)
+    CheckBox cb_save_status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,11 +94,15 @@ public class LoginActivity extends BaseActivity {
                             @Override
                             public void onDo(Result result) {
                                 if (result.getStatus().equals("ok")) {
-                                    //todo: 保存用户名和密码
-                                    App.put("username", username);
-                                    App.put("password", password);
+                                    // 保存用户名和密码
+                                    if (cb_save_status.isChecked()) {// 保存登录状态
+                                        DataService.saveAccount(username, password);
+                                    }
 
-                                    ToastUtils.showShort("登录成功");
+                                    App.put(DataService.USERNAME, username);
+                                    App.put(DataService.PASSWORD, password);
+
+                                    ToastUtils.showShort(R.string.login_success);
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
 

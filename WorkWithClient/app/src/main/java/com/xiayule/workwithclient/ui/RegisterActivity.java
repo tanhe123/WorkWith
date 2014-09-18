@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends BaseActivity {
     @InjectView(R.id.bt_register)
     Button bt_register;
 

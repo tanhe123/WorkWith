@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ import com.xiayule.workwithclient.api.Constants;
 import com.xiayule.workwithclient.api.WorkApi;
 import com.xiayule.workwithclient.model.Person;
 import com.xiayule.workwithclient.model.Project;
+import com.xiayule.workwithclient.service.DataService;
 import com.xiayule.workwithclient.ui.fragment.ProjectsFragment;
 import com.xiayule.workwithclient.ui.fragment.TrendsFragment;
 import com.xiayule.workwithclient.util.ToastUtils;
@@ -60,6 +63,9 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
     @InjectView(R.id.name)
     TextView tv_name;
 
+    @InjectView(R.id.logout)
+    Button bt_logout;
+
     // 菜单
     private Menu mMenu;
 
@@ -90,8 +96,8 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
     }
 
     public void initData() {
-        String username = (String) App.get("username");
-        String password = (String) App.get("password");
+        String username = (String) App.get(DataService.USERNAME);
+        String password = (String) App.get(DataService.PASSWORD);
 
         WorkApi.queryPerson(this, username, password, new WorkApi.OnApiEndListener() {
             @Override
@@ -176,6 +182,21 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
                 setCaegory(mDrawerTitles[position]);
 
                 mDrawerLayout.closeDrawer(ll_drawer);
+            }
+        });
+
+        bt_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 清除保存的用户信息
+                DataService.clear();
+
+                // 返回登录界面, 清空栈
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                //第一个参数为启动时动画效果，第二个参数为退出时动画效果
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             }
         });
     }

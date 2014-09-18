@@ -5,13 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
+import com.xiayule.workwithclient.service.DataService;
 import com.xiayule.workwithclient.view.SecretTextView;
 import com.xiayule.workwithclient.view.titanic.Titanic;
 import com.xiayule.workwithclient.view.titanic.TitanicTextView;
 
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,6 +31,9 @@ public class WelcomeActivity extends BaseActivity {
     @InjectView(R.id.textview)
     SecretTextView secretTextView;
 
+    private String username;
+    private String password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +45,11 @@ public class WelcomeActivity extends BaseActivity {
 
         // 波纹效果
         new Titanic().start(titanicTextView);
+
+        // 检测是否记住登录状态
+        Map<String, String> account = DataService.readAccount();
+        username = account.get(DataService.USERNAME);
+        password = account.get(DataService.PASSWORD);
 
         // 显示 scretTextView
         new Timer().schedule(new TimerTask() {
@@ -70,12 +83,22 @@ public class WelcomeActivity extends BaseActivity {
 
                 secretTextView.toggle();
             } else if (msg.what == 2) {
-                // 启动 login activity
-                Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-                startActivity(intent);  // enter the main activity finally
+                // 根据是否保存了密码，来选择进入登录页面还是直接进入 mainactivity
+                if (username.equals("") || password.equals("")) {
+                    // 启动 login activity
+                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                    startActivity(intent);  // enter the main activity finally
+                } else {
+                    App.put(DataService.USERNAME, username);
+                    App.put(DataService.PASSWORD, password);
+
+                    // 启动 MainActivity
+                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+
                 overridePendingTransition(R.anim.push_left_in,
                         R.anim.push_left_out);
-
                 finish();
             }
             super.handleMessage(msg);

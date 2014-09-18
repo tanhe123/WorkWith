@@ -56,7 +56,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <EditText
                 android:id="@id/password"
                 android:hint="密码"
@@ -67,20 +66,35 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <com.indris.material.RippleView
+        <RelativeLayout
+            android:orientation="horizontal"
             android:layout_marginTop="@dimen/margin_large"
-            android:id="@+id/bt_login"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/button"
-            android:text="登录"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:background="@drawable/login_button_selector"
-            android:gravity="center"
-            ripple:alphaFactor="0.5"
-            ripple:rippleColor="#a5c03034"
-            ripple:hover="true"
-            />
+            android:layout_height="wrap_content">
 
+            <CheckBox
+                android:gravity="center"
+                android:id="@+id/save_status"
+                android:text="登录状态"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.indris.material.RippleView
+                android:id="@+id/bt_login"
+                android:layout_width="150dp"
+                android:layout_height="@dimen/button"
+                android:text="登录"
+                android:layout_alignParentRight="true"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:background="@drawable/login_button_selector"
+                android:gravity="center"
+                ripple:alphaFactor="0.5"
+                ripple:rippleColor="#a5c03034"
+                ripple:hover="true"
+                />
+
+        </RelativeLayout>
 
     </LinearLayout>
     

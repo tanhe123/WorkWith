@@ -30,5 +30,6 @@
     <string name="title_activity_register">注册</string>
     <string name="register_link"><a href="http://xiayule.net">注册</a></string>
     <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="login_success">登录成功</string>
 
 </resources>
