@@ -5,13 +5,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
 import com.xiayule.workwithclient.model.Person;
 import com.xiayule.workwithclient.model.Project;
 import com.xiayule.workwithclient.util.ToastUtils;
+import com.xiayule.workwithclient.view.FloatLabeledEditText;
 
 import java.util.Date;
 
@@ -21,13 +21,13 @@ import butterknife.InjectView;
 public class AddProjectActivity extends BaseActivity {
 
     @InjectView(R.id.title)
-    EditText et_title;
+    FloatLabeledEditText fe_title;
 
     @InjectView(R.id.desc)
-    EditText et_desc;
+    FloatLabeledEditText fe_desc;
 
     @InjectView(R.id.password)
-    EditText et_join_password;
+    FloatLabeledEditText fe_join_password;
 
     @InjectView(R.id.bt_add)
     Button bt_add;
@@ -85,9 +85,9 @@ public class AddProjectActivity extends BaseActivity {
     }
 
     public void add() {
-        String title = et_title.getText().toString();
-        String desc = et_desc.getText().toString();
-        String joinPassword = et_join_password.getText().toString();
+        String title = fe_title.getText().toString();
+        String desc = fe_desc.getText().toString();
+        String joinPassword = fe_join_password.getText().toString();
 
         if (title.equals("")) {
             ToastUtils.showShort("项目名称不能为空");

@@ -26,7 +26,7 @@
     <LinearLayout
         android:background="@drawable/background_login_div"
         android:orientation="vertical"
-        android:gravity="right"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_large"
@@ -40,13 +40,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/username"
-                android:drawablePadding="@dimen/drawer_left_padding"
-                android:drawableLeft="@drawable/login_icon_username"
-                android:hint="用户名"
+            <com.xiayule.workwithclient.view.FloatLabeledEditText
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@id/username"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:fletFloatingHint="用户名"/>
 
         </LinearLayout>
 
@@ -56,12 +55,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
+            <com.xiayule.workwithclient.view.FloatLabeledEditText
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@id/password"
-                android:hint="密码"
-                android:drawablePadding="@dimen/drawer_left_padding"
                 android:inputType="textPassword"
-                android:drawableLeft="@drawable/login_icon_password"
+                app:fletFloatingHint="密码"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -74,14 +72,14 @@
 
             <CheckBox
                 android:gravity="center"
-                android:id="@+id/save_status"
+                android:id="@id/save_status"
                 android:text="登录状态"
                 android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <com.indris.material.RippleView
-                android:id="@+id/bt_login"
+                android:id="@id/bt_login"
                 android:layout_width="150dp"
                 android:layout_height="@dimen/button"
                 android:text="登录"
@@ -110,19 +108,13 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/tv_register"
+            android:id="@id/tv_register"
             android:layout_marginLeft="3dp"
             android:autoLink="web"
             android:text="@string/register_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-       <!-- <Button
-            android:id="@+id/bt_register"
-            android:text="注册"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
--->
         </LinearLayout>
 
 

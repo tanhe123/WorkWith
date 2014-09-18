@@ -1,6 +1,5 @@
 package com.xiayule.workwithclient.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,32 +7,31 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.xiayule.workwithclient.R;
 import com.xiayule.workwithclient.api.WorkApi;
 import com.xiayule.workwithclient.util.Result;
 import com.xiayule.workwithclient.util.ToastUtils;
+import com.xiayule.workwithclient.view.FloatLabeledEditText;
 
 import java.util.HashMap;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
 public class RegisterActivity extends BaseActivity {
     @InjectView(R.id.bt_register)
     Button bt_register;
 
     @InjectView(R.id.username)
-    EditText et_username;
+    FloatLabeledEditText fe_username;
 
     @InjectView(R.id.password)
-    EditText et_password;
+    FloatLabeledEditText fe_password;
 
     @InjectView(R.id.name)
-    EditText et_name;
+    FloatLabeledEditText fe_name;
 
     @InjectView(R.id.message)
     TextView tv_message;
@@ -50,9 +48,9 @@ public class RegisterActivity extends BaseActivity {
         bt_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = et_username.getText().toString();
-                String password = et_password.getText().toString();
-                String name = et_name.getText().toString();
+                String username = fe_username.getText().toString();
+                String password = fe_password.getText().toString();
+                String name = fe_name.getText().toString();
 
                 if (username.equals("")) {
 
@@ -60,7 +58,7 @@ public class RegisterActivity extends BaseActivity {
                     tv_message.setVisibility(View.VISIBLE);
 
                     Animation shake = AnimationUtils.loadAnimation(RegisterActivity.this, R.anim.shake);//加载动画资源文件
-                    et_username.startAnimation(shake); //给组件播放动画效果
+                    fe_username.startAnimation(shake); //给组件播放动画效果
 
                     return ;
                 } else if (password.equals("")) {
@@ -68,14 +66,14 @@ public class RegisterActivity extends BaseActivity {
                     tv_message.setVisibility(View.VISIBLE);
 
                     Animation shake = AnimationUtils.loadAnimation(RegisterActivity.this, R.anim.shake);//加载动画资源文件
-                    et_password.startAnimation(shake); //给组件播放动画效果
+                    fe_password.startAnimation(shake); //给组件播放动画效果
 
                 } else if (name.equals("")) {
                     tv_message.setText("用户名不能为空");
                     tv_message.setVisibility(View.VISIBLE);
 
                     Animation shake = AnimationUtils.loadAnimation(RegisterActivity.this, R.anim.shake);//加载动画资源文件
-                    et_name.startAnimation(shake); //给组件播放动画效果
+                    fe_name.startAnimation(shake); //给组件播放动画效果
                 }
 
                 // 设置参数

@@ -6,7 +6,7 @@
     <item android:id="@id/action_save"
         android:title="save project"
         android:icon="@drawable/actionbar_save"
-        app:showAsAction="always"
+        android:showAsAction="always"
         />
 
 

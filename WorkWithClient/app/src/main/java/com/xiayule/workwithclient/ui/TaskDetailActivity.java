@@ -37,6 +37,7 @@ import com.xiayule.workwithclient.util.Result;
 import com.xiayule.workwithclient.util.TimeUtils;
 import com.xiayule.workwithclient.util.ToastUtils;
 import com.xiayule.workwithclient.factory.ProgressDialogFactory;
+import com.xiayule.workwithclient.view.FloatLabeledEditText;
 import com.xiayule.workwithclient.view.SelectTaskTypeDialog;
 
 import java.util.Calendar;
@@ -78,8 +79,8 @@ public class TaskDetailActivity extends BaseActivity {
     private Dialog editDetailDialog;
 
     // dialog中的 task title 和 desc
-    private EditText dialog_title;
-    private EditText dialog_desc;
+    private FloatLabeledEditText dialog_title;
+    private FloatLabeledEditText dialog_desc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -260,8 +261,8 @@ public class TaskDetailActivity extends BaseActivity {
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_edit_task_detail, null);
 
-        dialog_title = (EditText) view.findViewById(R.id.title);
-        dialog_desc = (EditText) view.findViewById(R.id.desc);
+        dialog_title = (FloatLabeledEditText) view.findViewById(R.id.title);
+        dialog_desc = (FloatLabeledEditText) view.findViewById(R.id.desc);
 
         dialog_title.setText(task.getTaskName());
         dialog_desc.setText(task.getTaskDesc());

@@ -3,15 +3,10 @@
     xmlns:app="http://http://schemas.android.com/apk/auto-res"
     tools:context="com.xiayule.workwithclient.ui.ProjectDetailActivity" >
 
-    <!--<item android:id="@+id/action_add"
-        android:title="Add"
-        android:icon="@drawable/actionbar_add"
-        android:showAsAction="always"/>-->
-
     <item
         android:id="@id/action_add"
         android:title="add"
         android:icon="@drawable/actionbar_add"
-        app:showAsAction="always"/>
+        android:showAsAction="always"/>
 
 </menu>

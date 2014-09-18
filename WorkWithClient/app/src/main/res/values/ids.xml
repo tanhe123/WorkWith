@@ -28,8 +28,34 @@
     <item type="id" name="name"/>
     <item type="id" name="message"/>
 
+    <item type="id" name="username"/>
     <item type="id" name="password"/>
     <item type="id" name="bt_register"/>
     <item type="id" name="bt_add"/>
+
+
+    <item type="id" name="save_status"/>
+    <item type="id" name="bt_login"/>
+    <item type="id" name="tv_register"/>
+    <item type="id" name="logout"/>
+    <item type="id" name="left_drawer_child"/>
+    <item type="id" name="pager"/>
+    <item type="id" name="null_result"/>
+    <item type="id" name="ll_time"/>
+    <item type="id" name="change_time"/>
+    <item type="id" name="change_type"/>
+    <item type="id" name="remove"/>
+    <item type="id" name="titanic_tv"/>
+    <item type="id" name="textview"/>
+    <item type="id" name="now"/>
+    <item type="id" name="todo"/>
+    <item type="id" name="future"/>
+    <item type="id" name="ll_content"/>
+    <item type="id" name="right_arrow"/>
+    <item type="id" name="action_refresh"/>
+    <item type="id" name="action_search"/>
+    <item type="id" name="FloatLabeledEditTextHint"/>
+    <item type="id" name="FloatLabeledEditTextEditText"/>
+
 
 </resources>

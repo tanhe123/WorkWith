@@ -22,29 +22,32 @@
             android:layout_height="wrap_content"
             android:visibility="gone"/>
 
-        <EditText
+        <com.xiayule.workwithclient.view.FloatLabeledEditText
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@id/username"
             android:layout_marginTop="@dimen/margin_large"
-            android:hint="用户名"
+            app:fletFloatingHint="用户名"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <EditText
-            android:hint="真实姓名"
+        <com.xiayule.workwithclient.view.FloatLabeledEditText
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@id/name"
+            app:fletFloatingHint="真实姓名"
             android:layout_marginTop="@dimen/margin_large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <EditText
+        <com.xiayule.workwithclient.view.FloatLabeledEditText
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@id/password"
             android:layout_marginTop="@dimen/margin_large"
-            android:hint="密码"
+            app:fletFloatingHint="密码"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.indris.material.RippleView
-            android:id="@+id/bt_register"
+            android:id="@id/bt_register"
             android:text="注册"
             android:layout_marginTop="25dp"
             android:background="@drawable/login_button_selector"

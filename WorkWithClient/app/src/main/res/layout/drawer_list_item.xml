@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/ll_content"
+        android:id="@id/ll_content"
         android:padding="@dimen/padding_medium"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/right_arrow"
+                android:id="@id/right_arrow"
                 android:src="@drawable/rightarrow_"
                 android:padding="2dp"
                 android:layout_alignParentRight="true"

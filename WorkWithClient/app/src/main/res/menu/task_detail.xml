@@ -5,10 +5,10 @@
 
     <item android:id="@id/action_move"
         android:title="移动"
-        app:showAsAction="collapseActionView"/>
+        android:showAsAction="collapseActionView"/>
 
     <item android:id="@id/action_remove"
         android:title="删除"
-        app:showAsAction="collapseActionView"/>
+        android:showAsAction="collapseActionView"/>
 
 </menu>

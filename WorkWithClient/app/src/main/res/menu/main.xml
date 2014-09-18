@@ -4,21 +4,21 @@
     tools:context=".MainActivity" >
 
     <item
-        android:id="@+id/action_refresh"
+        android:id="@id/action_refresh"
         android:title="@string/action_refresh"
         android:icon="@drawable/ic_refresh"
-        app:showAsAction="always" />
+        android:showAsAction="always" />
 
     <item
-        android:id="@+id/action_add"
+        android:id="@id/action_add"
         android:icon="@drawable/actionbar_add"
         android:title="add project"
-        app:showAsAction="always" />
+        android:showAsAction="always" />
 
     <item
-        android:id="@+id/action_search"
+        android:id="@id/action_search"
         android:icon="@drawable/actionbar_search"
         android:title="search project"
-        app:showAsAction="always"/>
+        android:showAsAction="always"/>
 
 </menu>

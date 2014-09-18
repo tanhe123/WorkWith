@@ -82,7 +82,7 @@
 
             <!-- 显示时间 -->
             <LinearLayout
-                android:id="@+id/ll_time"
+                android:id="@id/ll_time"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -172,7 +172,7 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/change_time"
+        android:id="@id/change_time"
         android:background="@drawable/projects_item_selector"
         android:layout_marginTop="50dp"
         android:orientation="horizontal"
@@ -194,7 +194,7 @@
         </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/change_type"
+        android:id="@id/change_type"
         android:background="@drawable/projects_item_selector"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
@@ -216,7 +216,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/remove"
+        android:id="@id/remove"
         android:background="@drawable/projects_item_selector"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"

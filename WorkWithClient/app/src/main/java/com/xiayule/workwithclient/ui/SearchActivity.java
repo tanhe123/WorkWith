@@ -1,15 +1,12 @@
 package com.xiayule.workwithclient.ui;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -22,6 +19,7 @@ import com.xiayule.workwithclient.model.Person;
 import com.xiayule.workwithclient.model.Project;
 import com.xiayule.workwithclient.util.Result;
 import com.xiayule.workwithclient.util.ToastUtils;
+import com.xiayule.workwithclient.view.FloatLabeledEditText;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +31,7 @@ import butterknife.InjectView;
 public class SearchActivity extends BaseActivity {
 
     @InjectView(R.id.title)
-    EditText et_title;
+    FloatLabeledEditText fe_title;
 
     @InjectView(R.id.search)
     Button bt_search;
@@ -64,7 +62,7 @@ public class SearchActivity extends BaseActivity {
             public void onClick(View view) {
                 tv_null_result.setVisibility(View.GONE);
 
-                final String projectName = et_title.getText().toString();
+                final String projectName = fe_title.getText().toString();
 
                 Map<String, String> params = new HashMap<String, String>();
 

@@ -1,18 +1,14 @@
 package com.xiayule.workwithclient.ui;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.xiayule.workwithclient.App;
@@ -21,15 +17,13 @@ import com.xiayule.workwithclient.api.WorkApi;
 import com.xiayule.workwithclient.service.DataService;
 import com.xiayule.workwithclient.util.Result;
 import com.xiayule.workwithclient.util.ToastUtils;
-import com.xiayule.workwithclient.view.titanic.Titanic;
-import com.xiayule.workwithclient.view.titanic.TitanicTextView;
+import com.xiayule.workwithclient.view.FloatLabeledEditText;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import fr.castorflex.android.circularprogressbar.CircularProgressDrawable;
 
 public class LoginActivity extends BaseActivity {
 
@@ -40,10 +34,10 @@ public class LoginActivity extends BaseActivity {
     TextView tv_register;
 
     @InjectView(R.id.username)
-    EditText et_username;
+    FloatLabeledEditText fe_username;
 
     @InjectView(R.id.password)
-    EditText et_password;
+    FloatLabeledEditText fe_password;
 
     @InjectView(R.id.save_status)
     CheckBox cb_save_status;
@@ -66,17 +60,17 @@ public class LoginActivity extends BaseActivity {
         bt_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String username = et_username.getText().toString();
-                final String password = et_password.getText().toString();
+                final String username = fe_username.getText().toString();
+                final String password = fe_password.getText().toString();
 
                 if (username.equals("")) {
                     Animation shake = AnimationUtils.loadAnimation(LoginActivity.this, R.anim.shake);//加载动画资源文件
-                    et_username.startAnimation(shake); //给组件播放动画效果
+                    fe_username.startAnimation(shake); //给组件播放动画效果
                     ToastUtils.showShort("用户名不能为空");
                     return ;
                 } else if (password.equals("")) {
                     Animation shake = AnimationUtils.loadAnimation(LoginActivity.this, R.anim.shake);//加载动画资源文件
-                    et_password.startAnimation(shake); //给组件播放动画效果
+                    fe_password.startAnimation(shake); //给组件播放动画效果
                     ToastUtils.showShort("密码不能为空");
                     return ;
                 }

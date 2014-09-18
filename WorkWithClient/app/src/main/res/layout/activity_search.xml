@@ -13,13 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/title"
+        <com.xiayule.workwithclient.view.FloatLabeledEditText
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@id/title"
             android:layout_width="0dp"
             android:layout_weight="6"
             android:singleLine="true"
             android:layout_height="wrap_content"
-            android:hint="@string/search_hint"/>
+            app:fletFloatingHint="@string/search_hint"/>
 
         <Button
             android:id="@id/search"
@@ -34,7 +35,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/null_result"
+        android:id="@id/null_result"
         android:text="没有搜索到相关项目"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
