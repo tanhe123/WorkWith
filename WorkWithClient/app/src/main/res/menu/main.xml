@@ -1,23 +1,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://http://schemas.android.com/apk/auto-res"
     tools:context=".MainActivity" >
 
     <item
         android:id="@+id/action_refresh"
         android:title="@string/action_refresh"
         android:icon="@drawable/ic_refresh"
-        android:showAsAction="always" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_add"
         android:icon="@drawable/actionbar_add"
         android:title="add project"
-        android:showAsAction="always" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/actionbar_search"
         android:title="search project"
-        android:showAsAction="always"/>
+        app:showAsAction="always"/>
 
 </menu>

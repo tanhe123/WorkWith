@@ -1,10 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://http://schemas.android.com/apk/auto-res"
     tools:context="com.xiayule.workwithclient.ui.AddTaskActivity" >
 
     <item
         android:id="@id/action_save"
         android:title="@string/action_save"
-        android:showAsAction="always"/>
+        app:showAsAction="always"/>
 
 </menu>

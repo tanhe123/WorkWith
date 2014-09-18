@@ -78,10 +78,6 @@ public class RegisterActivity extends BaseActivity {
                     et_name.startAnimation(shake); //给组件播放动画效果
                 }
 
-
-
-                ToastUtils.showShort(username + " " + name + " " + password);
-
                 // 设置参数
                 HashMap params = new HashMap();
 

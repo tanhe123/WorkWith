@@ -48,8 +48,6 @@ private static final String BASE = "http://workwith.sinaapp.com";
                 new Response.Listener<Person.PersonRequestData>() {
                     @Override
                     public void onResponse(Person.PersonRequestData data) {
-
-                        //TODO: 如果 data == null 怎么办?
                         if (data != null && data.getStatus().equals("ok")) {
                             // 保存数据
                             App.put(App.PERSON, data.getPerson());
@@ -61,7 +59,7 @@ private static final String BASE = "http://workwith.sinaapp.com";
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        ToastUtils.showShort("Volley error");
+                        ToastUtils.showShort("网络错误，请稍后重试");
                     }
                 }
         );
@@ -98,7 +96,7 @@ private static final String BASE = "http://workwith.sinaapp.com";
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        ToastUtils.showShort("volley error");
+                        ToastUtils.showShort("网络错误，请稍后重试");
                         Log.d("TAG", "网络错误");
 
                         // 隐藏 progressdialog
@@ -211,7 +209,6 @@ private static final String BASE = "http://workwith.sinaapp.com";
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         ToastUtils.showShort("网络错误，请稍后重试");
-                        Log.d("TAG", "网络错误");
 
                         // 隐藏 progressdialog
                         progressDialog.dismiss();
