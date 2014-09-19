@@ -56,6 +56,6 @@
     <item type="id" name="action_search"/>
     <item type="id" name="FloatLabeledEditTextHint"/>
     <item type="id" name="FloatLabeledEditTextEditText"/>
-
+    <item type="id" name="num"/>
 
 </resources>

@@ -66,6 +66,9 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
     @InjectView(R.id.logout)
     Button bt_logout;
 
+    @InjectView(R.id.username)
+    TextView tv_username;
+
     // 菜单
     private Menu mMenu;
 
@@ -116,8 +119,12 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
     private void updateDrawerList() {
         mPerson = (Person) App.get(App.PERSON);
 
-        // 设置人名
-        tv_name.setText(mPerson.getName());
+        if (mPerson != null) {
+            // 设置人名
+            tv_name.setText(mPerson.getName());
+
+            tv_username.setText(mPerson.getUsername());
+        }
 
         List<String> projectNames = mPerson.projectNames();
 
@@ -144,7 +151,6 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
         drawerListAdapter = new DrawerListAdapter(MainActivity.this,
                 Arrays.asList(drawerTitles));
         mDrawerList.setAdapter(drawerListAdapter);
-
     }
 
     private void setListener() {

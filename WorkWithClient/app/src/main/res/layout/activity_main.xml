@@ -26,16 +26,19 @@
 
             <!-- 个人信息 -->
             <LinearLayout
+                android:padding="@dimen/padding_medium"
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="90dp">
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <ImageView
-                    android:src="@drawable/bg"
-                    android:layout_width="80dp"
+                    android:src="@drawable/user"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
+                    android:paddingLeft="@dimen/padding_medium"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -43,15 +46,34 @@
                     <TextView
                         android:id="@id/name"
                         android:textSize="40sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="name" />
+
+                    <RelativeLayout
+                        android:paddingLeft="@dimen/padding_medium"
+                        android:paddingRight="@dimen/padding_large"
                         android:gravity="center"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
 
-                    <Button
-                        android:text="注销"
-                        android:id="@id/logout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@id/username"
+                            android:text="username"
+                            android:textSize="20sp"
+                            android:textColor="@color/gray"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <Button
+                            android:text="注销"
+                            android:id="@id/logout"
+                            android:background="@drawable/login_button_selector"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp" />
+
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -64,7 +86,7 @@
                 android:drawSelectorOnTop="false"
                 android:cacheColorHint="#00000000"
                 />
-            </LinearLayout>
+        </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 
 </LinearLayout>

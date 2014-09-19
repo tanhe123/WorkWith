@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:text="已过期项目:"
+        android:text="已过期任务:"
         android:textColor="@color/gray"
         android:textSize="30sp"
         android:layout_width="wrap_content"
@@ -21,15 +21,6 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <!--<GridView
-        android:id="@id/gridview"
-        android:horizontalSpacing="@dimen/margin_item"
-        android:verticalSpacing="@dimen/margin_item"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/padding_large"
-        android:numColumns="1"/>-->
 
     <com.baoyz.swipemenulistview.SwipeMenuListView
         android:id="@id/gridview"

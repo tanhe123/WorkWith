@@ -10,7 +10,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.xiayule.workwithclient.App;
 import com.xiayule.workwithclient.R;
+import com.xiayule.workwithclient.model.Person;
+import com.xiayule.workwithclient.model.Project;
+import com.xiayule.workwithclient.model.Task;
 
 import java.util.List;
 
@@ -75,23 +79,12 @@ public class DrawerListAdapter extends BaseAdapter {
         cacheView.item.setText(itemTitle);
 
         Drawable drawable = null;
-        //TODO:
         if (itemTitle.equals(initTitles[0])) {
-//            cacheView.image.setImageResource(R.drawable.menu_dashboard_grey);
-
             drawable = context.getResources().getDrawable(R.drawable.menu_dashboard_grey);
-
-//            cacheView.item.setdrawer
-
         } else if (itemTitle.equals(initTitles[1])) {
-//            cacheView.image.setImageResource(R.drawable.menu_project_grey);
             drawable = context.getResources().getDrawable(R.drawable.menu_project_grey);
 
         } else {
-            // todo: 设置合理
-//            cacheView.ll_content.setPadding(50, 0, 0, 0);
-
-//            cacheView.image.setImageResource(R.drawable.menu_team_grey);
             drawable = context.getResources().getDrawable(R.drawable.menu_team_grey);
             cacheView.iv_right_arrow.setVisibility(View.VISIBLE);
         }
@@ -102,13 +95,38 @@ public class DrawerListAdapter extends BaseAdapter {
 
         cacheView.item.setCompoundDrawables(drawable, null, null, null);
 
+        // 显示未完成的项目数, 第一个第二个不是项目名
+        if (i>=2) {
+            int cnt = 0;
+
+            Person person = (Person) App.get(App.PERSON);
+            List<Project> projects = person.getProjects();
+            for (Project project : projects) {
+                // 找到对应的项目
+                if (project.getProjectName().equals(itemTitle)) {
+
+                    // 计算未完成任务的数量
+                    List<Task> tasks = project.getTasks();
+                    for (Task task : tasks) {
+                        if (!task.isComplete())
+                            cnt++;
+                    }
+
+                    if (cnt > 0) {
+                        // 显示
+                        cacheView.tv_num.setText(""+cnt);
+                        cacheView.tv_num.setVisibility(View.VISIBLE);
+                    }
+
+                    break;
+                }
+            }
+        }
+
         return view;
     }
 
     class CacheView {
-//        @InjectView(R.id.icon)
-//        ImageView image;
-
         @InjectView(R.id.item)
         TextView item;
 
@@ -117,6 +135,9 @@ public class DrawerListAdapter extends BaseAdapter {
 
         @InjectView(R.id.right_arrow)
         ImageView iv_right_arrow;
+
+        @InjectView(R.id.num)
+        TextView tv_num;
 
         public CacheView(View view) {
             ButterKnife.inject(this, view);
