@@ -292,7 +292,8 @@ public class MainActivity extends BaseActivity implements ProjectsFragment.OnFra
             updateToServer();
 
         } else if (requestCode == 107 && resultCode == 1) {
-            updateDrawerList();
+//            updateDrawerList();
+            updateToServer();
         } else if (requestCode == 110 && resultCode == 1) {// 在 trends 打开的 taskDetail 中修改了 task
             WorkApi.updatePerson(this, mPerson, new WorkApi.OnApiEndListener() {
                 @Override

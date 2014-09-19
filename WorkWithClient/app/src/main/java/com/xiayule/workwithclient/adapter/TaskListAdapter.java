@@ -89,6 +89,11 @@ public class TaskListAdapter extends BaseAdapter {
             if (task.isOverDeadline()) {// 如果超期了
                 Drawable drawable = context.getResources().getDrawable(R.drawable.tv_shape_red);
                 cacheView.time.setBackgroundDrawable(drawable);
+
+                // 设置背景为完成时的背景
+//                Drawable backDrawable = context.getResources().getDrawable(R.drawable.projects_item_finished_selector);
+//                cacheView.ll_task_item.setBackgroundDrawable(backDrawable);
+
             } else {// 如果没超期
                 Drawable drawable = context.getResources().getDrawable(R.drawable.tv_shape_green);
                 cacheView.time.setBackgroundDrawable(drawable);
@@ -114,8 +119,12 @@ public class TaskListAdapter extends BaseAdapter {
         @InjectView(R.id.desc) TextView desc;
         @InjectView(R.id.time) TextView time;
         @InjectView(R.id.complete) CheckBox complete;
+
         @InjectView(R.id.ll_time)
         LinearLayout ll_time;
+
+        @InjectView(R.id.ll_task_item)
+        LinearLayout ll_task_item;
 
         public CacheView(View view) {
             ButterKnife.inject(this, view);
