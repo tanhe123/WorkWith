@@ -72,7 +72,7 @@ public class FloatLabeledEditText extends LinearLayout {
         inputType = EditorInfo.TYPE_NULL;
         try {
             hint = a.getString(R.styleable.FloatLabeledEditText_fletFloatingHint);
-//            inputType = a.getInt(R.styleable.FloatLabeledEditText_fletInputType, EditorInfo.TYPE_NULL);
+            inputType = a.getInt(R.styleable.FloatLabeledEditText_fletInputType, EditorInfo.TYPE_NULL);
             imeOptions = a.getInt(R.styleable.FloatLabeledEditText_fletImeOptions, EditorInfo.IME_ACTION_DONE);
             imeActionId = a.getInt(R.styleable.FloatLabeledEditText_fletImeActionId, -1);
             imeActionLabel = a.getString(R.styleable.FloatLabeledEditText_fletImeActionLabel);

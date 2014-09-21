@@ -58,7 +58,7 @@
             <com.xiayule.workwithclient.view.FloatLabeledEditText
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@id/password"
-                android:inputType="textPassword"
+                app:fletInputType="textPassword"
                 app:fletFloatingHint="密码"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
